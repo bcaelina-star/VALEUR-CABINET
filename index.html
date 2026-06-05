@@ -326,7 +326,7 @@ const MASK_MAX = {
 };
 const SPA_MAX = 35;
 
-// ── ALL_ITEMS — 78 items masques (inchangé) ──
+// ── ALL_ITEMS — 78 items masques ──
 const MASQUE_ITEMS = [
   {id:'R1', mask:'rouge', inv:false, text:"Je surveille régulièrement les signaux de mon corps (rythme cardiaque, sensations) pour détecter un problème de santé."},
   {id:'R2', mask:'rouge', inv:false, text:"Quand j'observe une sensation physique inhabituelle, ma pensée va rapidement vers une maladie grave."},
@@ -429,7 +429,7 @@ const SPA_POSITIONS = {11:'SPA-1', 22:'SPA-4', 33:'SPA-2', 44:'SPA-5', 55:'SPA-3
 const SPA_MAP = {};
 SPA_ITEMS.forEach(s => { SPA_MAP[s.id] = s; });
 
-// ══════════ LISTES BLANCHES POUR LA DÉTECTION DE PROFIL ══════════
+// ══════════ LISTES BLANCHES POUR LA DÉTECTION (ajoutées) ══════════
 const DYADES_AMPLIFICATIONS = {
     "jaune+rouge":{}, "orange+vert":{}, "jaune+vert":{}, "orange+rouge":{},
     "bleu+jaune":{}, "bleu+indigo":{}, "indigo+vert":{}, "indigo+jaune":{},
@@ -760,7 +760,7 @@ function computeScores() {
   return sc;
 }
 
-// ═══════════════ NOUVELLE FONCTION DE DÉTECTION (remplace detectConfigExcel) ═══════════════
+// ═══════════════ NOUVELLE DÉTECTION (remplace detectConfigExcel) ═══════════════
 function detectValidProfile(scores) {
     const MASKS = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
     const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
@@ -772,7 +772,7 @@ function detectValidProfile(scores) {
 
     const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0;
 
-    // Triade valide ?
+    // Triade valide
     if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15) {
         const triadColors = [sorted[0].key, sorted[1].key, sorted[2].key].sort();
         if (VALID_TRIADS.some(t => t.join(',') === triadColors.join(','))) {
@@ -786,7 +786,7 @@ function detectValidProfile(scores) {
         }
     }
 
-    // Dyade valide (parmi les 3 meilleures paires possibles)
+    // Dyade valide (parmi les 3 meilleures paires)
     const candidatePairs = [
         [sorted[0].key, sorted[1].key],
         [sorted[0].key, sorted[2].key],
@@ -834,7 +834,7 @@ function detectValidProfile(scores) {
     return { type: 'residuel', masks: [sorted[0].key], primary: sorted[0].key };
 }
 
-// ═══════════════ NEXT PAGE (modifiée) ═══════════════
+// ═══════════════ NEXT PAGE (corrigée) ═══════════════
 async function nextPage(idx) {
   const pid = new URLSearchParams(window.location.search).get('pid') || null;
   const pageItems = pages[idx];
@@ -871,7 +871,7 @@ async function nextPage(idx) {
   const dom = masks.sort((a,b) => scPct[b]-scPct[a])[0];
   const profil = detectValidProfile(scPct);
 
-  // Sauvegarde silencieuse Google Sheets (inchangée)
+  // Sauvegarde silencieuse Google Sheets
   try {
     fetch(GOOGLE_SHEET_URL, {
       method: 'POST', mode: 'no-cors',
@@ -888,9 +888,9 @@ async function nextPage(idx) {
     });
   } catch(e) {}
 
-  // Envoi vers l'API privée (NOUVELLE URL)
+  // Envoi vers l'API privée (URL CORRIGÉE)
   try {
-    await fetch('https://valeur-cabinet-api.vercel.app/api/save-result', {
+    await fetch('https://valeur-cabinet-api-g4g6.vercel.app/api/save-result', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
