@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>V.A.L.E.U.R© — Portrait Cabinet</title>
+    <title>V.A.L.E.U.R© — Votre Portrait</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -30,7 +30,6 @@
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--text); }
         h1 { font-size: clamp(36px, 6vw, 56px); line-height: 1.1; margin-bottom: 8px; }
         h2 { font-size: 22px; margin-bottom: 16px; color: var(--gold); }
-        .accent { color: var(--gold); }
         .chroma-bar {
             height: 4px;
             background: linear-gradient(90deg, var(--rouge), var(--orange), var(--jaune), var(--vert), var(--bleu), var(--indigo), var(--violet));
@@ -63,6 +62,29 @@
             margin: 24px 0;
             padding-left: 16px;
             border-left: 3px solid var(--gold);
+        }
+        .reminder-box {
+            background: #FFFDF7;
+            border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text2);
+            text-align: center;
+        }
+        .reminder-box strong {
+            color: var(--gold);
+            font-weight: 500;
+        }
+        .metaphor-box {
+            background: #FFFDF7;
+            border-left: 3px solid var(--gold);
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text2);
+            font-style: italic;
         }
         .mechanism {
             display: flex;
@@ -177,7 +199,7 @@
     const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
     const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby4vOwYjKBFhtLBmwaqvlK5ba8Ow3rzlXihaQBPyA0/exec';
 
-    // ═══════════════ DONNÉES CLINIQUES (issues du fichier source) ═══════════════
+    // ═══════════════ DONNÉES CLINIQUES ═══════════════
     const META = {
         rouge: { peur: "la peur de la maladie et de l'insécurité corporelle", force: "Une présence incarnée, capable de s'ancrer dans l'instant sans être happée par l'inquiétude." },
         orange: { peur: "la peur de ressentir des émotions douloureuses", force: "Une intelligence émotionnelle profonde, qui transforme la sensibilité en boussole plutôt qu'en menace." },
@@ -246,7 +268,7 @@
         violet: "Il a été plus sûr de s'adapter que d'être soi. Vos émotions, vos questions, votre singularité étaient peut-être trop intenses, trop différentes. Alors vous avez appris à devenir ce que les autres attendaient. Une stratégie de survie identitaire — brillante, mais déconnectée de votre nature profonde."
     };
 
-    // ═══════════════ DÉTECTION DU PROFIL (identique au fichier source) ═══════════════
+    // ═══════════════ DÉTECTION DU PROFIL ═══════════════
     function detectProfile(scores) {
         const sorted = MASKS.map(k => ({ key: k, pct: scores[k] || 0 })).sort((a, b) => b.pct - a.pct);
         const top = sorted[0].pct;
@@ -274,14 +296,15 @@
         const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
         return Math.round(100 - sum / 7);
     }
-
-    // ═══════════════ CONSTRUCTION DU PORTRAIT ═══════════════
+        // ═══════════════ CONSTRUCTION DU PORTRAIT ENRICHI ═══════════════
     function buildPortrait(scores, profile, prenom) {
         const dom = profile.primary, sec = profile.secondary;
         const meta = META[dom];
         const spa = computeSPA(scores);
         let html = '';
         const maskLabel = MASK_LABELS[dom];
+
+        // Phrase de peur adaptée au profil
         let peurPhrase = meta.peur;
         if (profile.type === 'dyade' || profile.type === 'dyade_moderee') {
             peurPhrase = `${META[dom].peur} — et ${META[sec].peur}`;
@@ -290,16 +313,34 @@
         } else if (profile.type === 'pan') {
             peurPhrase = "de multiples peurs activées simultanément.";
         }
+
+        // ═══ BLOC 0 — "C'est moi" ═══
         html += `<div class="block">
             <div class="mask-badge" style="background:${MASK_COLORS[dom]}">Masque ${maskLabel}</div>
             <h1>Vous avez ${peurPhrase}</h1>
-            <p style="margin-top:16px; color: var(--text2); font-size:15px;">Un masque de défense est une protection que votre esprit a construite, souvent très tôt, face à quelque chose qui faisait mal. Il a fonctionné. Il vous a protégé·e. Le problème : il fonctionne encore aujourd'hui — même quand la menace a disparu depuis longtemps.</p>
-            <p style="color: var(--text2); font-size:15px; margin-top:8px;"><em>Ce portrait ne dit pas qui vous êtes. Il révèle ce qui vous empêche d'être vous.</em></p>
+            <p style="margin-top:16px; color: var(--text2); font-size:15px;">
+                Un masque de défense est une protection que votre esprit a construite, souvent très tôt, face à quelque chose qui faisait mal. Il a fonctionné. Il vous a protégé·e. Le problème : il fonctionne encore aujourd'hui — même quand la menace a disparu depuis longtemps.
+            </p>
+            <p style="color: var(--text2); font-size:15px; margin-top:8px;">
+                <em>Ce portrait ne dit pas qui vous êtes. Il révèle ce qui vous empêche d'être vous.</em>
+            </p>
+            <div class="reminder-box">
+                <strong>Rappelez-vous :</strong><br>
+                Vous n'êtes pas ce masque. Vous êtes la personne derrière le masque.<br>
+                Cette stratégie de protection n'est pas votre identité — elle est ce qui la recouvre.
+            </div>
         </div>`;
+
+        // ═══ BLOC 1 — "C'est exactement ça" ═══
         html += `<div class="block">
             <h2>1. C'est exactement ça</h2>
             <div class="mirror-phrase">${MIRROR[dom] || ''}</div>
+            <p style="color: var(--text2); font-size:14px; margin-top:12px;">
+                Cette réaction n'est pas un défaut de caractère. Votre esprit a résolu un problème. Le problème a changé, mais la solution est restée. Ce n'est pas vous qui dysfonctionnez — c'est une protection qui continue de tourner alors que le danger est passé.
+            </p>
         </div>`;
+
+        // ═══ BLOC 2 — "Je comprends pourquoi" ═══
         const steps = LOOPS[dom] || [];
         html += `<div class="block">
             <h2>2. Je comprends pourquoi</h2>
@@ -308,19 +349,34 @@
                 ${steps.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}
             </div>
             ${profile.type === 'dyade' || profile.type === 'triade' ? `<p style="margin-top:16px; color:var(--text3); font-style:italic;">Dans votre configuration, ces mécanismes s'amplifient mutuellement — chaque masque nourrit l'autre.</p>` : ''}
+            <div class="metaphor-box">
+                Imaginez un détecteur de fumée réglé trop sensiblement. Il protège la maison. Mais il sonne aussi quand les toasts brûlent. Votre masque fonctionne comme cela : il ne sait pas encore que la guerre est finie.
+            </div>
         </div>`;
+
+        // ═══ BLOC 3 — "Ce n'est pas un défaut" ═══
         html += `<div class="block">
             <h2>3. Ce n'est pas un défaut</h2>
             <p style="color:var(--text2);">${ORIGINS[dom] || ''}</p>
+            <p style="color:var(--text2); margin-top:12px;">
+                Des millions de personnes vivent avec ce même mécanisme. Vous n'êtes pas cassé·e. Vous êtes simplement humain·e.
+            </p>
             <div class="force-box">
                 <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;">Derrière ce masque, il y a une force réelle :</p>
                 <p style="font-weight:500;margin-top:8px;">${meta.force}</p>
             </div>
-            <p style="color:var(--text2);">Ce n'est pas un excès de défense. C'est ce que vous valez — sans le masque.</p>
+            <p style="color:var(--text2); margin-top:8px;">
+                Cette force n'est pas une compensation. Elle est la preuve que, sous le masque, quelqu'un de réel attend d'exister sans avoir besoin de se défendre. Votre nature vraie n'a pas disparu — elle est recouverte, intacte, et attend d'être libérée.
+            </p>
         </div>`;
+
+        // ═══ BLOC 4 — "Et maintenant ?" ═══
         html += `<div class="block">
             <h2>4. Et maintenant ?</h2>
-            <p style="color:var(--text2);">Ce masque n'est pas vous. Il est ce que vous avez construit pour survivre à une peur. Et si la même énergie était disponible pour autre chose — pour ce que vous voulez vraiment ?</p>
+            <p style="color:var(--text2); font-size:16px; font-weight:400;">
+                La question n'est plus « Pourquoi suis‑je comme cela ? »<br>
+                La question est : <strong>« Qu'est‑ce que je veux faire, maintenant que je sais ? »</strong>
+            </p>
             <div class="spa-section">
                 <div class="spa-ring">
                     <svg width="80" height="80" viewBox="0 0 100 100">
@@ -331,13 +387,29 @@
                 </div>
                 <div>
                     <p style="font-weight:500;">Score de Présence Authentique</p>
-                    <p style="color:var(--text3); font-size:14px;">${spa >= 70 ? 'Vous êtes souvent vous-même, même face aux défis.' : spa >= 40 ? 'Votre authenticité est présente — elle demande juste un peu plus d\'espace.' : 'Votre masque occupe une grande place. C\'est un point de départ.'}</p>
+                    <p style="color:var(--text3); font-size:14px;">
+                        ${spa >= 70
+                            ? 'Vous êtes déjà souvent vous‑même, même face aux défis. Ces moments peuvent encore grandir.'
+                            : spa >= 40
+                            ? 'Votre espace de liberté existe déjà. Il demande simplement à être élargi, pas à pas.'
+                            : 'Votre masque occupe une grande place en ce moment. C\'est un point de départ — et chaque point de départ est respectable.'
+                        }
+                        Ce score ne mesure pas si vous êtes « bien » ou « mal ». Il mesure les moments où vous êtes déjà vous‑même, sans masque. Ces moments existent. Ils peuvent grandir.
+                    </p>
                 </div>
             </div>
-            <p style="margin-top:24px; text-align:center;">
-                <button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button>
+            <p style="margin-top:24px; color:var(--text2); text-align:center; font-size:14px;">
+                Si vous souhaitez être guidé·e pour traverser ce masque et libérer ce qui se trouve derrière,<br>
+                <strong>Céline Bourbon vous reçoit.</strong>
+            </p>
+            <p style="text-align:center; margin-top:12px;">
+                <a href="https://www.doctolib.fr/psychologue/bordeaux/celine-bourbon" target="_blank" class="btn-print" style="background:var(--gold); color:white; padding:12px 28px; border-radius:40px; text-decoration:none; display:inline-block;">Prendre rendez-vous</a>
+            </p>
+            <p style="text-align:center; margin-top:16px;">
+                <button class="btn-print" onclick="window.print()" style="background:transparent; border:1px solid var(--gold); color:var(--gold);">Imprimer / Télécharger en PDF</button>
             </p>
         </div>`;
+
         return html;
     }
 
@@ -359,12 +431,12 @@
             });
         } catch (e) { console.warn('Sauvegarde silencieuse'); }
     }
-      // ═══════════════ INITIALISATION ═══════════════
+
+    // ═══════════════ INITIALISATION ═══════════════
     async function init() {
         const params = new URLSearchParams(window.location.search);
         let scores = null;
 
-        // Priorité 1 : URL (scores passés par le questionnaire)
         const urlScores = {};
         MASKS.forEach(m => {
             if (params.has(m)) urlScores[m] = parseInt(params.get(m)) || 0;
@@ -372,7 +444,6 @@
         if (params.has('spa')) urlScores.spa = parseInt(params.get('spa')) || 0;
         if (Object.keys(urlScores).length >= 7) scores = urlScores;
 
-        // Priorité 2 : localStorage
         if (!scores) {
             try {
                 const stored = localStorage.getItem('valeur_scores');
@@ -380,7 +451,6 @@
             } catch (e) {}
         }
 
-        // Priorité 3 : fallback démo (pour test sans questionnaire)
         if (!scores || Object.keys(scores).filter(k => MASKS.includes(k)).length < 7) {
             scores = {
                 rouge: 44, orange: 38, jaune: 73, vert: 56,
@@ -395,7 +465,6 @@
 
         document.getElementById('portrait-content').innerHTML = buildPortrait(scores, profile, prenom);
 
-        // Sauvegarde dans Google Sheets (silencieuse)
         saveToGoogleSheet(email, prenom, scores, profile.primary, profile.type, spa);
     }
 
