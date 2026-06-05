@@ -338,7 +338,7 @@
         const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
         return Math.round(100 - sum / 7);
     }
-        // ═══════════════ EXPÉRIENCES RETENUES ═══════════════
+          // ═══════════════ EXPÉRIENCES RETENUES ═══════════════
     const RETAINED_EXPERIENCES = {
         rouge: [
             "L'insouciance de ne pas penser à votre corps pendant une journée entière.",
@@ -481,6 +481,42 @@
         }
     };
 
+    // ═══════════════ EXEMPLES CONCRETS POUR CHAQUE COMBINAISON ═══════════════
+    const AMPLIFICATION_EXAMPLES = {
+        "indigo+jaune": [
+            "Au travail : vous repoussez la remise d'un dossier parce que vous attendez d'avoir toutes les données, et vous le retravaillez encore après l'avoir envoyé.",
+            "Dans la vie personnelle : vous voulez vous lancer dans une nouvelle activité, mais vous passez des semaines à comparer toutes les options sans jamais vous inscrire."
+        ],
+        "bleu+jaune": [
+            "Au travail : vous planifiez les moindres étapes d'un projet et vérifiez l'avancement de chacun, quitte à reprendre le travail des autres pour être sûr·e que tout soit conforme.",
+            "En famille : les vacances sont organisées dans le détail, et un imprévu (restaurant fermé, météo) peut gâcher votre journée car vous aviez tout prévu."
+        ],
+        "vert+indigo": [
+            "Avec les proches : vous vous surinvestissez dans les demandes des autres, quitte à y passer vos nuits, parce que vous voulez à la fois être utile et irréprochable.",
+            "Au travail : vous acceptez des tâches supplémentaires pour ne pas décevoir, même quand votre charge est déjà trop lourde, et vous vous épuisez à vouloir les faire parfaitement."
+        ],
+        "orange+vert": [
+            "En couple : vous sentez que votre partenaire a besoin de soutien, mais vous ne savez pas quoi dire ni quoi ressentir, alors vous proposez des solutions pratiques plutôt que de l'écoute.",
+            "Entre amis : on vous confie une peine, vous répondez par des conseils logiques, et vous passez à côté de l'émotion partagée, ce qui donne l'impression que vous êtes distant·e."
+        ],
+        "bleu+indigo": [
+            "Au travail : vous supervisez chaque étape d'un projet collectif, et vous retravaillez les présentations des collègues parce qu'elles ne sont pas assez abouties à vos yeux.",
+            "Dans vos engagements personnels : vous vous fixez des objectifs très élevés (sport, alimentation) et vous vous imposez une discipline stricte, tout en culpabilisant au moindre écart."
+        ],
+        "rouge+jaune": [
+            "Santé : une gêne à l'estomac vous pousse à consulter plusieurs avis médicaux, puis à chercher sur internet, et même quand les résultats sont rassurants, vous restez en alerte.",
+            "Quotidien : vous planifiez vos repas, votre sommeil, vos examens de contrôle avec une précision extrême, et un simple retard d'analyse peut vous angoisser."
+        ],
+        "indigo+jaune+bleu": [
+            "Au travail : un nouveau projet vous paralyse — vous voulez qu'il soit parfait (Indigo), vous attendez d'avoir toutes les informations (Jaune), et vous ne déléguez rien (Bleu). Résultat : le projet n'avance pas.",
+            "Dans la vie personnelle : vous voulez organiser un événement, vous passez des heures à tout planifier, vous vérifiez chaque détail, et vous ne profitez pas du moment présent."
+        ],
+        "vert+indigo+orange": [
+            "Avec les autres : vous dites toujours oui, vous faites les choses à la perfection, mais vous ne ressentez ni joie ni fatigue — jusqu'à l'effondrement soudain que personne n'avait vu venir.",
+            "Au travail : vous prenez en charge des dossiers supplémentaires sans broncher, vous les traitez impeccablement, mais vous êtes complètement déconnecté·e de votre propre épuisement."
+        ]
+    };
+
     // ═══════════════ CONSTRUCTION DU PORTRAIT (ENRICHI) ═══════════════
     function buildPortrait(scores, profile, prenom) {
         const dom = profile.primary, sec = profile.secondary;
@@ -537,6 +573,7 @@
             const sortedKeys = [...profile.masks].sort();
             const key = sortedKeys.join('+');
             const amplification = (profile.type === 'triade' ? TRIADES_AMPLIFICATIONS[key] : null) || DYADES_AMPLIFICATIONS[key] || null;
+            const exemples = AMPLIFICATION_EXAMPLES[key] || [];
 
             html += `<div class="block" style="border-left: 3px solid ${MASK_COLORS[dom]};">
                 <h2>2bis. Quand les masques se répondent</h2>
@@ -556,6 +593,20 @@
             } else {
                 html += `<p style="color:var(--text2); font-style:italic;">Vos masques forment une combinaison unique. Ensemble, ils créent un système de protection qui mérite d'être exploré avec un accompagnement personnalisé.</p>`;
             }
+
+            // Ajout des exemples concrets
+            if (exemples.length > 0) {
+                html += `<div style="margin-top:20px;">
+                    <p style="font-weight:600; color:var(--gold); margin-bottom:10px;">Dans votre vie quotidienne, cela peut ressembler à :</p>`;
+                exemples.forEach(ex => {
+                    html += `<div style="display:flex; gap:10px; margin-bottom:10px; align-items:baseline;">
+                        <span style="color:var(--gold); font-size:14px;">▸</span>
+                        <span style="font-size:14px; color:var(--text2); line-height:1.6;">${ex}</span>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+
             html += `</div>`;
         }
 
