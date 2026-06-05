@@ -747,7 +747,7 @@ function startFresh() {
 }
 
 // ── NAVIGATION PAGE SUIVANTE ─────────────────────────────────────
-async function nextPage(idx) {
+async function nextPage(idx) {const pid = new URLSearchParams(window.location.search).get('pid') || null;
   const pageItems = pages[idx];
   const allOk = pageItems.every(it => responses[it.id] !== undefined);
   const warn = document.getElementById(`warn-${idx}`);
@@ -808,7 +808,25 @@ async function nextPage(idx) {
       })
     });
   } catch(e) {}
-
+  // ── ENVOI SILENCIEUX VERS NEON (CABINET) ──
+  try {
+    await fetch('https://valeur-backend-api.vercel.app/api/save-result', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        patient_id: pid || null,
+        prenom: demographics.prenom,
+        email: demographics.email,
+        scores: scPct,
+        spa: sc.spa,
+        dominant: dom,
+        profil: profil,
+        source: 'cabinet'
+      })
+    });
+  } catch (e) {
+    // silencieux
+  }
   // Redirection vers le portrait local
   const _masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
   const _scoresQuery = _masks.map(function(m){ return m + '=' + (scPct[m] || 0); }).join('&');
