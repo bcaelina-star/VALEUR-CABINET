@@ -296,7 +296,7 @@
         const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
         return Math.round(100 - sum / 7);
     }
-        // ═══════════════ CONSTRUCTION DU PORTRAIT ENRICHI ═══════════════
+          // ═══════════════ CONSTRUCTION DU PORTRAIT ENRICHI ═══════════════
     function buildPortrait(scores, profile, prenom) {
         const dom = profile.primary, sec = profile.secondary;
         const meta = META[dom];
@@ -304,7 +304,6 @@
         let html = '';
         const maskLabel = MASK_LABELS[dom];
 
-        // Phrase de peur adaptée au profil
         let peurPhrase = meta.peur;
         if (profile.type === 'dyade' || profile.type === 'dyade_moderee') {
             peurPhrase = `${META[dom].peur} — et ${META[sec].peur}`;
@@ -370,47 +369,71 @@
             </p>
         </div>`;
 
-        // ═══ BLOC 4 — "Et maintenant ?" ═══
+        // ═══ BLOC 4 — Carte d'identité des masques + SPA ═══
         html += `<div class="block">
-            <h2>4. Et maintenant ?</h2>
-            <p style="color:var(--text2); font-size:16px; font-weight:400;">
-                La question n'est plus « Pourquoi suis‑je comme cela ? »<br>
-                La question est : <strong>« Qu'est‑ce que je veux faire, maintenant que je sais ? »</strong>
-            </p>
-            <div class="spa-section">
-                <div class="spa-ring">
-                    <svg width="80" height="80" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="42" fill="none" stroke="#E5E0D8" stroke-width="6"/>
-                        <circle cx="50" cy="50" r="42" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="${264 * (1 - spa/100)}" stroke-linecap="round"/>
-                    </svg>
-                    <div class="spa-value">${spa}%</div>
+            <h2>4. Votre carte des masques</h2>
+            <p style="color:var(--text2); margin-bottom:20px;">
+                Voici la photographie complète de vos protections en ce moment. Chaque masque a un niveau d'emprise différent — cela n'a rien de définitif, c'est une base de départ pour mieux vous connaître.
+            </p>`;
+
+        // Tableau élégant des 7 masques
+        const sortedMasks = [...MASKS].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
+        sortedMasks.forEach(m => {
+            const pct = scores[m] || 0;
+            const level = getLevelLabel(pct);
+            const color = MASK_COLORS[m];
+            html += `
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+                <div style="width:9px; height:9px; border-radius:50%; background:${color}; flex-shrink:0;"></div>
+                <span style="font-size:14px; font-weight:500; width:70px; color:var(--text);">${MASK_LABELS[m]}</span>
+                <div style="flex:1; height:6px; background:rgba(0,0,0,0.06); border-radius:3px; overflow:hidden;">
+                    <div style="width:${pct}%; height:100%; background:${color}; border-radius:3px;"></div>
                 </div>
-                <div>
-                    <p style="font-weight:500;">Score de Présence Authentique</p>
-                    <p style="color:var(--text3); font-size:14px;">
-                        ${spa >= 70
-                            ? 'Vous êtes déjà souvent vous‑même, même face aux défis. Ces moments peuvent encore grandir.'
-                            : spa >= 40
-                            ? 'Votre espace de liberté existe déjà. Il demande simplement à être élargi, pas à pas.'
-                            : 'Votre masque occupe une grande place en ce moment. C\'est un point de départ — et chaque point de départ est respectable.'
-                        }
-                        Ce score ne mesure pas si vous êtes « bien » ou « mal ». Il mesure les moments où vous êtes déjà vous‑même, sans masque. Ces moments existent. Ils peuvent grandir.
-                    </p>
+                <span style="font-size:14px; font-weight:500; width:36px; text-align:right; color:var(--text);">${pct}%</span>
+                <span style="font-size:11px; width:80px; text-align:right; color:var(--text3);">${level}</span>
+            </div>`;
+        });
+
+        html += `
+            <div style="margin-top:28px; border-top:1px solid var(--line); padding-top:20px;">
+                <div style="display:flex; align-items:center; gap:20px;">
+                    <div class="spa-ring" style="width:70px; height:70px;">
+                        <svg width="70" height="70" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#E5E0D8" stroke-width="6"/>
+                            <circle cx="50" cy="50" r="42" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="${264 * (1 - spa/100)}" stroke-linecap="round"/>
+                        </svg>
+                        <div class="spa-value" style="font-size:20px;">${spa}%</div>
+                    </div>
+                    <div>
+                        <p style="font-weight:500;">Score de Présence Authentique</p>
+                        <p style="color:var(--text3); font-size:14px;">
+                            ${spa >= 70
+                                ? 'Vous êtes déjà souvent vous‑même, même face aux défis.'
+                                : spa >= 40
+                                ? 'Votre espace de liberté existe déjà. Il demande à s\'élargir.'
+                                : 'Votre masque occupe une grande place. C\'est un point de départ respectable.'
+                            }
+                            Ce score mesure les moments où vous êtes déjà vous‑même, sans masque.
+                        </p>
+                    </div>
                 </div>
             </div>
-            <p style="margin-top:24px; color:var(--text2); text-align:center; font-size:14px;">
-                Si vous souhaitez être guidé·e pour traverser ce masque et libérer ce qui se trouve derrière,<br>
-                <strong>Céline Bourbon vous reçoit.</strong>
-            </p>
-            <p style="text-align:center; margin-top:12px;">
-                <a href="https://www.doctolib.fr/psychologue/bordeaux/celine-bourbon" target="_blank" class="btn-print" style="background:var(--gold); color:white; padding:12px 28px; border-radius:40px; text-decoration:none; display:inline-block;">Prendre rendez-vous</a>
-            </p>
-            <p style="text-align:center; margin-top:16px;">
-                <button class="btn-print" onclick="window.print()" style="background:transparent; border:1px solid var(--gold); color:var(--gold);">Imprimer / Télécharger en PDF</button>
+
+            <p style="margin-top:24px; text-align:center;">
+                <button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button>
             </p>
         </div>`;
 
         return html;
+    }
+
+    // ═══════════════ NIVEAU D'EMPRISE ═══════════════
+    function getLevelLabel(pct) {
+        if (pct >= 85) return 'Dominant';
+        if (pct >= 70) return 'Élevé';
+        if (pct >= 50) return 'Significatif';
+        if (pct >= 30) return 'Modéré';
+        return 'Non significatif';
     }
 
     // ═══════════════ SAUVEGARDE GOOGLE SHEETS ═══════════════
