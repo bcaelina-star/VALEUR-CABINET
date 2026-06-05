@@ -223,7 +223,7 @@
     const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
     const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby4vOwYjKBFhtLBmwaqvlK5ba8Ow3rzlXihaQBPyA0/exec';
 
-    // ═══════════════ DONNÉES CLINIQUES ═══════════════
+    // ═══════════════ DONNÉES CLINIQUES (inchangées) ═══════════════
     const META = {
         rouge: { peur: "la peur de la maladie et de l'insécurité corporelle", force: "Une présence incarnée, capable de s'ancrer dans l'instant sans être happée par l'inquiétude." },
         orange: { peur: "la peur de ressentir des émotions douloureuses", force: "Une intelligence émotionnelle profonde, qui transforme la sensibilité en boussole plutôt qu'en menace." },
@@ -282,7 +282,8 @@
         { lettre: 'U', nom: 'UNIFIER', desc: 'Trouver une voie qui honore à la fois le besoin de protection et le désir d’être soi.' },
         { lettre: 'R', nom: 'RENFORCER', desc: 'Poser des actions nouvelles, alignées avec votre nature profonde.' }
     ];
-        // ═══════════════ 21 DYADES VALIDÉES ═══════════════
+
+    // ═══════════════ 21 DYADES VALIDÉES (inchangées) ═══════════════
     const DYADES_AMPLIFICATIONS = {
         "jaune+rouge": { nom:"Anxiété de santé amplifiée", desc:"Votre masque Rouge surveille votre corps, votre masque Jaune exige des certitudes. Chaque sensation devient une question médicale qui doit avoir une réponse — et la réponse n'est jamais assez rassurante.", boucle:["Une sensation corporelle apparaît (Rouge)","Jaune exige une certitude que la médecine ne peut pas donner","Vous cherchez des informations, consultez, vérifiez","La rassurance ne dure pas → la prochaine sensation relance le cycle"] },
         "orange+vert": { nom:"Distance paradoxale", desc:"Votre masque Orange vous coupe de vos ressentis, votre masque Vert a besoin de lien. Vous cherchez la proximité tout en restant à distance de vos émotions — l'autre ne vous atteint jamais vraiment.", boucle:["Vous avez besoin des autres (Vert)","L'émotion monte → Orange la coupe","Vous semblez froid·e ou distant·e","L'autre s'éloigne → Vert redouble d'efforts pour restaurer le lien"] },
@@ -307,7 +308,7 @@
         "indigo+violet": { nom:"L'Imposteur Existentiel", desc:"Votre masque Indigo impose des standards, votre masque Violet ne fournit pas d'identité stable. Les standards s'appliquent dans le vide.", boucle:["Un projet se présente — Indigo active les standards","Violet ne fournit pas d'identité stable — les standards flottent, arbitraires","L'imposture semble totale — vous jouez un rôle, imparfaitement","Chaque nouvelle situation relance la même question sans réponse"] }
     };
 
-    // ═══════════════ 15 TRIADES VALIDÉES ═══════════════
+    // ═══════════════ 15 TRIADES VALIDÉES (inchangées) ═══════════════
     const TRIADES_AMPLIFICATIONS = {
         "jaune+orange+rouge": { nom:"Le Corps en Alerte Permanente", desc:"Votre masque Rouge maintient le corps en vigilance, votre masque Jaune exige des certitudes, votre masque Orange coupe l'accès aux émotions. L'anxiété reste piégée dans le corps.", boucle:["Une sensation corporelle émerge — Rouge l'interprète comme menace","Jaune exige une certitude que le corps ne peut pas fournir","Orange empêche de ressentir l'anxiété comme une émotion","L'anxiété s'exprime par le corps, plus fort — et le cycle redémarre"] },
         "bleu+indigo+jaune": { nom:"L'Exigence sans Seuil", desc:"Le masque Jaune ne supporte pas l'incertitude, le masque Bleu a besoin de maîtriser, le masque Indigo exige des standards élevés. Rien n'est jamais assez.", boucle:["Un projet exige un résultat — Indigo veut la perfection, Jaune la certitude, Bleu le contrôle","Vous planifiez, vérifiez, retravaillez — tout doit être parfait","L'épuisement s'installe — mais vous ne pouvez pas vous arrêter","Les trois masques s'activent simultanément à chaque nouveau projet"] },
@@ -354,28 +355,76 @@
         direction: "Vous êtes déjà sur le chemin de la présence authentique. La méthode V.A.L.E.U.R peut vous aider à élargir encore cet espace de liberté, et à comprendre ce qui, parfois, vous en éloigne."
     };
 
-    // ═══════════════ DÉTECTION DU PROFIL ═══════════════
-    function detectProfile(scores) {
-        const sorted = MASKS.map(k => ({ key: k, pct: scores[k] || 0 })).sort((a, b) => b.pct - a.pct);
-        const top = sorted[0].pct;
-        const tied = sorted.filter(m => m.pct === top);
-        if (tied.length >= 2) sorted.sort((a, b) => b.pct - a.pct || TIEBREAK.indexOf(a.key) - TIEBREAK.indexOf(b.key));
-        const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0, S4 = sorted[3]?.pct || 0;
-        const primary = sorted[0].key, secondary = sorted[1]?.key || null;
-        const masks = sorted.map(m => m.key);
+    // ═══════════════ FONCTION DE DÉTECTION CORRIGÉE ═══════════════
+    function detectValidProfile(scores) {
+        const VALID_DYADS = Object.keys(DYADES_AMPLIFICATIONS).map(k => k.split('+').sort());
+        const VALID_TRIADS = Object.keys(TRIADES_AMPLIFICATIONS).map(k => k.split('+').sort());
 
-        if (S1 < 50) return { type: S1 < 30 ? 'adaptatif_eq' : 'adaptatif_vig', masks, primary };
+        const sorted = MASKS.map(m => ({ key: m, pct: scores[m] || 0 }))
+            .sort((a, b) => b.pct - a.pct || TIEBREAK.indexOf(a.key) - TIEBREAK.indexOf(b.key));
+
+        const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0;
+
+        // 1. Triade valide
+        if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15) {
+            const triadColors = [sorted[0].key, sorted[1].key, sorted[2].key].sort();
+            if (VALID_TRIADS.some(t => t.join(',') === triadColors.join(','))) {
+                return {
+                    type: 'triade',
+                    masks: triadColors,
+                    primary: sorted[0].key,
+                    secondary: sorted[1].key,
+                    tertiary: sorted[2].key
+                };
+            }
+        }
+
+        // 2. Dyade valide (parmi les 3 meilleures paires)
+        const candidatePairs = [
+            [sorted[0].key, sorted[1].key],
+            [sorted[0].key, sorted[2].key],
+            [sorted[1].key, sorted[2].key]
+        ];
+        for (let pair of candidatePairs) {
+            const pairSorted = [...pair].sort();
+            if (VALID_DYADS.some(d => d.join(',') === pairSorted.join(','))) {
+                const sA = scores[pairSorted[0]], sB = scores[pairSorted[1]];
+                if (sA >= 55 && sB >= 55 && Math.abs(sA - sB) <= 10) {
+                    const subtype = (sA >= 65) ? 'forte' : 'modérée';
+                    return {
+                        type: subtype === 'forte' ? 'dyade' : 'dyade_moderee',
+                        masks: pairSorted,
+                        primary: sA >= sB ? pairSorted[0] : pairSorted[1],
+                        secondary: sA >= sB ? pairSorted[1] : pairSorted[0],
+                        subtype: subtype
+                    };
+                }
+            }
+        }
+
+        // 3. Monomasque
+        if (S1 >= 75 && (S1 - S2) > 10) {
+            return { type: 'mono', masks: [sorted[0].key], primary: sorted[0].key, secondary: (S2 >= 60) ? sorted[1].key : null };
+        }
+        if (S1 >= 60 && (S1 - S2) > 10) {
+            return { type: 'mono_fort', masks: [sorted[0].key], primary: sorted[0].key };
+        }
+
+        // 4. Pan-masques
         const active60 = sorted.filter(m => m.pct >= 60);
         if (active60.length >= 5) {
             const spread = Math.max(...active60.map(m => m.pct)) - Math.min(...active60.map(m => m.pct));
-            if (spread <= 20) return { type: 'pan', masks: active60.map(m => m.key), primary };
+            if (spread <= 20) {
+                return { type: 'pan', masks: active60.map(m => m.key), primary: sorted[0].key };
+            }
         }
-        if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15 && (S2 - S4) > 10) return { type: 'triade', masks: [sorted[0].key, sorted[1].key, sorted[2].key], primary, secondary: sorted[1].key, tertiary: sorted[2].key };
-        if (S1 >= 65 && S2 >= 65 && S3 < 55 && (S1 - S2) <= 10) return { type: 'dyade', masks: [sorted[0].key, sorted[1].key], primary, secondary };
-        if (S1 >= 55 && S2 >= 55 && S3 < 50 && (S1 - S2) <= 10) return { type: 'dyade_moderee', masks: [sorted[0].key, sorted[1].key], primary, secondary };
-        if (S1 >= 75 && (S1 - S2) > 10) return { type: 'mono', masks: [primary], primary, secondary: (S2 >= 60) ? secondary : null };
-        if (S1 >= 60 && (S1 - S2) > 10) return { type: 'mono_fort', masks: [primary], primary };
-        return { type: 'residuel', masks: [primary], primary };
+
+        // 5. Adaptatif
+        if (S1 < 50) {
+            return { type: S1 < 30 ? 'adaptatif_eq' : 'adaptatif_vig', masks: sorted.map(m => m.key), primary: sorted[0].key };
+        }
+
+        return { type: 'residuel', masks: [sorted[0].key], primary: sorted[0].key };
     }
 
     function computeSPA(scores) {
@@ -384,15 +433,14 @@
         return Math.round(100 - sum / 7);
     }
 
-    // ═══════════════ CONSTRUCTION DU PORTRAIT ═══════════════
+    // ═══════════════ CONSTRUCTION DU PORTRAIT (inchangée, mais utilise le profil corrigé) ═══════════════
     function buildPortrait(scores, profile, prenom) {
-        const dom = profile.primary, sec = profile.secondary;
+        const dom = profile.primary;
         const meta = META[dom];
         const spa = computeSPA(scores);
         let html = '';
         const maskLabel = MASK_LABELS[dom];
 
-        // ═══ HERO ═══
         html += `<div class="hero-mask" style="border-color: ${MASK_COLORS[dom]}40;">
             <span style="font-size:13px; letter-spacing:3px; text-transform:uppercase; color:${MASK_COLORS[dom]}; font-weight:500;">Votre protection principale</span>
             <div class="hero-mask-name">Masque ${maskLabel}</div>
@@ -401,17 +449,14 @@
             <p style="color:var(--text3); font-size:14px; margin-top:16px;">${profile.type === 'mono' || profile.type === 'mono_fort' ? 'Il agit souvent seul, concentrant l’essentiel de votre énergie défensive.' : `Il dialogue avec d’autres masques — nous vous montrons plus bas comment ils se répondent.`}</p>
         </div>`;
 
-        // ═══ RAPPEL ═══
         html += `<div class="reminder-box" style="margin-bottom:32px;"><strong>Rappelez-vous :</strong> Vous n’êtes pas ce masque. Il est une protection, non une identité.<br>Cette stratégie n’est pas votre personnalité — elle est ce qui la recouvre.</div>`;
 
-        // ═══ BLOC 1 ═══
         html += `<div class="block"><h2>1. C'est exactement ça</h2><div class="mirror-phrase">${MIRROR[dom] || ''}</div><p style="color: var(--text2); font-size:14px; margin-top:12px;">Cette réaction n'est pas un défaut de caractère. Votre esprit a résolu un problème. Le problème a changé, mais la solution est restée. Ce n'est pas vous qui dysfonctionnez — c'est une protection qui continue de tourner alors que le danger est passé.</p></div>`;
 
-        // ═══ BLOC 2 ═══
         const steps = LOOPS[dom] || [];
         html += `<div class="block"><h2>2. Je comprends pourquoi</h2><p style="margin-bottom:16px; color:var(--text2);">Voici la boucle qui se répète, souvent sans que vous en ayez conscience :</p><div class="mechanism">${steps.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}</div><div class="metaphor-box">Imaginez un détecteur de fumée réglé trop sensiblement. Il protège la maison. Mais il sonne aussi quand les toasts brûlent. Votre masque fonctionne comme cela : il ne sait pas encore que la guerre est finie.</div></div>`;
 
-        // ═══ BLOC 2bis — AMPLIFICATIONS (dyade/triade/pan) ═══
+        // Amplifications (dyade/triade/pan)
         if (profile.type === 'dyade' || profile.type === 'dyade_moderee' || profile.type === 'triade' || profile.type === 'pan') {
             let ampData = null;
             if (profile.type === 'pan') {
@@ -442,14 +487,11 @@
             html += `</div>`;
         }
 
-        // ═══ BLOC 3 ═══
         html += `<div class="block"><h2>3. Ce n'est pas un défaut</h2><p style="color:var(--text2);">${ORIGINS[dom] || ''}</p><p style="color:var(--text2); margin-top:12px;">Des millions de personnes vivent avec ce même mécanisme. Vous n'êtes pas cassé·e. Vous êtes simplement humain·e.</p><div class="force-box"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;">Derrière ce masque, il y a une force réelle :</p><p style="font-weight:500;margin-top:8px;">${meta.force}</p></div><p style="color:var(--text2); margin-top:8px;">Cette force n'est pas une compensation. Elle est la preuve que, sous le masque, quelqu'un de réel attend d'exister sans avoir besoin de se défendre. Votre nature vraie n'a pas disparu — elle est recouverte, intacte, et attend d'être libérée.</p></div>`;
 
-        // ═══ BLOC 3bis ═══
         const experiences = RETAINED_EXPERIENCES[dom] || [];
         html += `<div class="block"><h2>3bis. Ce que ce masque a retenu en vous</h2><p style="color:var(--text2); margin-bottom:16px;">Chaque fois que le masque s'est activé pour vous protéger, il a aussi retenu quelque chose. Un élan. Une parole. Une envie. Une direction. Ces forces n'ont pas disparu. Elles sont restées en attente, comme des graines sous la neige.</p><ul style="list-style:none; padding:0;">${experiences.map(exp => `<li style="padding:8px 0; border-bottom:1px solid var(--line); color:var(--text2); font-size:15px;">✦ ${exp}</li>`).join('')}</ul><p style="color:var(--text2); margin-top:16px; font-style:italic;">Ces expériences ne sont pas perdues. Elles sont en attente. Et c'est précisément ce que la méthode V.A.L.E.U.R vous aide à retrouver.</p></div>`;
 
-        // ═══ BLOC 4 — Carte + SPA ═══
         html += `<div class="block"><h2>4. Votre carte des masques</h2><p style="color:var(--text2); margin-bottom:20px;">Voici la photographie complète de vos protections en ce moment. Chaque masque a un niveau d'emprise différent — cela n'a rien de définitif, c'est une base de départ pour mieux vous connaître.</p>`;
         const sortedMasks = [...MASKS].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
         sortedMasks.forEach(m => {
@@ -460,10 +502,8 @@
         });
         html += `<div style="margin-top:28px; border-top:1px solid var(--line); padding-top:20px;"><div style="display:flex; align-items:center; gap:20px;"><div class="spa-ring" style="width:70px; height:70px;"><svg width="70" height="70" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#E5E0D8" stroke-width="6"/><circle cx="50" cy="50" r="42" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="${264 * (1 - spa/100)}" stroke-linecap="round"/></svg><div class="spa-value" style="font-size:20px;">${spa}%</div></div><div><p style="font-weight:500;">Score de Présence Authentique</p><p style="color:var(--text3); font-size:14px;">${spa >= 70 ? 'Vous êtes déjà souvent vous‑même, même face aux défis.' : spa >= 40 ? 'Votre espace de liberté existe déjà. Il demande à s\'élargir.' : 'Votre masque occupe une grande place. C\'est un point de départ respectable.'} Ce score mesure les moments où vous êtes déjà vous‑même, sans masque.</p></div></div></div><p style="margin-top:24px; text-align:center;"><button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button></p></div>`;
 
-        // ═══ BLOC 5 — V.A.L.E.U.R ═══
         html += `<div class="block"><h2>5. La méthode V.A.L.E.U.R</h2><p style="color:var(--text2); margin-bottom:20px;">Derrière chaque lettre du mot <strong>V.A.L.E.U.R</strong> se cache une étape concrète pour traverser le masque et retrouver votre nature profonde.</p><div style="display:flex; flex-direction:column; gap:14px;">${VALEUR_STEPS.map(step => `<div style="display:flex; align-items:flex-start; gap:14px;"><div style="width:36px; height:36px; border-radius:50%; background:var(--gold); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:16px; flex-shrink:0;">${step.lettre}</div><div><div style="font-weight:600; color:var(--gold);">${step.nom}</div><div style="font-size:14px; color:var(--text3);">${step.desc}</div></div></div>`).join('')}</div><p style="margin-top:24px; color:var(--text2); font-size:14px; text-align:center; font-style:italic;">Ce chemin est celui que nous empruntons ensemble, pas à pas, pour que vous puissiez enfin être vous‑même — sans masque.</p></div>`;
 
-        // ═══ BLOC ADAPTATIF (si profil adaptatif) ═══
         if (profile.type.startsWith('adaptatif')) {
             html += `<div class="block"><h2>Votre profil adaptatif</h2><p style="color:var(--text2);">${ADAPTATIF.desc}</p><ul style="list-style:none; padding:0; margin-top:16px;">${ADAPTATIF.ce_qui_est_deja_la.map(item => `<li style="padding:6px 0; border-bottom:1px solid var(--line); color:var(--text2); font-size:14px;">✦ ${item}</li>`).join('')}</ul><p style="margin-top:16px; color:var(--text2); font-style:italic;">${ADAPTATIF.direction}</p></div>`;
         }
@@ -479,7 +519,6 @@
         return 'Non significatif';
     }
 
-    // ═══════════════ SAUVEGARDE GOOGLE SHEETS ═══════════════
     async function saveToGoogleSheet(email, prenom, scores, masque, profilType, spa) {
         try {
             await fetch(GOOGLE_SHEET_URL, {
@@ -498,7 +537,6 @@
         } catch (e) { console.warn('Sauvegarde silencieuse'); }
     }
 
-    // ═══════════════ INITIALISATION ═══════════════
     async function init() {
         const params = new URLSearchParams(window.location.search);
         let scores = null;
@@ -518,7 +556,7 @@
 
         const prenom = params.get('prenom') || localStorage.getItem('valeur_prenom') || '';
         const email = params.get('email') || localStorage.getItem('valeur_email') || '';
-        const profile = detectProfile(scores);
+        const profile = detectValidProfile(scores);  // Nouvelle fonction
         document.getElementById('portrait-content').innerHTML = buildPortrait(scores, profile, prenom);
         saveToGoogleSheet(email, prenom, scores, profile.primary, profile.type, computeSPA(scores));
     }
