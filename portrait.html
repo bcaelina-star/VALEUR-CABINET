@@ -296,7 +296,64 @@
         const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
         return Math.round(100 - sum / 7);
     }
-          // ═══════════════ CONSTRUCTION DU PORTRAIT ENRICHI ═══════════════
+              // ═══════════════ NOUVELLES DONNÉES ═══════════════
+    // Expériences retenues par chaque masque
+    const RETAINED_EXPERIENCES = {
+        rouge: [
+            "L'insouciance de ne pas penser à votre corps pendant une journée entière.",
+            "La liberté de ressentir une douleur sans y voir une menace.",
+            "Le plaisir de manger, de bouger, de vivre sans arrière‑pensée.",
+            "La confiance de laisser votre corps se reposer sans le surveiller."
+        ],
+        orange: [
+            "L'intimité d'un moment où vous auriez pu être vraiment touché·e.",
+            "La joie de pleurer sans vous demander pourquoi.",
+            "La spontanéité d'un fou rire, d'une colère saine, d'une émotion traversée.",
+            "La sensation d'être pleinement présent·e, sans distance."
+        ],
+        jaune: [
+            "L'excitation de l'imprévu, la surprise qui fait du bien.",
+            "La légèreté de ne pas avoir de plan, et de découvrir ce qui arrive.",
+            "La confiance de prendre une décision sans avoir toutes les réponses.",
+            "La liberté d'agir avant d'être certain·e."
+        ],
+        vert: [
+            "La paix de dire non sans craindre de perdre l'autre.",
+            "La certitude d'être aimé·e pour ce que vous êtes, pas pour ce que vous faites.",
+            "Le droit d'exister sans vous adapter en permanence.",
+            "L'espace de recevoir, sans avoir besoin de donner en retour."
+        ],
+        bleu: [
+            "Le soulagement de déposer les armes, de laisser quelqu'un d'autre porter.",
+            "La confiance de déléguer sans vérifier.",
+            "Le repos de ne pas être indispensable.",
+            "La douceur de recevoir de l'aide, sans la contrôler."
+        ],
+        indigo: [
+            "La liberté de faire « assez bien » et de passer à autre chose.",
+            "La fierté de montrer un travail en cours, imparfait mais vivant.",
+            "Le droit à l'erreur, sans que cela remette en cause votre valeur.",
+            "La joie de créer sans vous juger."
+        ],
+        violet: [
+            "La sensation de vous reconnaître dans un miroir, sans rôle.",
+            "La stabilité d'un « je » qui ne change pas selon les regards.",
+            "La liberté d'évoluer sans craindre de vous perdre.",
+            "L'apaisement de savoir qui vous êtes, simplement."
+        ]
+    };
+
+    // Les 6 étapes de la méthode V.A.L.E.U.R
+    const VALEUR_STEPS = [
+        { lettre: 'V', nom: 'VOIR', desc: 'Reconnaître le masque au moment où il s’active.' },
+        { lettre: 'A', nom: 'ACCUEILLIR', desc: 'Cesser de lutter contre l’émotion ou la pensée automatique.' },
+        { lettre: 'L', nom: 'LOCALISER', desc: 'Revenir au corps, là où la peur se manifeste.' },
+        { lettre: 'E', nom: 'EXPLORER', desc: 'Clarifier le conflit entre sécurité et élan de vie.' },
+        { lettre: 'U', nom: 'UNIFIER', desc: 'Trouver une voie qui honore à la fois le besoin de protection et le désir d’être soi.' },
+        { lettre: 'R', nom: 'RENFORCER', desc: 'Poser des actions nouvelles, alignées avec votre nature profonde.' }
+    ];
+
+    // ═══════════════ CONSTRUCTION DU PORTRAIT ENRICHI ═══════════════
     function buildPortrait(scores, profile, prenom) {
         const dom = profile.primary, sec = profile.secondary;
         const meta = META[dom];
@@ -304,6 +361,7 @@
         let html = '';
         const maskLabel = MASK_LABELS[dom];
 
+        // Phrase de peur adaptée au profil
         let peurPhrase = meta.peur;
         if (profile.type === 'dyade' || profile.type === 'dyade_moderee') {
             peurPhrase = `${META[dom].peur} — et ${META[sec].peur}`;
@@ -369,6 +427,21 @@
             </p>
         </div>`;
 
+        // ═══ BLOC 3bis — "Ce que le masque a retenu" ═══
+        const experiences = RETAINED_EXPERIENCES[dom] || [];
+        html += `<div class="block">
+            <h2>3bis. Ce que ce masque a retenu en vous</h2>
+            <p style="color:var(--text2); margin-bottom:16px;">
+                Chaque fois que le masque s'est activé pour vous protéger, il a aussi retenu quelque chose. Un élan. Une parole. Une envie. Une direction. Ces forces n'ont pas disparu. Elles sont restées en attente, comme des graines sous la neige.
+            </p>
+            <ul style="list-style:none; padding:0;">
+                ${experiences.map(exp => `<li style="padding:8px 0; border-bottom:1px solid var(--line); color:var(--text2); font-size:15px;">✦ ${exp}</li>`).join('')}
+            </ul>
+            <p style="color:var(--text2); margin-top:16px; font-style:italic;">
+                Ces expériences ne sont pas perdues. Elles sont en attente. Et c'est précisément ce que la méthode V.A.L.E.U.R vous aide à retrouver.
+            </p>
+        </div>`;
+
         // ═══ BLOC 4 — Carte d'identité des masques + SPA ═══
         html += `<div class="block">
             <h2>4. Votre carte des masques</h2>
@@ -376,7 +449,6 @@
                 Voici la photographie complète de vos protections en ce moment. Chaque masque a un niveau d'emprise différent — cela n'a rien de définitif, c'est une base de départ pour mieux vous connaître.
             </p>`;
 
-        // Tableau élégant des 7 masques
         const sortedMasks = [...MASKS].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
         sortedMasks.forEach(m => {
             const pct = scores[m] || 0;
@@ -407,12 +479,7 @@
                     <div>
                         <p style="font-weight:500;">Score de Présence Authentique</p>
                         <p style="color:var(--text3); font-size:14px;">
-                            ${spa >= 70
-                                ? 'Vous êtes déjà souvent vous‑même, même face aux défis.'
-                                : spa >= 40
-                                ? 'Votre espace de liberté existe déjà. Il demande à s\'élargir.'
-                                : 'Votre masque occupe une grande place. C\'est un point de départ respectable.'
-                            }
+                            ${spa >= 70 ? 'Vous êtes déjà souvent vous‑même, même face aux défis.' : spa >= 40 ? 'Votre espace de liberté existe déjà. Il demande à s\'élargir.' : 'Votre masque occupe une grande place. C\'est un point de départ respectable.'}
                             Ce score mesure les moments où vous êtes déjà vous‑même, sans masque.
                         </p>
                     </div>
@@ -421,6 +488,28 @@
 
             <p style="margin-top:24px; text-align:center;">
                 <button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button>
+            </p>
+        </div>`;
+
+        // ═══ BLOC 5 — La méthode V.A.L.E.U.R ═══
+        html += `<div class="block">
+            <h2>5. La méthode V.A.L.E.U.R</h2>
+            <p style="color:var(--text2); margin-bottom:20px;">
+                Derrière chaque lettre du mot <strong>V.A.L.E.U.R</strong> se cache une étape concrète pour traverser le masque et retrouver votre nature profonde.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:14px;">
+                ${VALEUR_STEPS.map(step => `
+                    <div style="display:flex; align-items:flex-start; gap:14px;">
+                        <div style="width:36px; height:36px; border-radius:50%; background:var(--gold); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:16px; flex-shrink:0;">${step.lettre}</div>
+                        <div>
+                            <div style="font-weight:600; color:var(--gold);">${step.nom}</div>
+                            <div style="font-size:14px; color:var(--text3);">${step.desc}</div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            <p style="margin-top:24px; color:var(--text2); font-size:14px; text-align:center; font-style:italic;">
+                Ce chemin est celui que nous empruntons ensemble, pas à pas, pour que vous puissiez enfin être vous‑même — sans masque.
             </p>
         </div>`;
 
