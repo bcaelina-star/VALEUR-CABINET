@@ -139,6 +139,48 @@
             font-size: 22px;
             color: var(--gold);
         }
+        /* ═══ NOUVEAU : HERO MASQUE ═══ */
+        .hero-mask {
+            text-align: center;
+            padding: 48px 20px 40px;
+            margin-bottom: 32px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(201,168,76,0.06) 100%);
+            border: 1px solid rgba(201,168,76,0.15);
+        }
+        .hero-mask-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 300;
+            line-height: 1;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .hero-mask-name span {
+            display: block;
+            font-size: 16px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 400;
+        }
+        .hero-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-style: italic;
+            color: var(--text2);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        .hero-separator {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
+        }
         .btn-print {
             display: inline-block;
             background: var(--gold);
@@ -296,8 +338,7 @@
         const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
         return Math.round(100 - sum / 7);
     }
-              // ═══════════════ NOUVELLES DONNÉES ═══════════════
-    // Expériences retenues par chaque masque
+        // ═══════════════ EXPÉRIENCES RETENUES ═══════════════
     const RETAINED_EXPERIENCES = {
         rouge: [
             "L'insouciance de ne pas penser à votre corps pendant une journée entière.",
@@ -343,7 +384,7 @@
         ]
     };
 
-    // Les 6 étapes de la méthode V.A.L.E.U.R
+    // ═══════════════ VALEUR STEPS ═══════════════
     const VALEUR_STEPS = [
         { lettre: 'V', nom: 'VOIR', desc: 'Reconnaître le masque au moment où il s’active.' },
         { lettre: 'A', nom: 'ACCUEILLIR', desc: 'Cesser de lutter contre l’émotion ou la pensée automatique.' },
@@ -353,7 +394,94 @@
         { lettre: 'R', nom: 'RENFORCER', desc: 'Poser des actions nouvelles, alignées avec votre nature profonde.' }
     ];
 
-    // ═══════════════ CONSTRUCTION DU PORTRAIT ENRICHI ═══════════════
+    // ═══════════════ AMPLIFICATIONS DYADES/TRIADES ═══════════════
+    const DYADES_AMPLIFICATIONS = {
+        "indigo+jaune": {
+            nom: "Perfectionnisme paralysant",
+            desc: "Votre masque Indigo exige la perfection, votre masque Jaune refuse l'incertitude. Ensemble, ils créent une paralysie : vous ne pouvez ni commencer sans garantie, ni finir sans avoir tout vérifié.",
+            boucle: [
+                "Un projet se présente → vous voulez qu'il soit parfait (Indigo)",
+                "L'incertitude du résultat vous bloque → vous reportez (Jaune)",
+                "Le report renforce la peur de l'échec → Indigo devient plus exigeant",
+                "L'exigence accroît l'incertitude → Jaune verrouille davantage"
+            ]
+        },
+        "bleu+jaune": {
+            nom: "Contrôle absolu",
+            desc: "Votre masque Bleu a besoin de tout maîtriser, votre masque Jaune ne supporte pas l'imprévu. Vous devez tout prévoir et tout diriger — une double charge mentale épuisante.",
+            boucle: [
+                "Quelque chose vous échappe → Bleu veut reprendre la main",
+                "L'incertitude demeure → Jaune anticipe tous les scénarios",
+                "Vous sur-planifiez et sur-contrôlez → épuisement",
+                "L'épuisement vous rend moins efficace → Bleu et Jaune s'activent encore plus"
+            ]
+        },
+        "vert+indigo": {
+            nom: "S'effacer pour être parfait",
+            desc: "Votre masque Vert vous pousse à vous adapter aux autres, votre masque Indigo vous impose des standards impossibles. Vous voulez être à la hauteur pour être aimé·e — et vous vous épuisez à répondre aux attentes.",
+            boucle: [
+                "Vous percevez une attente → Vert veut y répondre",
+                "Indigo vous dit que ce n'est jamais assez bien",
+                "Vous en faites toujours plus → vous disparaissez derrière la performance",
+                "La peur du rejet et du jugement se renforcent mutuellement"
+            ]
+        },
+        "orange+vert": {
+            nom: "Distance émotionnelle",
+            desc: "Votre masque Orange vous coupe de vos ressentis, votre masque Vert a besoin de lien. Vous cherchez la proximité tout en restant à distance de vos émotions — l'autre ne vous atteint jamais vraiment.",
+            boucle: [
+                "Vous avez besoin des autres (Vert)",
+                "L'émotion monte → Orange la coupe",
+                "Vous semblez froid·e ou distant·e",
+                "L'autre s'éloigne → Vert redouble d'efforts pour restaurer le lien"
+            ]
+        },
+        "bleu+indigo": {
+            nom: "Exigence totale",
+            desc: "Votre masque Bleu veut tout contrôler, votre masque Indigo veut tout réussir. Vous ne pouvez ni déléguer, ni vous satisfaire de ce qui est « assez bien ».",
+            boucle: [
+                "Un résultat est attendu → Indigo exige la perfection",
+                "Bleu reprend la main pour s'assurer du résultat",
+                "Vous travaillez deux fois plus que nécessaire",
+                "La réussite ne suffit pas → le standard monte pour la prochaine fois"
+            ]
+        },
+        "rouge+jaune": {
+            nom: "Anxiété de santé amplifiée",
+            desc: "Votre masque Rouge surveille votre corps, votre masque Jaune exige des certitudes. Chaque sensation devient une question médicale qui doit avoir une réponse — et la réponse n'est jamais assez rassurante.",
+            boucle: [
+                "Une sensation corporelle apparaît (Rouge)",
+                "Jaune exige une certitude que la médecine ne peut pas donner",
+                "Vous cherchez des informations, consultez, vérifiez",
+                "La rassurance ne dure pas → la prochaine sensation relance le cycle"
+            ]
+        }
+    };
+
+    const TRIADES_AMPLIFICATIONS = {
+        "indigo+jaune+bleu": {
+            nom: "Triple verrouillage",
+            desc: "Votre masque Indigo exige la perfection, votre masque Jaune refuse l'incertitude, votre masque Bleu a besoin de tout contrôler. Ensemble, ces trois protections forment une prison d'exigence : rien ne doit dévier, rien ne doit être imparfait, rien ne peut être laissé au hasard.",
+            boucle: [
+                "Vous devez réussir (Indigo) → vous planifiez tout (Jaune) → vous contrôlez chaque détail (Bleu)",
+                "Quelque chose est imparfait → vous recommencez",
+                "L'épuisement vous gagne → vous ne pouvez pas vous arrêter",
+                "Les trois masques s'activent simultanément à chaque nouveau projet"
+            ]
+        },
+        "vert+indigo+orange": {
+            nom: "Effacement silencieux",
+            desc: "Votre masque Vert vous adapte aux autres, votre masque Indigo vous impose des standards, votre masque Orange coupe l'accès à vos émotions. Vous disparaissez derrière ce que vous faites pour les autres, sans même savoir ce que vous ressentez.",
+            boucle: [
+                "On attend quelque chose de vous → Vert s'adapte",
+                "Indigo exige que ce soit parfait",
+                "Orange empêche de ressentir la fatigue ou la frustration",
+                "Vous donnez sans compter → vous ne savez plus ce dont vous avez besoin"
+            ]
+        }
+    };
+
+    // ═══════════════ CONSTRUCTION DU PORTRAIT (ENRICHI) ═══════════════
     function buildPortrait(scores, profile, prenom) {
         const dom = profile.primary, sec = profile.secondary;
         const meta = META[dom];
@@ -361,31 +489,25 @@
         let html = '';
         const maskLabel = MASK_LABELS[dom];
 
-        // Phrase de peur adaptée au profil
-        let peurPhrase = meta.peur;
-        if (profile.type === 'dyade' || profile.type === 'dyade_moderee') {
-            peurPhrase = `${META[dom].peur} — et ${META[sec].peur}`;
-        } else if (profile.type === 'triade') {
-            peurPhrase = `${META[dom].peur}, ${META[profile.secondary].peur}, et ${META[profile.tertiary].peur} — en même temps.`;
-        } else if (profile.type === 'pan') {
-            peurPhrase = "de multiples peurs activées simultanément.";
-        }
+        // ═══ HERO — LE MASQUE DOMINANT ═══
+        html += `<div class="hero-mask" style="border-color: ${MASK_COLORS[dom]}40;">
+            <span style="font-size:13px; letter-spacing:3px; text-transform:uppercase; color:${MASK_COLORS[dom]}; font-weight:500;">Votre protection principale</span>
+            <div class="hero-mask-name">Masque ${maskLabel}</div>
+            <div class="hero-separator"></div>
+            <p class="hero-tagline">
+                C’est le masque qui s’active le plus automatiquement en vous. Il colore vos réactions, oriente vos décisions, et influence la manière dont vos autres défenses se manifestent.
+            </p>
+            <p style="color:var(--text3); font-size:14px; margin-top:16px;">
+                ${profile.type === 'mono' || profile.type === 'mono_fort'
+                    ? 'Il agit souvent seul, concentrant l’essentiel de votre énergie défensive.'
+                    : `Il dialogue avec d’autres masques — nous vous montrons plus bas comment ils se répondent.`}
+            </p>
+        </div>`;
 
-        // ═══ BLOC 0 — "C'est moi" ═══
-        html += `<div class="block">
-            <div class="mask-badge" style="background:${MASK_COLORS[dom]}">Masque ${maskLabel}</div>
-            <h1>Vous avez ${peurPhrase}</h1>
-            <p style="margin-top:16px; color: var(--text2); font-size:15px;">
-                Un masque de défense est une protection que votre esprit a construite, souvent très tôt, face à quelque chose qui faisait mal. Il a fonctionné. Il vous a protégé·e. Le problème : il fonctionne encore aujourd'hui — même quand la menace a disparu depuis longtemps.
-            </p>
-            <p style="color: var(--text2); font-size:15px; margin-top:8px;">
-                <em>Ce portrait ne dit pas qui vous êtes. Il révèle ce qui vous empêche d'être vous.</em>
-            </p>
-            <div class="reminder-box">
-                <strong>Rappelez-vous :</strong><br>
-                Vous n'êtes pas ce masque. Vous êtes la personne derrière le masque.<br>
-                Cette stratégie de protection n'est pas votre identité — elle est ce qui la recouvre.
-            </div>
+        // ═══ RAPPEL ═══
+        html += `<div class="reminder-box" style="margin-bottom:32px;">
+            <strong>Rappelez-vous :</strong> Vous n’êtes pas ce masque. Il est une protection, non une identité.<br>
+            Cette stratégie n’est pas votre personnalité — elle est ce qui la recouvre.
         </div>`;
 
         // ═══ BLOC 1 — "C'est exactement ça" ═══
@@ -405,11 +527,37 @@
             <div class="mechanism">
                 ${steps.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}
             </div>
-            ${profile.type === 'dyade' || profile.type === 'triade' ? `<p style="margin-top:16px; color:var(--text3); font-style:italic;">Dans votre configuration, ces mécanismes s'amplifient mutuellement — chaque masque nourrit l'autre.</p>` : ''}
             <div class="metaphor-box">
                 Imaginez un détecteur de fumée réglé trop sensiblement. Il protège la maison. Mais il sonne aussi quand les toasts brûlent. Votre masque fonctionne comme cela : il ne sait pas encore que la guerre est finie.
             </div>
         </div>`;
+
+        // ═══ BLOC 2bis — "Quand les masques se répondent" (dyade/triade/pan) ═══
+        if (profile.type === 'dyade' || profile.type === 'dyade_moderee' || profile.type === 'triade' || profile.type === 'pan') {
+            const sortedKeys = [...profile.masks].sort();
+            const key = sortedKeys.join('+');
+            const amplification = (profile.type === 'triade' ? TRIADES_AMPLIFICATIONS[key] : null) || DYADES_AMPLIFICATIONS[key] || null;
+
+            html += `<div class="block" style="border-left: 3px solid ${MASK_COLORS[dom]};">
+                <h2>2bis. Quand les masques se répondent</h2>
+                <p style="color:var(--text2);">Votre configuration n'est pas une simple addition de peurs. Les masques interagissent, s'amplifient, et créent ensemble des schémas plus complexes que chacun ne le ferait seul.</p>
+                <div style="display:flex; gap:10px; margin:16px 0; flex-wrap:wrap;">
+                    ${profile.masks.slice(0, 3).map(m => `<span style="background:${MASK_COLORS[m]}; color:#fff; padding:4px 12px; border-radius:20px; font-size:13px; font-weight:500;">${MASK_LABELS[m]}</span>`).join('')}
+                </div>`;
+
+            if (amplification) {
+                html += `<p style="font-weight:600; color:var(--gold);">${amplification.nom}</p>`;
+                html += `<p style="color:var(--text2);">${amplification.desc}</p>`;
+                html += `<div class="mechanism" style="margin-top:16px;">`;
+                amplification.boucle.forEach((step, i) => {
+                    html += `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`;
+                });
+                html += `</div>`;
+            } else {
+                html += `<p style="color:var(--text2); font-style:italic;">Vos masques forment une combinaison unique. Ensemble, ils créent un système de protection qui mérite d'être exploré avec un accompagnement personnalisé.</p>`;
+            }
+            html += `</div>`;
+        }
 
         // ═══ BLOC 3 — "Ce n'est pas un défaut" ═══
         html += `<div class="block">
@@ -448,7 +596,6 @@
             <p style="color:var(--text2); margin-bottom:20px;">
                 Voici la photographie complète de vos protections en ce moment. Chaque masque a un niveau d'emprise différent — cela n'a rien de définitif, c'est une base de départ pour mieux vous connaître.
             </p>`;
-
         const sortedMasks = [...MASKS].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
         sortedMasks.forEach(m => {
             const pct = scores[m] || 0;
@@ -465,7 +612,6 @@
                 <span style="font-size:11px; width:80px; text-align:right; color:var(--text3);">${level}</span>
             </div>`;
         });
-
         html += `
             <div style="margin-top:28px; border-top:1px solid var(--line); padding-top:20px;">
                 <div style="display:flex; align-items:center; gap:20px;">
@@ -485,7 +631,6 @@
                     </div>
                 </div>
             </div>
-
             <p style="margin-top:24px; text-align:center;">
                 <button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button>
             </p>
@@ -516,7 +661,6 @@
         return html;
     }
 
-    // ═══════════════ NIVEAU D'EMPRISE ═══════════════
     function getLevelLabel(pct) {
         if (pct >= 85) return 'Dominant';
         if (pct >= 70) return 'Élevé';
