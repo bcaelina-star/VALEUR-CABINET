@@ -139,7 +139,6 @@
             font-size: 22px;
             color: var(--gold);
         }
-        /* ═══ NOUVEAU : HERO MASQUE ═══ */
         .hero-mask {
             text-align: center;
             padding: 48px 20px 40px;
@@ -156,15 +155,11 @@
             color: var(--text);
             margin-bottom: 12px;
         }
-        .hero-mask-name span {
-            display: block;
-            font-size: 16px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 8px;
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 400;
+        .hero-separator {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
         }
         .hero-tagline {
             font-family: 'Cormorant Garamond', serif;
@@ -174,12 +169,6 @@
             max-width: 500px;
             margin: 0 auto;
             line-height: 1.5;
-        }
-        .hero-separator {
-            width: 60px;
-            height: 2px;
-            background: var(--gold);
-            margin: 20px auto;
         }
         .btn-print {
             display: inline-block;
@@ -203,12 +192,7 @@
             border-top: 1px solid var(--line);
             padding-top: 24px;
         }
-        a {
-            color: var(--gold);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border .2s;
-        }
+        a { color: var(--gold); text-decoration: none; border-bottom: 1px solid transparent; transition: border .2s; }
         a:hover { border-bottom-color: var(--gold); }
         @media print {
             body { background: white; }
@@ -222,13 +206,11 @@
 <div class="container" id="app">
     <div class="chroma-bar"></div>
     <div id="portrait-content"></div>
-    <div class="footer-note">
-        Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue · Cabinet
-    </div>
+    <div class="footer-note">Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue · Cabinet</div>
 </div>
 
 <script>
-    // ═══════════════ CONFIGURATION ═══════════════
+    // ═══════════════ CONFIG ═══════════════
     const MASKS = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
     const MASK_COLORS = {
         rouge: '#B5312A', orange: '#C4581F', jaune: '#B8930A',
@@ -240,6 +222,7 @@
     };
     const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
     const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby4vOwYjKBFhtLBmwaqvlK5ba8Ow3rzlXihaQBPyA0/exec';
+
     // ═══════════════ DONNÉES CLINIQUES ═══════════════
     const META = {
         rouge: { peur: "la peur de la maladie et de l'insécurité corporelle", force: "Une présence incarnée, capable de s'ancrer dans l'instant sans être happée par l'inquiétude." },
@@ -262,41 +245,13 @@
     };
 
     const LOOPS = {
-        rouge: [
-            "Une sensation corporelle émerge — un battement, une douleur, une gêne.",
-            "Votre esprit l'interprète immédiatement comme une menace potentielle.",
-            "Vous cherchez une confirmation, une réassurance — mais la certitude parfaite n'existe pas, et l'alerte repart."
-        ],
-        orange: [
-            "Une émotion douloureuse approche — tristesse, colère, peur.",
-            "Votre esprit verrouille l'accès pour ne pas être submergé.",
-            "L'émotion, non traversée, ressurgit ailleurs — fatigue, vide, irritabilité — sans que vous sachiez pourquoi."
-        ],
-        jaune: [
-            "Une situation comporte une part d'incertitude — même minime.",
-            "Votre esprit anticipe tous les scénarios possibles pour éliminer le risque.",
-            "L'imprévu est évité, mais la vie devient un exercice de contrôle permanent — épuisant."
-        ],
-        vert: [
-            "Vous percevez un signal de distance chez l'autre — réel ou imaginaire.",
-            "Vous adaptez votre comportement pour restaurer le lien.",
-            "Le lien est maintenu, mais au prix de vos propres besoins — qui finissent par peser."
-        ],
-        bleu: [
-            "Quelque chose vous échappe — une tâche, une décision, une personne.",
-            "Vous reprenez le contrôle, même au détriment de votre énergie.",
-            "La situation est maîtrisée, mais vous êtes seul·e à tout porter — et personne ne peut vous relayer."
-        ],
-        indigo: [
-            "Vous anticipez le regard de l'autre — un jugement possible.",
-            "Vous perfectionnez, retravaillez, vérifiez pour ne laisser aucune prise.",
-            "Le résultat est irréprochable, mais vous êtes épuisé·e — et la barre monte pour la prochaine fois."
-        ],
-        violet: [
-            "Une situation vous confronte à la question : qui suis-je vraiment ?",
-            "Vous endossez un rôle adapté à ce qu'on attend de vous.",
-            "Vous passez inaperçu·e, mais votre identité profonde reste en retrait — et le vide s'installe."
-        ]
+        rouge: ["Une sensation corporelle émerge — un battement, une douleur, une gêne.","Votre esprit l'interprète immédiatement comme une menace potentielle.","Vous cherchez une confirmation, une réassurance — mais la certitude parfaite n'existe pas, et l'alerte repart."],
+        orange: ["Une émotion douloureuse approche — tristesse, colère, peur.","Votre esprit verrouille l'accès pour ne pas être submergé.","L'émotion, non traversée, ressurgit ailleurs — fatigue, vide, irritabilité — sans que vous sachiez pourquoi."],
+        jaune: ["Une situation comporte une part d'incertitude — même minime.","Votre esprit anticipe tous les scénarios possibles pour éliminer le risque.","L'imprévu est évité, mais la vie devient un exercice de contrôle permanent — épuisant."],
+        vert: ["Vous percevez un signal de distance chez l'autre — réel ou imaginaire.","Vous adaptez votre comportement pour restaurer le lien.","Le lien est maintenu, mais au prix de vos propres besoins — qui finissent par peser."],
+        bleu: ["Quelque chose vous échappe — une tâche, une décision, une personne.","Vous reprenez le contrôle, même au détriment de votre énergie.","La situation est maîtrisée, mais vous êtes seul·e à tout porter — et personne ne peut vous relayer."],
+        indigo: ["Vous anticipez le regard de l'autre — un jugement possible.","Vous perfectionnez, retravaillez, vérifiez pour ne laisser aucune prise.","Le résultat est irréprochable, mais vous êtes épuisé·e — et la barre monte pour la prochaine fois."],
+        violet: ["Une situation vous confronte à la question : qui suis-je vraiment ?","Vous endossez un rôle adapté à ce qu'on attend de vous.","Vous passez inaperçu·e, mais votre identité profonde reste en retrait — et le vide s'installe."]
     };
 
     const ORIGINS = {
@@ -309,6 +264,96 @@
         violet: "Il a été plus sûr de s'adapter que d'être soi. Vos émotions, vos questions, votre singularité étaient peut-être trop intenses, trop différentes. Alors vous avez appris à devenir ce que les autres attendaient. Une stratégie de survie identitaire — brillante, mais déconnectée de votre nature profonde."
     };
 
+    const RETAINED_EXPERIENCES = {
+        rouge: ["L'insouciance de ne pas penser à votre corps pendant une journée entière.","La liberté de ressentir une douleur sans y voir une menace.","Le plaisir de manger, de bouger, de vivre sans arrière‑pensée.","La confiance de laisser votre corps se reposer sans le surveiller."],
+        orange: ["L'intimité d'un moment où vous auriez pu être vraiment touché·e.","La joie de pleurer sans vous demander pourquoi.","La spontanéité d'un fou rire, d'une colère saine, d'une émotion traversée.","La sensation d'être pleinement présent·e, sans distance."],
+        jaune: ["L'excitation de l'imprévu, la surprise qui fait du bien.","La légèreté de ne pas avoir de plan, et de découvrir ce qui arrive.","La confiance de prendre une décision sans avoir toutes les réponses.","La liberté d'agir avant d'être certain·e."],
+        vert: ["La paix de dire non sans craindre de perdre l'autre.","La certitude d'être aimé·e pour ce que vous êtes, pas pour ce que vous faites.","Le droit d'exister sans vous adapter en permanence.","L'espace de recevoir, sans avoir besoin de donner en retour."],
+        bleu: ["Le soulagement de déposer les armes, de laisser quelqu'un d'autre porter.","La confiance de déléguer sans vérifier.","Le repos de ne pas être indispensable.","La douceur de recevoir de l'aide, sans la contrôler."],
+        indigo: ["La liberté de faire « assez bien » et de passer à autre chose.","La fierté de montrer un travail en cours, imparfait mais vivant.","Le droit à l'erreur, sans que cela remette en cause votre valeur.","La joie de créer sans vous juger."],
+        violet: ["La sensation de vous reconnaître dans un miroir, sans rôle.","La stabilité d'un « je » qui ne change pas selon les regards.","La liberté d'évoluer sans craindre de vous perdre.","L'apaisement de savoir qui vous êtes, simplement."]
+    };
+
+    const VALEUR_STEPS = [
+        { lettre: 'V', nom: 'VOIR', desc: 'Reconnaître le masque au moment où il s’active.' },
+        { lettre: 'A', nom: 'ACCUEILLIR', desc: 'Cesser de lutter contre l’émotion ou la pensée automatique.' },
+        { lettre: 'L', nom: 'LOCALISER', desc: 'Revenir au corps, là où la peur se manifeste.' },
+        { lettre: 'E', nom: 'EXPLORER', desc: 'Clarifier le conflit entre sécurité et élan de vie.' },
+        { lettre: 'U', nom: 'UNIFIER', desc: 'Trouver une voie qui honore à la fois le besoin de protection et le désir d’être soi.' },
+        { lettre: 'R', nom: 'RENFORCER', desc: 'Poser des actions nouvelles, alignées avec votre nature profonde.' }
+    ];
+        // ═══════════════ 21 DYADES VALIDÉES ═══════════════
+    const DYADES_AMPLIFICATIONS = {
+        "jaune+rouge": { nom:"Anxiété de santé amplifiée", desc:"Votre masque Rouge surveille votre corps, votre masque Jaune exige des certitudes. Chaque sensation devient une question médicale qui doit avoir une réponse — et la réponse n'est jamais assez rassurante.", boucle:["Une sensation corporelle apparaît (Rouge)","Jaune exige une certitude que la médecine ne peut pas donner","Vous cherchez des informations, consultez, vérifiez","La rassurance ne dure pas → la prochaine sensation relance le cycle"] },
+        "orange+vert": { nom:"Distance paradoxale", desc:"Votre masque Orange vous coupe de vos ressentis, votre masque Vert a besoin de lien. Vous cherchez la proximité tout en restant à distance de vos émotions — l'autre ne vous atteint jamais vraiment.", boucle:["Vous avez besoin des autres (Vert)","L'émotion monte → Orange la coupe","Vous semblez froid·e ou distant·e","L'autre s'éloigne → Vert redouble d'efforts pour restaurer le lien"] },
+        "jaune+vert": { nom:"Surveillance relationnelle", desc:"Votre masque Jaune a besoin de certitudes, votre masque Vert craint l'abandon. Vous surveillez les signaux de vos relations pour vérifier que tout va bien, ce qui crée une tension permanente.", boucle:["Un signal relationnel ambigu apparaît (retard, silence) — Vert l'interprète comme une distance","Jaune exige de savoir ce que cela signifie avec certitude","Vous analysez, relisez, cherchez des indices","L'autre ressent cette attention constante comme une pression — ce qui crée la distance que vous craigniez"] },
+        "orange+rouge": { nom:"Le Corps sans Voix", desc:"Votre masque Rouge déclenche une vigilance corporelle, votre masque Orange coupe l'accès émotionnel. L'anxiété s'exprime par le corps sans pouvoir être nommée ni traversée.", boucle:["Une sensation corporelle anxieuse monte — Rouge déclenche l'alerte","Orange coupe l'accès émotionnel à cette anxiété","L'anxiété s'exprime par le corps, plus fort (tensions, palpitations)","La surveillance corporelle s'intensifie (Rouge), alimentant de nouveaux symptômes"] },
+        "bleu+jaune": { nom:"Contrôle absolu", desc:"Votre masque Bleu a besoin de tout maîtriser, votre masque Jaune ne supporte pas l'imprévu. Vous devez tout prévoir et tout diriger — une double charge mentale épuisante.", boucle:["Quelque chose vous échappe → Bleu veut reprendre la main","L'incertitude demeure → Jaune anticipe tous les scénarios","Vous sur-planifiez et sur-contrôlez → épuisement","L'épuisement vous rend moins efficace → Bleu et Jaune s'activent encore plus"] },
+        "bleu+indigo": { nom:"Exigence totale", desc:"Votre masque Bleu veut tout contrôler, votre masque Indigo veut tout réussir. Vous ne pouvez ni déléguer, ni vous satisfaire de ce qui est « assez bien ».", boucle:["Un résultat est attendu → Indigo exige la perfection","Bleu reprend la main pour s'assurer du résultat","Vous travaillez deux fois plus que nécessaire","La réussite ne suffit pas → le standard monte pour la prochaine fois"] },
+        "indigo+vert": { nom:"S'effacer pour être parfait", desc:"Votre masque Vert vous pousse à vous adapter aux autres, votre masque Indigo vous impose des standards impossibles. Vous voulez être à la hauteur pour être aimé·e — et vous vous épuisez à répondre aux attentes.", boucle:["Vous percevez une attente → Vert veut y répondre","Indigo vous dit que ce n'est jamais assez bien","Vous en faites toujours plus → vous disparaissez derrière la performance","La peur du rejet et du jugement se renforcent mutuellement"] },
+        "indigo+jaune": { nom:"Perfectionnisme paralysant", desc:"Votre masque Indigo exige la perfection, votre masque Jaune refuse l'incertitude. Ensemble, ils créent une paralysie : vous ne pouvez ni commencer sans garantie, ni finir sans avoir tout vérifié.", boucle:["Un projet se présente → vous voulez qu'il soit parfait (Indigo)","L'incertitude du résultat vous bloque → vous reportez (Jaune)","Le report renforce la peur de l'échec → Indigo devient plus exigeant","L'exigence accroît l'incertitude → Jaune verrouille davantage"] },
+        "jaune+violet": { nom:"Rigidité identitaire", desc:"Votre masque Violet ne sait pas qui il est sans ses repères, votre masque Jaune refuse le changement. Les routines s'alourdissent pour maintenir une stabilité indispensable.", boucle:["Un changement approche — Violet perçoit une menace pour l'identité","Jaune exige de tout prévoir, ce qui est impossible","Les deux masques créent une résistance rigide — vous restez dans ce que vous connaissez","La vie rétrécit, chaque dérogation aux habitudes déclenche une anxiété"] },
+        "bleu+rouge": { nom:"Le Corps sous Contrôle", desc:"Votre masque Rouge surveille le corps, votre masque Bleu transforme toute alerte en plan d'action. Le corps devient un système à optimiser.", boucle:["Une sensation corporelle attire votre attention — Rouge l'interprète comme alerte","Bleu transforme l'alerte en plan : protocoles, optimisation, discipline","Le corps résiste naturellement à la maîtrise totale","Cette résistance est interprétée comme une nouvelle défaillance — le contrôle se renforce"] },
+        "rouge+vert": { nom:"Le Corps comme Lien", desc:"Votre masque Rouge génère une anxiété corporelle, votre masque Vert a besoin de connexion. La présence de l'autre apaise les symptômes, l'absence les amplifie.", boucle:["Un symptôme surgit — Rouge génère une anxiété corporelle","La solitude amplifie l'anxiété — Vert a besoin d'une présence pour la traverser","La réassurance de l'autre soulage momentanément — mais crée une dépendance","La prochaine inquiétude, seule, est plus difficile à supporter"] },
+        "indigo+rouge": { nom:"Le Corps sous Exigence", desc:"Votre masque Rouge est vigilant sur le corps, votre masque Indigo impose des standards impossibles. La fatigue devient une insuffisance.", boucle:["Un signal de limite apparaît (fatigue, douleur) — Rouge l'enregistre, Indigo le juge","Des standards corporels sont appliqués de façon rigide","Le corps s'épuise sous l'exigence — il produit de nouveaux signaux","Ces signaux sont interprétés comme preuve d'insuffisance — le cycle recommence"] },
+        "rouge+violet": { nom:"L'Identité par la Santé", desc:"Votre masque Rouge maintient une surveillance corporelle, votre masque Violet cherche une identité stable. La vigilance santé devient un repère identitaire.", boucle:["Une préoccupation de santé survient — Rouge s'en saisit","Elle comble un vide identitaire — Violet trouve un rôle stable","L'identité se construit autour de la vigilance santé","Les symptômes persistent, car ils remplissent une fonction identitaire"] },
+        "jaune+orange": { nom:"Planifier sans Habiter", desc:"Votre masque Jaune structure, planifie, votre masque Orange coupe l'accès aux émotions. Une vie parfaitement organisée et émotionnellement vide.", boucle:["Une situation imprévue survient — Jaune la cadre, la planifie, la contrôle","Orange empêche de ressentir l'anxiété — et toute autre émotion","La planification ne procure aucune satisfaction","Plus de contrôle, moins de ressenti — la vie devient mécanique"] },
+        "bleu+orange": { nom:"La Réussite sans Joie", desc:"Votre masque Bleu a besoin de réussir, votre masque Orange empêche l'accès à la satisfaction. Les succès ne procurent rien.", boucle:["Une réussite arrive — Orange empêche de la ressentir","Le vide persiste — Bleu cherche la prochaine maîtrise","La prochaine réussite produit le même vide","Le besoin de contrôle augmente sans jamais trouver de satisfaction"] },
+        "indigo+orange": { nom:"Performer sans Ressentir", desc:"Votre masque Indigo exige la perfection, votre masque Orange déconnecte l'émotion. Une performance sans retour sensoriel.", boucle:["Un travail est terminé — Indigo l'évalue immédiatement","Orange empêche de ressentir la fierté ou la satisfaction","Le standard monte — puisque rien ne satisfait, il faut faire plus","L'épuisement s'installe sans signal émotionnel — jusqu'à un arrêt brutal"] },
+        "orange+violet": { nom:"L'Absence à Soi", desc:"Votre masque Orange prive de l'accès aux ressentis, votre masque Violet prive d'une identité stable. Double absence : le monde intérieur est flou.", boucle:["Un moment de calme arrive — Violet cherche qui vous êtes, sans réponse","Orange empêche l'accès émotionnel — la question identitaire ne peut être ressentie","Vous fonctionnez en pilote automatique — les décisions sont dictées par l'extérieur","Le vide existentiel s'approfondit silencieusement"] },
+        "bleu+vert": { nom:"Tenir pour ne pas Perdre", desc:"Votre masque Vert a peur d'être abandonné, votre masque Bleu contrôle pour se sentir en sécurité. Le besoin se transforme en surveillance.", boucle:["La peur d'être quitté·e s'active — Vert cherche à sécuriser le lien","Bleu transforme cette peur en contrôle : vérifications, exigences","L'autre ressent la pression et s'éloigne — confirmant la menace d'abandon","Le contrôle se resserre — créant l'éloignement qu'il cherchait à éviter"] },
+        "vert+violet": { nom:"Fusion Identitaire", desc:"Votre masque Vert s'adapte pour être accepté, votre masque Violet cherche une identité dans le reflet des autres. Une dissolution progressive de soi.", boucle:["Une relation se développe — Vert s'adapte pour ne pas être rejeté","Violet trouve une identité dans le reflet de l'autre — fusion progressive","Vous disparaissez dans la relation — vos goûts, valeurs s'effacent","La peur de la séparation devient existentielle — quitter serait n'être plus rien"] },
+        "bleu+violet": { nom:"Le Pouvoir comme Identité", desc:"Votre masque Bleu a besoin de contrôler, votre masque Violet cherche une identité. Le rôle devient la réponse : 'je suis celui qui gère'.", boucle:["Le rôle est remis en question — Violet perçoit une menace identitaire","Bleu s'accroche au contrôle — c'est la seule identité disponible","Plus le rôle est menacé, plus le contrôle devient rigide","L'identité réelle, sous le rôle, reste inexplorée"] },
+        "indigo+violet": { nom:"L'Imposteur Existentiel", desc:"Votre masque Indigo impose des standards, votre masque Violet ne fournit pas d'identité stable. Les standards s'appliquent dans le vide.", boucle:["Un projet se présente — Indigo active les standards","Violet ne fournit pas d'identité stable — les standards flottent, arbitraires","L'imposture semble totale — vous jouez un rôle, imparfaitement","Chaque nouvelle situation relance la même question sans réponse"] }
+    };
+
+    // ═══════════════ 15 TRIADES VALIDÉES ═══════════════
+    const TRIADES_AMPLIFICATIONS = {
+        "jaune+orange+rouge": { nom:"Le Corps en Alerte Permanente", desc:"Votre masque Rouge maintient le corps en vigilance, votre masque Jaune exige des certitudes, votre masque Orange coupe l'accès aux émotions. L'anxiété reste piégée dans le corps.", boucle:["Une sensation corporelle émerge — Rouge l'interprète comme menace","Jaune exige une certitude que le corps ne peut pas fournir","Orange empêche de ressentir l'anxiété comme une émotion","L'anxiété s'exprime par le corps, plus fort — et le cycle redémarre"] },
+        "bleu+indigo+jaune": { nom:"L'Exigence sans Seuil", desc:"Le masque Jaune ne supporte pas l'incertitude, le masque Bleu a besoin de maîtriser, le masque Indigo exige des standards élevés. Rien n'est jamais assez.", boucle:["Un projet exige un résultat — Indigo veut la perfection, Jaune la certitude, Bleu le contrôle","Vous planifiez, vérifiez, retravaillez — tout doit être parfait","L'épuisement s'installe — mais vous ne pouvez pas vous arrêter","Les trois masques s'activent simultanément à chaque nouveau projet"] },
+        "indigo+orange+vert": { nom:"L'Épuisement Invisible", desc:"Le masque Vert vous fait disparaître dans les relations, le masque Indigo vous efface par peur du jugement, le masque Orange coupe l'accès à vos ressentis. La souffrance est invisible.", boucle:["On attend quelque chose de vous — Vert s'adapte","Indigo exige que ce soit parfait","Orange empêche de ressentir la fatigue ou la frustration","Vous donnez sans compter — vous ne savez plus ce dont vous avez besoin"] },
+        "bleu+jaune+rouge": { nom:"Contrôle Total", desc:"Le masque Rouge surveille le corps, le masque Jaune anticipe, le masque Bleu contrôle les situations. Trois fronts de surveillance simultanés.", boucle:["Une sensation corporelle apparaît (Rouge)","Jaune exige de tout prévoir, Bleu de tout maîtriser","La moindre déviation déclenche une réaction en chaîne","L'épuisement est structurel — aucune surveillance ne s'arrête jamais"] },
+        "indigo+orange+violet": { nom:"L'Identité en Suspens", desc:"Le masque Violet ne sait pas qui il est, le masque Orange ne sait pas ce qu'il ressent, le masque Indigo exige que ce 'je' flou soit parfait.", boucle:["Une question sur votre identité surgit — Violet cherche sans réponse","Orange empêche de ressentir ce vide","Indigo exige d'être parfait·e — mais qui doit l'être ?","Les standards s'appliquent dans le vide — le doute s'approfondit"] },
+        "jaune+rouge+vert": { nom:"Anxiété de Survie Relationnelle", desc:"Le masque Rouge génère une anxiété corporelle, le masque Vert a besoin de connexion, le masque Jaune exige de savoir si cette connexion est stable.", boucle:["Un symptôme physique surgit — Rouge s'alarme","La solitude amplifie l'anxiété — Vert a besoin de l'autre","Jaune exige de savoir si la relation est solide","La réassurance ne dure pas — le prochain symptôme relance le cycle"] },
+        "bleu+jaune+vert": { nom:"Ne Jamais Lâcher le Lien", desc:"Le masque Vert a peur de l'abandon, le masque Bleu transforme cette peur en contrôle, le masque Jaune exige des certitudes sur la solidité du lien.", boucle:["Une inquiétude relationnelle surgit — Vert cherche à sécuriser le lien","Bleu transforme cette peur en comportements de contrôle","Jaune exige de savoir si tout va bien — vérifications constantes","L'autre ressent la pression et s'éloigne — confirmant la peur initiale"] },
+        "orange+rouge+violet": { nom:"Le Corps comme Seul Repère", desc:"Le masque Rouge surveille le corps, le masque Orange coupe l'accès aux émotions, le masque Violet cherche une identité sans la trouver. Le corps devient le seul ancrage.", boucle:["Un symptôme apparaît — Rouge le surveille","Orange empêche de ressentir l'émotion sous-jacente","Violet s'accroche à ce rôle de patient comme identité","Aller mieux devient une menace — guérir serait perdre son identité"] },
+        "bleu+indigo+orange": { nom:"La Réussite sans Joie", desc:"Le masque Bleu a besoin de réussir, le masque Indigo exige la perfection, le masque Orange empêche de ressentir la satisfaction.", boucle:["Une réussite arrive — Orange empêche de la ressentir","Indigo juge que ce n'était pas assez bien","Bleu cherche la prochaine maîtrise pour combler le vide","Les succès s'accumulent sans jamais nourrir — l'effondrement guette"] },
+        "jaune+orange+vert": { nom:"La Dépendance Planifiée", desc:"Le masque Vert s'adapte aux autres, le masque Jaune structure cette adaptation avec des routines, le masque Orange empêche de ressentir le coût.", boucle:["Vous vous pliez aux attentes des autres (Vert)","Vous organisez votre vie autour de ces attentes (Jaune)","Vous ne ressentez pas la fatigue ou la frustration (Orange)","La question 'qu'est-ce que je veux, moi ?' reste sans réponse"] },
+        "indigo+jaune+rouge": { nom:"Perfectionnisme Sanitaire", desc:"Le masque Rouge surveille le corps, le masque Jaune exige des certitudes sur la santé, le masque Indigo impose des standards impossibles.", boucle:["Une sensation corporelle apparaît — Rouge s'alarme","Jaune veut une certitude médicale absolue","Indigo exige un corps parfait — régimes, protocoles","La recherche de la santé parfaite produit stress et fatigue"] },
+        "bleu+vert+violet": { nom:"Fusionner pour Exister", desc:"Le masque Vert fusionne avec l'autre, le masque Violet trouve dans cette fusion une identité, le masque Bleu contrôle ce à quoi il est attaché.", boucle:["Une relation se développe — Vert s'adapte, Violet fusionne","Bleu contrôle la relation pour la sécuriser","Vous disparaissez dans l'autre — votre identité dépend de la relation","La séparation devient existentiellement menaçante"] },
+        "bleu+jaune+orange": { nom:"L'Efficacité Froide", desc:"Le masque Bleu contrôle, le masque Jaune anticipe, le masque Orange coupe les émotions. Une efficacité redoutable et une froideur qui éloigne.", boucle:["Vous gérez les situations avec une précision remarquable","Les émotions sont mises de côté — les vôtres et celles des autres","Les relations s'appauvrissent — les gens s'éloignent","Vous vous sentez seul·e au milieu de votre réussite"] },
+        "rouge+vert+violet": { nom:"La Triple Fragilité", desc:"Le masque Rouge fragilise le rapport au corps, le masque Vert fragilise l'autonomie relationnelle, le masque Violet fragilise la stabilité identitaire.", boucle:["Un symptôme physique active le besoin de l'autre","Le besoin de l'autre active la question identitaire","La confusion identitaire amplifie l'anxiété corporelle","Les trois piliers vacillent ensemble — l'autonomie est difficile"] },
+        "indigo+jaune+violet": { nom:"Le Perfectionnisme sans Ancrage", desc:"Le masque Indigo impose des standards, le masque Jaune exige des certitudes, le masque Violet ne fournit pas d'identité stable.", boucle:["Une décision se profile — Indigo veut la perfection","Jaune veut la certitude — Violet ne sait pas qui décide","Vous cherchez la bonne direction sans boussole","Les projets s'accumulent sans aboutir — épuisement"] }
+    };
+
+    // ═══════════════ PAN-MASQUE & ADAPTATIF ═══════════════
+    const PAN_MASQUE = {
+        nom: "L'Adaptation Multi-Protection",
+        desc: "Quand un seul masque domine, l'énergie est concentrée. Dans votre cas, elle est dispersée sur plusieurs fronts. Votre cerveau a enregistré que le danger pouvait venir de partout. Vous avez construit non pas un mur, mais un filet — souple, adaptable. Cette plasticité est remarquable, mais elle a un coût : une fatigue diffuse et la sensation de ne pas avoir de 'chez-soi' intérieur.",
+        boucle: [
+            "Une situation active un masque spécifique",
+            "Avant qu'il ne se désactive, une autre facette en active un deuxième",
+            "Les masques s'empilent, créant un état de fond anxieux",
+            "L'énergie est consommée par cette navigation constante — le repos ne les éteint pas"
+        ],
+        exemples: [
+            "Au travail : vous passez d'un rôle à l'autre selon les interlocuteurs, et vous terminez la journée épuisé·e sans savoir pourquoi.",
+            "Dans les relations : vous vous adaptez à chaque personne, au point de ne plus savoir quelle version de vous est la vraie."
+        ]
+    };
+
+    const ADAPTATIF = {
+        nom: "Profil Adaptatif",
+        desc: "Vos scores indiquent qu'aucune peur n'a pris le contrôle de votre fonctionnement quotidien. Vos défenses sont souples, proportionnées. Elles s'activent quand c'est nécessaire, et se retirent quand le danger passe. Ce n'est pas l'absence de vulnérabilité — c'est la capacité à la traverser sans en être prisonnier·ère.",
+        ce_qui_est_deja_la: [
+            "Vous avez accès à vos émotions sans être submergé·e.",
+            "Vous pouvez faire confiance, déléguer, lâcher prise.",
+            "Vous savez qui vous êtes, et cela ne dépend pas du regard des autres.",
+            "Vous vivez des moments de pleine présence, sans rôle à jouer."
+        ],
+        direction: "Vous êtes déjà sur le chemin de la présence authentique. La méthode V.A.L.E.U.R peut vous aider à élargir encore cet espace de liberté, et à comprendre ce qui, parfois, vous en éloigne."
+    };
+
     // ═══════════════ DÉTECTION DU PROFIL ═══════════════
     function detectProfile(scores) {
         const sorted = MASKS.map(k => ({ key: k, pct: scores[k] || 0 })).sort((a, b) => b.pct - a.pct);
@@ -318,6 +363,7 @@
         const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0, S4 = sorted[3]?.pct || 0;
         const primary = sorted[0].key, secondary = sorted[1]?.key || null;
         const masks = sorted.map(m => m.key);
+
         if (S1 < 50) return { type: S1 < 30 ? 'adaptatif_eq' : 'adaptatif_vig', masks, primary };
         const active60 = sorted.filter(m => m.pct >= 60);
         if (active60.length >= 5) {
@@ -337,186 +383,8 @@
         const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
         return Math.round(100 - sum / 7);
     }
-          // ═══════════════ EXPÉRIENCES RETENUES ═══════════════
-    const RETAINED_EXPERIENCES = {
-        rouge: [
-            "L'insouciance de ne pas penser à votre corps pendant une journée entière.",
-            "La liberté de ressentir une douleur sans y voir une menace.",
-            "Le plaisir de manger, de bouger, de vivre sans arrière‑pensée.",
-            "La confiance de laisser votre corps se reposer sans le surveiller."
-        ],
-        orange: [
-            "L'intimité d'un moment où vous auriez pu être vraiment touché·e.",
-            "La joie de pleurer sans vous demander pourquoi.",
-            "La spontanéité d'un fou rire, d'une colère saine, d'une émotion traversée.",
-            "La sensation d'être pleinement présent·e, sans distance."
-        ],
-        jaune: [
-            "L'excitation de l'imprévu, la surprise qui fait du bien.",
-            "La légèreté de ne pas avoir de plan, et de découvrir ce qui arrive.",
-            "La confiance de prendre une décision sans avoir toutes les réponses.",
-            "La liberté d'agir avant d'être certain·e."
-        ],
-        vert: [
-            "La paix de dire non sans craindre de perdre l'autre.",
-            "La certitude d'être aimé·e pour ce que vous êtes, pas pour ce que vous faites.",
-            "Le droit d'exister sans vous adapter en permanence.",
-            "L'espace de recevoir, sans avoir besoin de donner en retour."
-        ],
-        bleu: [
-            "Le soulagement de déposer les armes, de laisser quelqu'un d'autre porter.",
-            "La confiance de déléguer sans vérifier.",
-            "Le repos de ne pas être indispensable.",
-            "La douceur de recevoir de l'aide, sans la contrôler."
-        ],
-        indigo: [
-            "La liberté de faire « assez bien » et de passer à autre chose.",
-            "La fierté de montrer un travail en cours, imparfait mais vivant.",
-            "Le droit à l'erreur, sans que cela remette en cause votre valeur.",
-            "La joie de créer sans vous juger."
-        ],
-        violet: [
-            "La sensation de vous reconnaître dans un miroir, sans rôle.",
-            "La stabilité d'un « je » qui ne change pas selon les regards.",
-            "La liberté d'évoluer sans craindre de vous perdre.",
-            "L'apaisement de savoir qui vous êtes, simplement."
-        ]
-    };
 
-    // ═══════════════ VALEUR STEPS ═══════════════
-    const VALEUR_STEPS = [
-        { lettre: 'V', nom: 'VOIR', desc: 'Reconnaître le masque au moment où il s’active.' },
-        { lettre: 'A', nom: 'ACCUEILLIR', desc: 'Cesser de lutter contre l’émotion ou la pensée automatique.' },
-        { lettre: 'L', nom: 'LOCALISER', desc: 'Revenir au corps, là où la peur se manifeste.' },
-        { lettre: 'E', nom: 'EXPLORER', desc: 'Clarifier le conflit entre sécurité et élan de vie.' },
-        { lettre: 'U', nom: 'UNIFIER', desc: 'Trouver une voie qui honore à la fois le besoin de protection et le désir d’être soi.' },
-        { lettre: 'R', nom: 'RENFORCER', desc: 'Poser des actions nouvelles, alignées avec votre nature profonde.' }
-    ];
-
-    // ═══════════════ AMPLIFICATIONS DYADES/TRIADES ═══════════════
-    const DYADES_AMPLIFICATIONS = {
-        "indigo+jaune": {
-            nom: "Perfectionnisme paralysant",
-            desc: "Votre masque Indigo exige la perfection, votre masque Jaune refuse l'incertitude. Ensemble, ils créent une paralysie : vous ne pouvez ni commencer sans garantie, ni finir sans avoir tout vérifié.",
-            boucle: [
-                "Un projet se présente → vous voulez qu'il soit parfait (Indigo)",
-                "L'incertitude du résultat vous bloque → vous reportez (Jaune)",
-                "Le report renforce la peur de l'échec → Indigo devient plus exigeant",
-                "L'exigence accroît l'incertitude → Jaune verrouille davantage"
-            ]
-        },
-        "bleu+jaune": {
-            nom: "Contrôle absolu",
-            desc: "Votre masque Bleu a besoin de tout maîtriser, votre masque Jaune ne supporte pas l'imprévu. Vous devez tout prévoir et tout diriger — une double charge mentale épuisante.",
-            boucle: [
-                "Quelque chose vous échappe → Bleu veut reprendre la main",
-                "L'incertitude demeure → Jaune anticipe tous les scénarios",
-                "Vous sur-planifiez et sur-contrôlez → épuisement",
-                "L'épuisement vous rend moins efficace → Bleu et Jaune s'activent encore plus"
-            ]
-        },
-        "vert+indigo": {
-            nom: "S'effacer pour être parfait",
-            desc: "Votre masque Vert vous pousse à vous adapter aux autres, votre masque Indigo vous impose des standards impossibles. Vous voulez être à la hauteur pour être aimé·e — et vous vous épuisez à répondre aux attentes.",
-            boucle: [
-                "Vous percevez une attente → Vert veut y répondre",
-                "Indigo vous dit que ce n'est jamais assez bien",
-                "Vous en faites toujours plus → vous disparaissez derrière la performance",
-                "La peur du rejet et du jugement se renforcent mutuellement"
-            ]
-        },
-        "orange+vert": {
-            nom: "Distance émotionnelle",
-            desc: "Votre masque Orange vous coupe de vos ressentis, votre masque Vert a besoin de lien. Vous cherchez la proximité tout en restant à distance de vos émotions — l'autre ne vous atteint jamais vraiment.",
-            boucle: [
-                "Vous avez besoin des autres (Vert)",
-                "L'émotion monte → Orange la coupe",
-                "Vous semblez froid·e ou distant·e",
-                "L'autre s'éloigne → Vert redouble d'efforts pour restaurer le lien"
-            ]
-        },
-        "bleu+indigo": {
-            nom: "Exigence totale",
-            desc: "Votre masque Bleu veut tout contrôler, votre masque Indigo veut tout réussir. Vous ne pouvez ni déléguer, ni vous satisfaire de ce qui est « assez bien ».",
-            boucle: [
-                "Un résultat est attendu → Indigo exige la perfection",
-                "Bleu reprend la main pour s'assurer du résultat",
-                "Vous travaillez deux fois plus que nécessaire",
-                "La réussite ne suffit pas → le standard monte pour la prochaine fois"
-            ]
-        },
-        "rouge+jaune": {
-            nom: "Anxiété de santé amplifiée",
-            desc: "Votre masque Rouge surveille votre corps, votre masque Jaune exige des certitudes. Chaque sensation devient une question médicale qui doit avoir une réponse — et la réponse n'est jamais assez rassurante.",
-            boucle: [
-                "Une sensation corporelle apparaît (Rouge)",
-                "Jaune exige une certitude que la médecine ne peut pas donner",
-                "Vous cherchez des informations, consultez, vérifiez",
-                "La rassurance ne dure pas → la prochaine sensation relance le cycle"
-            ]
-        }
-    };
-
-    const TRIADES_AMPLIFICATIONS = {
-        "indigo+jaune+bleu": {
-            nom: "Triple verrouillage",
-            desc: "Votre masque Indigo exige la perfection, votre masque Jaune refuse l'incertitude, votre masque Bleu a besoin de tout contrôler. Ensemble, ces trois protections forment une prison d'exigence : rien ne doit dévier, rien ne doit être imparfait, rien ne peut être laissé au hasard.",
-            boucle: [
-                "Vous devez réussir (Indigo) → vous planifiez tout (Jaune) → vous contrôlez chaque détail (Bleu)",
-                "Quelque chose est imparfait → vous recommencez",
-                "L'épuisement vous gagne → vous ne pouvez pas vous arrêter",
-                "Les trois masques s'activent simultanément à chaque nouveau projet"
-            ]
-        },
-        "vert+indigo+orange": {
-            nom: "Effacement silencieux",
-            desc: "Votre masque Vert vous adapte aux autres, votre masque Indigo vous impose des standards, votre masque Orange coupe l'accès à vos émotions. Vous disparaissez derrière ce que vous faites pour les autres, sans même savoir ce que vous ressentez.",
-            boucle: [
-                "On attend quelque chose de vous → Vert s'adapte",
-                "Indigo exige que ce soit parfait",
-                "Orange empêche de ressentir la fatigue ou la frustration",
-                "Vous donnez sans compter → vous ne savez plus ce dont vous avez besoin"
-            ]
-        }
-    };
-
-    // ═══════════════ EXEMPLES CONCRETS POUR CHAQUE COMBINAISON ═══════════════
-    const AMPLIFICATION_EXAMPLES = {
-        "indigo+jaune": [
-            "Au travail : vous repoussez la remise d'un dossier parce que vous attendez d'avoir toutes les données, et vous le retravaillez encore après l'avoir envoyé.",
-            "Dans la vie personnelle : vous voulez vous lancer dans une nouvelle activité, mais vous passez des semaines à comparer toutes les options sans jamais vous inscrire."
-        ],
-        "bleu+jaune": [
-            "Au travail : vous planifiez les moindres étapes d'un projet et vérifiez l'avancement de chacun, quitte à reprendre le travail des autres pour être sûr·e que tout soit conforme.",
-            "En famille : les vacances sont organisées dans le détail, et un imprévu (restaurant fermé, météo) peut gâcher votre journée car vous aviez tout prévu."
-        ],
-        "vert+indigo": [
-            "Avec les proches : vous vous surinvestissez dans les demandes des autres, quitte à y passer vos nuits, parce que vous voulez à la fois être utile et irréprochable.",
-            "Au travail : vous acceptez des tâches supplémentaires pour ne pas décevoir, même quand votre charge est déjà trop lourde, et vous vous épuisez à vouloir les faire parfaitement."
-        ],
-        "orange+vert": [
-            "En couple : vous sentez que votre partenaire a besoin de soutien, mais vous ne savez pas quoi dire ni quoi ressentir, alors vous proposez des solutions pratiques plutôt que de l'écoute.",
-            "Entre amis : on vous confie une peine, vous répondez par des conseils logiques, et vous passez à côté de l'émotion partagée, ce qui donne l'impression que vous êtes distant·e."
-        ],
-        "bleu+indigo": [
-            "Au travail : vous supervisez chaque étape d'un projet collectif, et vous retravaillez les présentations des collègues parce qu'elles ne sont pas assez abouties à vos yeux.",
-            "Dans vos engagements personnels : vous vous fixez des objectifs très élevés (sport, alimentation) et vous vous imposez une discipline stricte, tout en culpabilisant au moindre écart."
-        ],
-        "rouge+jaune": [
-            "Santé : une gêne à l'estomac vous pousse à consulter plusieurs avis médicaux, puis à chercher sur internet, et même quand les résultats sont rassurants, vous restez en alerte.",
-            "Quotidien : vous planifiez vos repas, votre sommeil, vos examens de contrôle avec une précision extrême, et un simple retard d'analyse peut vous angoisser."
-        ],
-        "indigo+jaune+bleu": [
-            "Au travail : un nouveau projet vous paralyse — vous voulez qu'il soit parfait (Indigo), vous attendez d'avoir toutes les informations (Jaune), et vous ne déléguez rien (Bleu). Résultat : le projet n'avance pas.",
-            "Dans la vie personnelle : vous voulez organiser un événement, vous passez des heures à tout planifier, vous vérifiez chaque détail, et vous ne profitez pas du moment présent."
-        ],
-        "vert+indigo+orange": [
-            "Avec les autres : vous dites toujours oui, vous faites les choses à la perfection, mais vous ne ressentez ni joie ni fatigue — jusqu'à l'effondrement soudain que personne n'avait vu venir.",
-            "Au travail : vous prenez en charge des dossiers supplémentaires sans broncher, vous les traitez impeccablement, mais vous êtes complètement déconnecté·e de votre propre épuisement."
-        ]
-    };
-
-    // ═══════════════ CONSTRUCTION DU PORTRAIT (ENRICHI) ═══════════════
+    // ═══════════════ CONSTRUCTION DU PORTRAIT ═══════════════
     function buildPortrait(scores, profile, prenom) {
         const dom = profile.primary, sec = profile.secondary;
         const meta = META[dom];
@@ -524,189 +392,81 @@
         let html = '';
         const maskLabel = MASK_LABELS[dom];
 
-        // ═══ HERO — LE MASQUE DOMINANT ═══
+        // ═══ HERO ═══
         html += `<div class="hero-mask" style="border-color: ${MASK_COLORS[dom]}40;">
             <span style="font-size:13px; letter-spacing:3px; text-transform:uppercase; color:${MASK_COLORS[dom]}; font-weight:500;">Votre protection principale</span>
             <div class="hero-mask-name">Masque ${maskLabel}</div>
             <div class="hero-separator"></div>
-            <p class="hero-tagline">
-                C’est le masque qui s’active le plus automatiquement en vous. Il colore vos réactions, oriente vos décisions, et influence la manière dont vos autres défenses se manifestent.
-            </p>
-            <p style="color:var(--text3); font-size:14px; margin-top:16px;">
-                ${profile.type === 'mono' || profile.type === 'mono_fort'
-                    ? 'Il agit souvent seul, concentrant l’essentiel de votre énergie défensive.'
-                    : `Il dialogue avec d’autres masques — nous vous montrons plus bas comment ils se répondent.`}
-            </p>
+            <p class="hero-tagline">C’est le masque qui s’active le plus automatiquement en vous. Il colore vos réactions, oriente vos décisions, et influence la manière dont vos autres défenses se manifestent.</p>
+            <p style="color:var(--text3); font-size:14px; margin-top:16px;">${profile.type === 'mono' || profile.type === 'mono_fort' ? 'Il agit souvent seul, concentrant l’essentiel de votre énergie défensive.' : `Il dialogue avec d’autres masques — nous vous montrons plus bas comment ils se répondent.`}</p>
         </div>`;
 
         // ═══ RAPPEL ═══
-        html += `<div class="reminder-box" style="margin-bottom:32px;">
-            <strong>Rappelez-vous :</strong> Vous n’êtes pas ce masque. Il est une protection, non une identité.<br>
-            Cette stratégie n’est pas votre personnalité — elle est ce qui la recouvre.
-        </div>`;
+        html += `<div class="reminder-box" style="margin-bottom:32px;"><strong>Rappelez-vous :</strong> Vous n’êtes pas ce masque. Il est une protection, non une identité.<br>Cette stratégie n’est pas votre personnalité — elle est ce qui la recouvre.</div>`;
 
-        // ═══ BLOC 1 — "C'est exactement ça" ═══
-        html += `<div class="block">
-            <h2>1. C'est exactement ça</h2>
-            <div class="mirror-phrase">${MIRROR[dom] || ''}</div>
-            <p style="color: var(--text2); font-size:14px; margin-top:12px;">
-                Cette réaction n'est pas un défaut de caractère. Votre esprit a résolu un problème. Le problème a changé, mais la solution est restée. Ce n'est pas vous qui dysfonctionnez — c'est une protection qui continue de tourner alors que le danger est passé.
-            </p>
-        </div>`;
+        // ═══ BLOC 1 ═══
+        html += `<div class="block"><h2>1. C'est exactement ça</h2><div class="mirror-phrase">${MIRROR[dom] || ''}</div><p style="color: var(--text2); font-size:14px; margin-top:12px;">Cette réaction n'est pas un défaut de caractère. Votre esprit a résolu un problème. Le problème a changé, mais la solution est restée. Ce n'est pas vous qui dysfonctionnez — c'est une protection qui continue de tourner alors que le danger est passé.</p></div>`;
 
-        // ═══ BLOC 2 — "Je comprends pourquoi" ═══
+        // ═══ BLOC 2 ═══
         const steps = LOOPS[dom] || [];
-        html += `<div class="block">
-            <h2>2. Je comprends pourquoi</h2>
-            <p style="margin-bottom:16px; color:var(--text2);">Voici la boucle qui se répète, souvent sans que vous en ayez conscience :</p>
-            <div class="mechanism">
-                ${steps.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}
-            </div>
-            <div class="metaphor-box">
-                Imaginez un détecteur de fumée réglé trop sensiblement. Il protège la maison. Mais il sonne aussi quand les toasts brûlent. Votre masque fonctionne comme cela : il ne sait pas encore que la guerre est finie.
-            </div>
-        </div>`;
+        html += `<div class="block"><h2>2. Je comprends pourquoi</h2><p style="margin-bottom:16px; color:var(--text2);">Voici la boucle qui se répète, souvent sans que vous en ayez conscience :</p><div class="mechanism">${steps.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}</div><div class="metaphor-box">Imaginez un détecteur de fumée réglé trop sensiblement. Il protège la maison. Mais il sonne aussi quand les toasts brûlent. Votre masque fonctionne comme cela : il ne sait pas encore que la guerre est finie.</div></div>`;
 
-        // ═══ BLOC 2bis — "Quand les masques se répondent" (dyade/triade/pan) ═══
+        // ═══ BLOC 2bis — AMPLIFICATIONS (dyade/triade/pan) ═══
         if (profile.type === 'dyade' || profile.type === 'dyade_moderee' || profile.type === 'triade' || profile.type === 'pan') {
-            const sortedKeys = [...profile.masks].sort();
-            const key = sortedKeys.join('+');
-            const amplification = (profile.type === 'triade' ? TRIADES_AMPLIFICATIONS[key] : null) || DYADES_AMPLIFICATIONS[key] || null;
-            const exemples = AMPLIFICATION_EXAMPLES[key] || [];
+            let ampData = null;
+            if (profile.type === 'pan') {
+                ampData = PAN_MASQUE;
+            } else {
+                const sortedKeys = [...profile.masks].sort();
+                const key = sortedKeys.join('+');
+                ampData = (profile.type === 'triade' ? TRIADES_AMPLIFICATIONS[key] : null) || DYADES_AMPLIFICATIONS[key] || null;
+            }
 
-            html += `<div class="block" style="border-left: 3px solid ${MASK_COLORS[dom]};">
-                <h2>2bis. Quand les masques se répondent</h2>
-                <p style="color:var(--text2);">Votre configuration n'est pas une simple addition de peurs. Les masques interagissent, s'amplifient, et créent ensemble des schémas plus complexes que chacun ne le ferait seul.</p>
-                <div style="display:flex; gap:10px; margin:16px 0; flex-wrap:wrap;">
-                    ${profile.masks.slice(0, 3).map(m => `<span style="background:${MASK_COLORS[m]}; color:#fff; padding:4px 12px; border-radius:20px; font-size:13px; font-weight:500;">${MASK_LABELS[m]}</span>`).join('')}
-                </div>`;
-
-            if (amplification) {
-                html += `<p style="font-weight:600; color:var(--gold);">${amplification.nom}</p>`;
-                html += `<p style="color:var(--text2);">${amplification.desc}</p>`;
-                html += `<div class="mechanism" style="margin-top:16px;">`;
-                amplification.boucle.forEach((step, i) => {
-                    html += `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`;
-                });
-                html += `</div>`;
+            html += `<div class="block" style="border-left: 3px solid ${MASK_COLORS[dom]};"><h2>2bis. Quand les masques se répondent</h2>`;
+            if (profile.type !== 'pan') {
+                html += `<p style="color:var(--text2);">Votre configuration n'est pas une simple addition de peurs. Les masques interagissent, s'amplifient, et créent ensemble des schémas plus complexes que chacun ne le ferait seul.</p>`;
+                html += `<div style="display:flex; gap:10px; margin:16px 0; flex-wrap:wrap;">${profile.masks.slice(0, 3).map(m => `<span style="background:${MASK_COLORS[m]}; color:#fff; padding:4px 12px; border-radius:20px; font-size:13px; font-weight:500;">${MASK_LABELS[m]}</span>`).join('')}</div>`;
+            }
+            if (ampData) {
+                html += `<p style="font-weight:600; color:var(--gold);">${ampData.nom}</p>`;
+                html += `<p style="color:var(--text2);">${ampData.desc}</p>`;
+                if (ampData.boucle) {
+                    html += `<div class="mechanism" style="margin-top:16px;">${ampData.boucle.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}</div>`;
+                }
+                if (ampData.exemples) {
+                    html += `<div style="margin-top:20px;"><p style="font-weight:600; color:var(--gold); margin-bottom:10px;">Dans votre vie quotidienne, cela peut ressembler à :</p>${ampData.exemples.map(ex => `<div style="display:flex; gap:10px; margin-bottom:10px; align-items:baseline;"><span style="color:var(--gold); font-size:14px;">▸</span><span style="font-size:14px; color:var(--text2); line-height:1.6;">${ex}</span></div>`).join('')}</div>`;
+                }
             } else {
                 html += `<p style="color:var(--text2); font-style:italic;">Vos masques forment une combinaison unique. Ensemble, ils créent un système de protection qui mérite d'être exploré avec un accompagnement personnalisé.</p>`;
             }
-
-            // Ajout des exemples concrets
-            if (exemples.length > 0) {
-                html += `<div style="margin-top:20px;">
-                    <p style="font-weight:600; color:var(--gold); margin-bottom:10px;">Dans votre vie quotidienne, cela peut ressembler à :</p>`;
-                exemples.forEach(ex => {
-                    html += `<div style="display:flex; gap:10px; margin-bottom:10px; align-items:baseline;">
-                        <span style="color:var(--gold); font-size:14px;">▸</span>
-                        <span style="font-size:14px; color:var(--text2); line-height:1.6;">${ex}</span>
-                    </div>`;
-                });
-                html += `</div>`;
-            }
-
             html += `</div>`;
         }
 
-        // ═══ BLOC 3 — "Ce n'est pas un défaut" ═══
-        html += `<div class="block">
-            <h2>3. Ce n'est pas un défaut</h2>
-            <p style="color:var(--text2);">${ORIGINS[dom] || ''}</p>
-            <p style="color:var(--text2); margin-top:12px;">
-                Des millions de personnes vivent avec ce même mécanisme. Vous n'êtes pas cassé·e. Vous êtes simplement humain·e.
-            </p>
-            <div class="force-box">
-                <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;">Derrière ce masque, il y a une force réelle :</p>
-                <p style="font-weight:500;margin-top:8px;">${meta.force}</p>
-            </div>
-            <p style="color:var(--text2); margin-top:8px;">
-                Cette force n'est pas une compensation. Elle est la preuve que, sous le masque, quelqu'un de réel attend d'exister sans avoir besoin de se défendre. Votre nature vraie n'a pas disparu — elle est recouverte, intacte, et attend d'être libérée.
-            </p>
-        </div>`;
+        // ═══ BLOC 3 ═══
+        html += `<div class="block"><h2>3. Ce n'est pas un défaut</h2><p style="color:var(--text2);">${ORIGINS[dom] || ''}</p><p style="color:var(--text2); margin-top:12px;">Des millions de personnes vivent avec ce même mécanisme. Vous n'êtes pas cassé·e. Vous êtes simplement humain·e.</p><div class="force-box"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;">Derrière ce masque, il y a une force réelle :</p><p style="font-weight:500;margin-top:8px;">${meta.force}</p></div><p style="color:var(--text2); margin-top:8px;">Cette force n'est pas une compensation. Elle est la preuve que, sous le masque, quelqu'un de réel attend d'exister sans avoir besoin de se défendre. Votre nature vraie n'a pas disparu — elle est recouverte, intacte, et attend d'être libérée.</p></div>`;
 
-        // ═══ BLOC 3bis — "Ce que le masque a retenu" ═══
+        // ═══ BLOC 3bis ═══
         const experiences = RETAINED_EXPERIENCES[dom] || [];
-        html += `<div class="block">
-            <h2>3bis. Ce que ce masque a retenu en vous</h2>
-            <p style="color:var(--text2); margin-bottom:16px;">
-                Chaque fois que le masque s'est activé pour vous protéger, il a aussi retenu quelque chose. Un élan. Une parole. Une envie. Une direction. Ces forces n'ont pas disparu. Elles sont restées en attente, comme des graines sous la neige.
-            </p>
-            <ul style="list-style:none; padding:0;">
-                ${experiences.map(exp => `<li style="padding:8px 0; border-bottom:1px solid var(--line); color:var(--text2); font-size:15px;">✦ ${exp}</li>`).join('')}
-            </ul>
-            <p style="color:var(--text2); margin-top:16px; font-style:italic;">
-                Ces expériences ne sont pas perdues. Elles sont en attente. Et c'est précisément ce que la méthode V.A.L.E.U.R vous aide à retrouver.
-            </p>
-        </div>`;
+        html += `<div class="block"><h2>3bis. Ce que ce masque a retenu en vous</h2><p style="color:var(--text2); margin-bottom:16px;">Chaque fois que le masque s'est activé pour vous protéger, il a aussi retenu quelque chose. Un élan. Une parole. Une envie. Une direction. Ces forces n'ont pas disparu. Elles sont restées en attente, comme des graines sous la neige.</p><ul style="list-style:none; padding:0;">${experiences.map(exp => `<li style="padding:8px 0; border-bottom:1px solid var(--line); color:var(--text2); font-size:15px;">✦ ${exp}</li>`).join('')}</ul><p style="color:var(--text2); margin-top:16px; font-style:italic;">Ces expériences ne sont pas perdues. Elles sont en attente. Et c'est précisément ce que la méthode V.A.L.E.U.R vous aide à retrouver.</p></div>`;
 
-        // ═══ BLOC 4 — Carte d'identité des masques + SPA ═══
-        html += `<div class="block">
-            <h2>4. Votre carte des masques</h2>
-            <p style="color:var(--text2); margin-bottom:20px;">
-                Voici la photographie complète de vos protections en ce moment. Chaque masque a un niveau d'emprise différent — cela n'a rien de définitif, c'est une base de départ pour mieux vous connaître.
-            </p>`;
+        // ═══ BLOC 4 — Carte + SPA ═══
+        html += `<div class="block"><h2>4. Votre carte des masques</h2><p style="color:var(--text2); margin-bottom:20px;">Voici la photographie complète de vos protections en ce moment. Chaque masque a un niveau d'emprise différent — cela n'a rien de définitif, c'est une base de départ pour mieux vous connaître.</p>`;
         const sortedMasks = [...MASKS].sort((a, b) => (scores[b] || 0) - (scores[a] || 0));
         sortedMasks.forEach(m => {
             const pct = scores[m] || 0;
             const level = getLevelLabel(pct);
             const color = MASK_COLORS[m];
-            html += `
-            <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
-                <div style="width:9px; height:9px; border-radius:50%; background:${color}; flex-shrink:0;"></div>
-                <span style="font-size:14px; font-weight:500; width:70px; color:var(--text);">${MASK_LABELS[m]}</span>
-                <div style="flex:1; height:6px; background:rgba(0,0,0,0.06); border-radius:3px; overflow:hidden;">
-                    <div style="width:${pct}%; height:100%; background:${color}; border-radius:3px;"></div>
-                </div>
-                <span style="font-size:14px; font-weight:500; width:36px; text-align:right; color:var(--text);">${pct}%</span>
-                <span style="font-size:11px; width:80px; text-align:right; color:var(--text3);">${level}</span>
-            </div>`;
+            html += `<div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;"><div style="width:9px; height:9px; border-radius:50%; background:${color}; flex-shrink:0;"></div><span style="font-size:14px; font-weight:500; width:70px; color:var(--text);">${MASK_LABELS[m]}</span><div style="flex:1; height:6px; background:rgba(0,0,0,0.06); border-radius:3px; overflow:hidden;"><div style="width:${pct}%; height:100%; background:${color}; border-radius:3px;"></div></div><span style="font-size:14px; font-weight:500; width:36px; text-align:right; color:var(--text);">${pct}%</span><span style="font-size:11px; width:80px; text-align:right; color:var(--text3);">${level}</span></div>`;
         });
-        html += `
-            <div style="margin-top:28px; border-top:1px solid var(--line); padding-top:20px;">
-                <div style="display:flex; align-items:center; gap:20px;">
-                    <div class="spa-ring" style="width:70px; height:70px;">
-                        <svg width="70" height="70" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="42" fill="none" stroke="#E5E0D8" stroke-width="6"/>
-                            <circle cx="50" cy="50" r="42" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="${264 * (1 - spa/100)}" stroke-linecap="round"/>
-                        </svg>
-                        <div class="spa-value" style="font-size:20px;">${spa}%</div>
-                    </div>
-                    <div>
-                        <p style="font-weight:500;">Score de Présence Authentique</p>
-                        <p style="color:var(--text3); font-size:14px;">
-                            ${spa >= 70 ? 'Vous êtes déjà souvent vous‑même, même face aux défis.' : spa >= 40 ? 'Votre espace de liberté existe déjà. Il demande à s\'élargir.' : 'Votre masque occupe une grande place. C\'est un point de départ respectable.'}
-                            Ce score mesure les moments où vous êtes déjà vous‑même, sans masque.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <p style="margin-top:24px; text-align:center;">
-                <button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button>
-            </p>
-        </div>`;
+        html += `<div style="margin-top:28px; border-top:1px solid var(--line); padding-top:20px;"><div style="display:flex; align-items:center; gap:20px;"><div class="spa-ring" style="width:70px; height:70px;"><svg width="70" height="70" viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="none" stroke="#E5E0D8" stroke-width="6"/><circle cx="50" cy="50" r="42" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="${264 * (1 - spa/100)}" stroke-linecap="round"/></svg><div class="spa-value" style="font-size:20px;">${spa}%</div></div><div><p style="font-weight:500;">Score de Présence Authentique</p><p style="color:var(--text3); font-size:14px;">${spa >= 70 ? 'Vous êtes déjà souvent vous‑même, même face aux défis.' : spa >= 40 ? 'Votre espace de liberté existe déjà. Il demande à s\'élargir.' : 'Votre masque occupe une grande place. C\'est un point de départ respectable.'} Ce score mesure les moments où vous êtes déjà vous‑même, sans masque.</p></div></div></div><p style="margin-top:24px; text-align:center;"><button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button></p></div>`;
 
-        // ═══ BLOC 5 — La méthode V.A.L.E.U.R ═══
-        html += `<div class="block">
-            <h2>5. La méthode V.A.L.E.U.R</h2>
-            <p style="color:var(--text2); margin-bottom:20px;">
-                Derrière chaque lettre du mot <strong>V.A.L.E.U.R</strong> se cache une étape concrète pour traverser le masque et retrouver votre nature profonde.
-            </p>
-            <div style="display:flex; flex-direction:column; gap:14px;">
-                ${VALEUR_STEPS.map(step => `
-                    <div style="display:flex; align-items:flex-start; gap:14px;">
-                        <div style="width:36px; height:36px; border-radius:50%; background:var(--gold); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:16px; flex-shrink:0;">${step.lettre}</div>
-                        <div>
-                            <div style="font-weight:600; color:var(--gold);">${step.nom}</div>
-                            <div style="font-size:14px; color:var(--text3);">${step.desc}</div>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-            <p style="margin-top:24px; color:var(--text2); font-size:14px; text-align:center; font-style:italic;">
-                Ce chemin est celui que nous empruntons ensemble, pas à pas, pour que vous puissiez enfin être vous‑même — sans masque.
-            </p>
-        </div>`;
+        // ═══ BLOC 5 — V.A.L.E.U.R ═══
+        html += `<div class="block"><h2>5. La méthode V.A.L.E.U.R</h2><p style="color:var(--text2); margin-bottom:20px;">Derrière chaque lettre du mot <strong>V.A.L.E.U.R</strong> se cache une étape concrète pour traverser le masque et retrouver votre nature profonde.</p><div style="display:flex; flex-direction:column; gap:14px;">${VALEUR_STEPS.map(step => `<div style="display:flex; align-items:flex-start; gap:14px;"><div style="width:36px; height:36px; border-radius:50%; background:var(--gold); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:16px; flex-shrink:0;">${step.lettre}</div><div><div style="font-weight:600; color:var(--gold);">${step.nom}</div><div style="font-size:14px; color:var(--text3);">${step.desc}</div></div></div>`).join('')}</div><p style="margin-top:24px; color:var(--text2); font-size:14px; text-align:center; font-style:italic;">Ce chemin est celui que nous empruntons ensemble, pas à pas, pour que vous puissiez enfin être vous‑même — sans masque.</p></div>`;
+
+        // ═══ BLOC ADAPTATIF (si profil adaptatif) ═══
+        if (profile.type.startsWith('adaptatif')) {
+            html += `<div class="block"><h2>Votre profil adaptatif</h2><p style="color:var(--text2);">${ADAPTATIF.desc}</p><ul style="list-style:none; padding:0; margin-top:16px;">${ADAPTATIF.ce_qui_est_deja_la.map(item => `<li style="padding:6px 0; border-bottom:1px solid var(--line); color:var(--text2); font-size:14px;">✦ ${item}</li>`).join('')}</ul><p style="margin-top:16px; color:var(--text2); font-style:italic;">${ADAPTATIF.direction}</p></div>`;
+        }
 
         return html;
     }
@@ -744,34 +504,23 @@
         let scores = null;
 
         const urlScores = {};
-        MASKS.forEach(m => {
-            if (params.has(m)) urlScores[m] = parseInt(params.get(m)) || 0;
-        });
+        MASKS.forEach(m => { if (params.has(m)) urlScores[m] = parseInt(params.get(m)) || 0; });
         if (params.has('spa')) urlScores.spa = parseInt(params.get('spa')) || 0;
         if (Object.keys(urlScores).length >= 7) scores = urlScores;
 
         if (!scores) {
-            try {
-                const stored = localStorage.getItem('valeur_scores');
-                if (stored) scores = JSON.parse(stored);
-            } catch (e) {}
+            try { const s = localStorage.getItem('valeur_scores'); if (s) scores = JSON.parse(s); } catch(e) {}
         }
 
         if (!scores || Object.keys(scores).filter(k => MASKS.includes(k)).length < 7) {
-            scores = {
-                rouge: 44, orange: 38, jaune: 73, vert: 56,
-                bleu: 69, indigo: 79, violet: 32, spa: 61
-            };
+            scores = { rouge:44, orange:38, jaune:73, vert:56, bleu:69, indigo:79, violet:32, spa:61 };
         }
 
         const prenom = params.get('prenom') || localStorage.getItem('valeur_prenom') || '';
         const email = params.get('email') || localStorage.getItem('valeur_email') || '';
         const profile = detectProfile(scores);
-        const spa = computeSPA(scores);
-
         document.getElementById('portrait-content').innerHTML = buildPortrait(scores, profile, prenom);
-
-        saveToGoogleSheet(email, prenom, scores, profile.primary, profile.type, spa);
+        saveToGoogleSheet(email, prenom, scores, profile.primary, profile.type, computeSPA(scores));
     }
 
     window.addEventListener('DOMContentLoaded', init);
