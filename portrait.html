@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>V.A.L.E.U.R© — Portrait Cabinet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FCFAF7; --text: #2A2622; --text2: #4A4340; --text3: #8C827D;
+            --gold: #C9A84C; --line: #E5E0D8; --card-bg: #F6F4F0;
+            --rouge: #B5312A; --orange: #C4581F; --jaune: #B8930A;
+            --vert: #2D7A4F; --bleu: #1D5F8A; --indigo: #5C3280; --violet: #7A3594;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; color: var(--text); }
+        h1 { font-size: clamp(36px, 6vw, 56px); line-height: 1.1; margin-bottom: 8px; }
+        h2 { font-size: 22px; margin-bottom: 16px; color: var(--gold); }
+        .accent { color: var(--gold); }
+        .chroma-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--rouge), var(--orange), var(--jaune), var(--vert), var(--bleu), var(--indigo), var(--violet));
+            margin-bottom: 48px;
+        }
+        .block {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 32px 28px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .mask-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .mirror-phrase {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--text);
+            margin: 24px 0;
+            padding-left: 16px;
+            border-left: 3px solid var(--gold);
+        }
+        .mechanism {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .step-text { font-size: 15px; line-height: 1.6; }
+        .force-box {
+            background: linear-gradient(135deg, #FCFAF7 0%, #F3F1EC 100%);
+            border-left: 3px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        .spa-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 32px 0;
+        }
+        .spa-ring {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+        }
+        .spa-ring svg { transform: rotate(-90deg); }
+        .spa-value {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--gold);
+        }
+        .btn-print {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            margin-top: 16px;
+        }
+        .btn-print:hover { opacity: 0.9; }
+        .footer-note {
+            text-align: center;
+            color: var(--text3);
+            font-size: 13px;
+            margin-top: 48px;
+            border-top: 1px solid var(--line);
+            padding-top: 24px;
+        }
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border .2s;
+        }
+        a:hover { border-bottom-color: var(--gold); }
+        @media print {
+            body { background: white; }
+            .container { max-width: 100%; padding: 0; }
+            .block { box-shadow: none; background: white; border: 1px solid #ddd; }
+            .btn-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="chroma-bar"></div>
+    <div id="portrait-content"></div>
+    <div class="footer-note">
+        Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue · Cabinet
+    </div>
+</div>
+
+<script>
+    // ═══════════════ CONFIGURATION ═══════════════
+    const MASKS = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
+    const MASK_COLORS = {
+        rouge: '#B5312A', orange: '#C4581F', jaune: '#B8930A',
+        vert: '#2D7A4F', bleu: '#1D5F8A', indigo: '#5C3280', violet: '#7A3594'
+    };
+    const MASK_LABELS = {
+        rouge: 'Rouge', orange: 'Orange', jaune: 'Jaune',
+        vert: 'Vert', bleu: 'Bleu', indigo: 'Indigo', violet: 'Violet'
+    };
+    const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby4vOwYjKBFhtLBmwaqvlK5ba8Ow3rzlXihaQBPyA0/exec';
+
+    // ═══════════════ DONNÉES CLINIQUES (issues du fichier source) ═══════════════
+    const META = {
+        rouge: { peur: "la peur de la maladie et de l'insécurité corporelle", force: "Une présence incarnée, capable de s'ancrer dans l'instant sans être happée par l'inquiétude." },
+        orange: { peur: "la peur de ressentir des émotions douloureuses", force: "Une intelligence émotionnelle profonde, qui transforme la sensibilité en boussole plutôt qu'en menace." },
+        jaune: { peur: "la peur de l'inconnu et de l'incertitude", force: "Une confiance inébranlable, capable d'agir sans avoir besoin de tout prévoir." },
+        vert: { peur: "la peur du rejet et de l'abandon", force: "Un amour authentique, libre et généreux, qui n'a plus besoin de se sacrifier pour exister." },
+        bleu: { peur: "la peur de perdre le contrôle", force: "Une autorité naturelle, une parole juste qui inspire sans écraser." },
+        indigo: { peur: "la peur du jugement et de ne pas être à la hauteur", force: "Une vision claire et intuitive, qui apprend de chaque expérience sans se punir." },
+        violet: { peur: "la peur de ne pas savoir qui l'on est vraiment", force: "Une paix profonde, une authenticité qui rayonne sans avoir besoin de rôle." }
+    };
+
+    const MIRROR = {
+        rouge: "Avant même de poser le pied hors du lit, vous écoutez votre corps. Une tension dans la poitrine, un battement un peu plus rapide — et votre esprit part en quête d'une explication. Non par hypochondrie, mais parce que votre système nerveux a appris qu'ignorer un signal pouvait être dangereux.",
+        orange: "Quand on vous demande comment vous allez vraiment, vous répondez « ça va » sans y penser. Parce que nommer ce qui se passe à l'intérieur, ce serait ouvrir une porte que vous avez appris à garder fermée. Ressentir a eu un prix — alors vous avez mis les émotions à distance.",
+        jaune: "Vous avez déjà trois plans pour une situation qui n'est pas encore arrivée. Vous vérifiez les horaires, les issues, les alternatives. Pas par plaisir — par nécessité intérieure. Votre esprit ne supporte pas le vide laissé par l'incertitude, alors il le remplit de prévisions.",
+        vert: "Vous sentez le moindre changement de ton chez l'autre. Vous adaptez votre réponse, votre posture, parfois votre opinion — pour maintenir l'harmonie. Non par faiblesse, mais parce que votre cerveau a enregistré que perdre le lien était une menace bien plus grande que de perdre un argument.",
+        bleu: "Déléguer vous demande plus d'énergie que de faire vous-même. Vous repassez derrière, vérifiez, corrigez. Pas par arrogance — par impossibilité de lâcher prise sans angoisse. Vous avez appris que tenir les rênes était la seule façon de ne pas vous effondrer.",
+        indigo: "Vous relisez un email déjà envoyé. Vous retravaillez un dossier déjà validé. Vous cherchez la faille — parce que si quelqu'un la trouve avant vous, cela confirmera ce que vous craignez secrètement : que vous n'êtes pas vraiment à la hauteur.",
+        violet: "Vous passez d'un rôle à l'autre avec une fluidité déconcertante — professionnel·le, parent, ami·e, amant·e. Mais dans le silence, une question revient : qui êtes-vous quand personne ne regarde ? Vous avez tellement bien appris à vous adapter que vous ne savez plus où se trouve votre centre."
+    };
+
+    const LOOPS = {
+        rouge: [
+            "Une sensation corporelle émerge — un battement, une douleur, une gêne.",
+            "Votre esprit l'interprète immédiatement comme une menace potentielle.",
+            "Vous cherchez une confirmation, une réassurance — mais la certitude parfaite n'existe pas, et l'alerte repart."
+        ],
+        orange: [
+            "Une émotion douloureuse approche — tristesse, colère, peur.",
+            "Votre esprit verrouille l'accès pour ne pas être submergé.",
+            "L'émotion, non traversée, ressurgit ailleurs — fatigue, vide, irritabilité — sans que vous sachiez pourquoi."
+        ],
+        jaune: [
+            "Une situation comporte une part d'incertitude — même minime.",
+            "Votre esprit anticipe tous les scénarios possibles pour éliminer le risque.",
+            "L'imprévu est évité, mais la vie devient un exercice de contrôle permanent — épuisant."
+        ],
+        vert: [
+            "Vous percevez un signal de distance chez l'autre — réel ou imaginaire.",
+            "Vous adaptez votre comportement pour restaurer le lien.",
+            "Le lien est maintenu, mais au prix de vos propres besoins — qui finissent par peser."
+        ],
+        bleu: [
+            "Quelque chose vous échappe — une tâche, une décision, une personne.",
+            "Vous reprenez le contrôle, même au détriment de votre énergie.",
+            "La situation est maîtrisée, mais vous êtes seul·e à tout porter — et personne ne peut vous relayer."
+        ],
+        indigo: [
+            "Vous anticipez le regard de l'autre — un jugement possible.",
+            "Vous perfectionnez, retravaillez, vérifiez pour ne laisser aucune prise.",
+            "Le résultat est irréprochable, mais vous êtes épuisé·e — et la barre monte pour la prochaine fois."
+        ],
+        violet: [
+            "Une situation vous confronte à la question : qui suis-je vraiment ?",
+            "Vous endossez un rôle adapté à ce qu'on attend de vous.",
+            "Vous passez inaperçu·e, mais votre identité profonde reste en retrait — et le vide s'installe."
+        ]
+    };
+
+    const ORIGINS = {
+        rouge: "À un moment de votre vie, votre corps a été source d'inquiétude — une maladie, un proche souffrant, ou simplement l'impression que la santé pouvait basculer sans prévenir. Votre système nerveux a retenu la leçon : ne jamais baisser la garde.",
+        orange: "Il fut un temps où laisser entrer les émotions était trop coûteux — une souffrance qui débordait, un entourage qui ne savait pas les accueillir. Votre esprit a alors élevé un mur. Un mur qui protège — mais qui isole aussi.",
+        jaune: "L'imprévu vous a déjà fait mal. Votre esprit a déduit que la sécurité viendrait de la prévision. Une stratégie brillante, devenue un piège : tout vouloir anticiper empêche parfois de vivre ce qui arrive.",
+        vert: "Un jour, perdre le lien a été une douleur réelle. Votre cerveau a enregistré que l'amour devait se mériter — par la disponibilité, l'attention, l'adaptation. Une logique de survie relationnelle qui vous a protégé·e, mais qui vous épuise aujourd'hui.",
+        bleu: "Vous avez appris très tôt que lâcher prise exposait à l'effondrement. Que tenir, décider, contrôler était la seule façon d'exister sans sombrer. Ce n'était pas un choix — c'était une nécessité. Aujourd'hui, cette nécessité est devenue une prison dorée.",
+        indigo: "Quelque chose dans votre histoire vous a fait comprendre que l'erreur avait un coût. Pas seulement pratique — affectif, relationnel. Votre exigence est née de là : une protection contre le regard qui juge. Une armure qui vous a porté·e — mais qui pèse.",
+        violet: "Il a été plus sûr de s'adapter que d'être soi. Vos émotions, vos questions, votre singularité étaient peut-être trop intenses, trop différentes. Alors vous avez appris à devenir ce que les autres attendaient. Une stratégie de survie identitaire — brillante, mais déconnectée de votre nature profonde."
+    };
+
+    // ═══════════════ DÉTECTION DU PROFIL (identique au fichier source) ═══════════════
+    function detectProfile(scores) {
+        const sorted = MASKS.map(k => ({ key: k, pct: scores[k] || 0 })).sort((a, b) => b.pct - a.pct);
+        const top = sorted[0].pct;
+        const tied = sorted.filter(m => m.pct === top);
+        if (tied.length >= 2) sorted.sort((a, b) => b.pct - a.pct || TIEBREAK.indexOf(a.key) - TIEBREAK.indexOf(b.key));
+        const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0, S4 = sorted[3]?.pct || 0;
+        const primary = sorted[0].key, secondary = sorted[1]?.key || null;
+        const masks = sorted.map(m => m.key);
+        if (S1 < 50) return { type: S1 < 30 ? 'adaptatif_eq' : 'adaptatif_vig', masks, primary };
+        const active60 = sorted.filter(m => m.pct >= 60);
+        if (active60.length >= 5) {
+            const spread = Math.max(...active60.map(m => m.pct)) - Math.min(...active60.map(m => m.pct));
+            if (spread <= 20) return { type: 'pan', masks: active60.map(m => m.key), primary };
+        }
+        if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15 && (S2 - S4) > 10) return { type: 'triade', masks: [sorted[0].key, sorted[1].key, sorted[2].key], primary, secondary: sorted[1].key, tertiary: sorted[2].key };
+        if (S1 >= 65 && S2 >= 65 && S3 < 55 && (S1 - S2) <= 10) return { type: 'dyade', masks: [sorted[0].key, sorted[1].key], primary, secondary };
+        if (S1 >= 55 && S2 >= 55 && S3 < 50 && (S1 - S2) <= 10) return { type: 'dyade_moderee', masks: [sorted[0].key, sorted[1].key], primary, secondary };
+        if (S1 >= 75 && (S1 - S2) > 10) return { type: 'mono', masks: [primary], primary, secondary: (S2 >= 60) ? secondary : null };
+        if (S1 >= 60 && (S1 - S2) > 10) return { type: 'mono_fort', masks: [primary], primary };
+        return { type: 'residuel', masks: [primary], primary };
+    }
+
+    function computeSPA(scores) {
+        if (scores.spa !== undefined && scores.spa !== null) return parseInt(scores.spa);
+        const sum = MASKS.reduce((s, m) => s + (scores[m] || 0), 0);
+        return Math.round(100 - sum / 7);
+    }
+
+    // ═══════════════ CONSTRUCTION DU PORTRAIT ═══════════════
+    function buildPortrait(scores, profile, prenom) {
+        const dom = profile.primary, sec = profile.secondary;
+        const meta = META[dom];
+        const spa = computeSPA(scores);
+        let html = '';
+        const maskLabel = MASK_LABELS[dom];
+        let peurPhrase = meta.peur;
+        if (profile.type === 'dyade' || profile.type === 'dyade_moderee') {
+            peurPhrase = `${META[dom].peur} — et ${META[sec].peur}`;
+        } else if (profile.type === 'triade') {
+            peurPhrase = `${META[dom].peur}, ${META[profile.secondary].peur}, et ${META[profile.tertiary].peur} — en même temps.`;
+        } else if (profile.type === 'pan') {
+            peurPhrase = "de multiples peurs activées simultanément.";
+        }
+        html += `<div class="block">
+            <div class="mask-badge" style="background:${MASK_COLORS[dom]}">Masque ${maskLabel}</div>
+            <h1>Vous avez ${peurPhrase}</h1>
+            <p style="margin-top:16px; color: var(--text2); font-size:15px;">Un masque de défense est une protection que votre esprit a construite, souvent très tôt, face à quelque chose qui faisait mal. Il a fonctionné. Il vous a protégé·e. Le problème : il fonctionne encore aujourd'hui — même quand la menace a disparu depuis longtemps.</p>
+            <p style="color: var(--text2); font-size:15px; margin-top:8px;"><em>Ce portrait ne dit pas qui vous êtes. Il révèle ce qui vous empêche d'être vous.</em></p>
+        </div>`;
+        html += `<div class="block">
+            <h2>1. C'est exactement ça</h2>
+            <div class="mirror-phrase">${MIRROR[dom] || ''}</div>
+        </div>`;
+        const steps = LOOPS[dom] || [];
+        html += `<div class="block">
+            <h2>2. Je comprends pourquoi</h2>
+            <p style="margin-bottom:16px; color:var(--text2);">Voici la boucle qui se répète, souvent sans que vous en ayez conscience :</p>
+            <div class="mechanism">
+                ${steps.map((step, i) => `<div class="step"><div class="step-num">${i+1}</div><div class="step-text">${step}</div></div>`).join('')}
+            </div>
+            ${profile.type === 'dyade' || profile.type === 'triade' ? `<p style="margin-top:16px; color:var(--text3); font-style:italic;">Dans votre configuration, ces mécanismes s'amplifient mutuellement — chaque masque nourrit l'autre.</p>` : ''}
+        </div>`;
+        html += `<div class="block">
+            <h2>3. Ce n'est pas un défaut</h2>
+            <p style="color:var(--text2);">${ORIGINS[dom] || ''}</p>
+            <div class="force-box">
+                <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;">Derrière ce masque, il y a une force réelle :</p>
+                <p style="font-weight:500;margin-top:8px;">${meta.force}</p>
+            </div>
+            <p style="color:var(--text2);">Ce n'est pas un excès de défense. C'est ce que vous valez — sans le masque.</p>
+        </div>`;
+        html += `<div class="block">
+            <h2>4. Et maintenant ?</h2>
+            <p style="color:var(--text2);">Ce masque n'est pas vous. Il est ce que vous avez construit pour survivre à une peur. Et si la même énergie était disponible pour autre chose — pour ce que vous voulez vraiment ?</p>
+            <div class="spa-section">
+                <div class="spa-ring">
+                    <svg width="80" height="80" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="#E5E0D8" stroke-width="6"/>
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="264" stroke-dashoffset="${264 * (1 - spa/100)}" stroke-linecap="round"/>
+                    </svg>
+                    <div class="spa-value">${spa}%</div>
+                </div>
+                <div>
+                    <p style="font-weight:500;">Score de Présence Authentique</p>
+                    <p style="color:var(--text3); font-size:14px;">${spa >= 70 ? 'Vous êtes souvent vous-même, même face aux défis.' : spa >= 40 ? 'Votre authenticité est présente — elle demande juste un peu plus d\'espace.' : 'Votre masque occupe une grande place. C\'est un point de départ.'}</p>
+                </div>
+            </div>
+            <p style="margin-top:24px; text-align:center;">
+                <button class="btn-print" onclick="window.print()">Imprimer / Télécharger en PDF</button>
+            </p>
+        </div>`;
+        return html;
+    }
+
+    // ═══════════════ SAUVEGARDE GOOGLE SHEETS ═══════════════
+    async function saveToGoogleSheet(email, prenom, scores, masque, profilType, spa) {
+        try {
+            await fetch(GOOGLE_SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email || '',
+                    prenom: prenom || '',
+                    scores: scores,
+                    masque_dominant: masque,
+                    profil_type: profilType,
+                    spa: spa
+                })
+            });
+        } catch (e) { console.warn('Sauvegarde silencieuse'); }
+    }
+      // ═══════════════ INITIALISATION ═══════════════
+    async function init() {
+        const params = new URLSearchParams(window.location.search);
+        let scores = null;
+
+        // Priorité 1 : URL (scores passés par le questionnaire)
+        const urlScores = {};
+        MASKS.forEach(m => {
+            if (params.has(m)) urlScores[m] = parseInt(params.get(m)) || 0;
+        });
+        if (params.has('spa')) urlScores.spa = parseInt(params.get('spa')) || 0;
+        if (Object.keys(urlScores).length >= 7) scores = urlScores;
+
+        // Priorité 2 : localStorage
+        if (!scores) {
+            try {
+                const stored = localStorage.getItem('valeur_scores');
+                if (stored) scores = JSON.parse(stored);
+            } catch (e) {}
+        }
+
+        // Priorité 3 : fallback démo (pour test sans questionnaire)
+        if (!scores || Object.keys(scores).filter(k => MASKS.includes(k)).length < 7) {
+            scores = {
+                rouge: 44, orange: 38, jaune: 73, vert: 56,
+                bleu: 69, indigo: 79, violet: 32, spa: 61
+            };
+        }
+
+        const prenom = params.get('prenom') || localStorage.getItem('valeur_prenom') || '';
+        const email = params.get('email') || localStorage.getItem('valeur_email') || '';
+        const profile = detectProfile(scores);
+        const spa = computeSPA(scores);
+
+        document.getElementById('portrait-content').innerHTML = buildPortrait(scores, profile, prenom);
+
+        // Sauvegarde dans Google Sheets (silencieuse)
+        saveToGoogleSheet(email, prenom, scores, profile.primary, profile.type, spa);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
