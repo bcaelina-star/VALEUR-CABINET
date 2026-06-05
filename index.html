@@ -242,7 +242,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;ali
   <button class="btn btn-primary btn-full" onclick="goToScreen('screen-demo')">Commencer le questionnaire →</button>
 </div>
 
-<!-- ── DEMO / INFOS (MODIFIÉE) ────────────── -->
+<!-- ── DEMO / INFOS ────────────── -->
 <div id="screen-demo" class="screen">
   <div class="progress-wrapper">
     <div class="progress-info"><span>Vos informations</span><span>Étape 1 / 6</span></div>
@@ -288,7 +288,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;ali
 </div>
 
 </div><!-- .app -->
-  <script>
+
+<script>
 // ── Détection code cadeau V.A.L.E.U.R© (conservée pour compatibilité) ──
 (function() {
   try {
@@ -308,25 +309,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;ali
 
 // ── CONFIG ──────────────────────────────────────────────────────
 const CONFIG = {
-  RESULTS_URL:         'portrait.html',   // redirection cabinet
-  ITEMS_PP:            17,                  // 17 items/page → 5 pages
+  RESULTS_URL:         'portrait.html',
+  ITEMS_PP:            17,
 };
-// Google Sheets URL (identique pour tous les patients du cabinet)
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby4vOwYjKBFhtLBmwaqvlK5ba8Ow3rzlXihaQBPyA0/exec';
 
 // ── MASK_MAX (échelle 0-5) ────────────────────────────────────────
 const MASK_MAX = {
-  rouge:  50,   // 10 items × 5
-  orange: 65,   // 13 items × 5
-  jaune:  45,   //  9 items × 5
-  vert:   55,   // 11 items × 5
-  bleu:   55,   // 11 items × 5
-  indigo: 60,   // 12 items × 5
-  violet: 60,   // 12 items × 5
+  rouge:  50,
+  orange: 65,
+  jaune:  45,
+  vert:   55,
+  bleu:   55,
+  indigo: 60,
+  violet: 60,
 };
-const SPA_MAX = 35;  // 7 items × 5
+const SPA_MAX = 35;
 
-// ── ALL_ITEMS — 78 items masques (inchangé, identique au fichier précédent) ──
+// ── ALL_ITEMS — 78 items masques (inchangé) ──
 const MASQUE_ITEMS = [
   {id:'R1', mask:'rouge', inv:false, text:"Je surveille régulièrement les signaux de mon corps (rythme cardiaque, sensations) pour détecter un problème de santé."},
   {id:'R2', mask:'rouge', inv:false, text:"Quand j'observe une sensation physique inhabituelle, ma pensée va rapidement vers une maladie grave."},
@@ -428,6 +428,24 @@ const SPA_ITEMS = [
 const SPA_POSITIONS = {11:'SPA-1', 22:'SPA-4', 33:'SPA-2', 44:'SPA-5', 55:'SPA-3', 66:'SPA-6', 77:'SPA-7'};
 const SPA_MAP = {};
 SPA_ITEMS.forEach(s => { SPA_MAP[s.id] = s; });
+
+// ══════════ LISTES BLANCHES POUR LA DÉTECTION DE PROFIL ══════════
+const DYADES_AMPLIFICATIONS = {
+    "jaune+rouge":{}, "orange+vert":{}, "jaune+vert":{}, "orange+rouge":{},
+    "bleu+jaune":{}, "bleu+indigo":{}, "indigo+vert":{}, "indigo+jaune":{},
+    "jaune+violet":{}, "bleu+rouge":{}, "rouge+vert":{}, "indigo+rouge":{},
+    "rouge+violet":{}, "jaune+orange":{}, "bleu+orange":{}, "indigo+orange":{},
+    "orange+violet":{}, "bleu+vert":{}, "vert+violet":{}, "bleu+violet":{},
+    "indigo+violet":{}
+};
+
+const TRIADES_AMPLIFICATIONS = {
+    "jaune+orange+rouge":{}, "bleu+indigo+jaune":{}, "indigo+orange+vert":{},
+    "bleu+jaune+rouge":{}, "indigo+orange+violet":{}, "jaune+rouge+vert":{},
+    "bleu+jaune+vert":{}, "orange+rouge+violet":{}, "bleu+indigo+orange":{},
+    "jaune+orange+vert":{}, "indigo+jaune+rouge":{}, "bleu+vert+violet":{},
+    "bleu+jaune+orange":{}, "rouge+vert+violet":{}, "indigo+jaune+violet":{}
+};
 
 let responses     = {};
 let demographics  = {};
@@ -631,14 +649,13 @@ function startQuestionnaire() {
     return;
   }
 
-  // Récupérer le pid depuis l'URL (fourni automatiquement par le cabinet)
   const params = new URLSearchParams(window.location.search);
   const pid = params.get('pid') || null;
 
   demographics = {
     prenom,
     nom,
-    email: '',   // plus d'email
+    email: '',
     pid: pid,
     age: null,
     genre: null,
@@ -728,8 +745,98 @@ function startFresh() {
   location.reload();
 }
 
+// ═══════════════ SCORING (inchangé) ═══════════════
+function adj(item, raw) { return item.inv ? (5 - raw) : raw; }
+function computeScores() {
+  const masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
+  const sc = {};
+  masks.forEach(m => {
+    const items = [...MASQUE_ITEMS].filter(it => it.mask === m);
+    const sum = items.reduce((acc, it) => acc + adj(it, responses[it.id] ?? 0), 0);
+    sc[m] = Math.round(sum / MASK_MAX[m] * 100);
+  });
+  const spaSum = SPA_ITEMS.reduce((acc, it) => acc + (responses[it.id] ?? 0), 0);
+  sc.spa = Math.round(spaSum / SPA_MAX * 100);
+  return sc;
+}
+
+// ═══════════════ NOUVELLE FONCTION DE DÉTECTION (remplace detectConfigExcel) ═══════════════
+function detectValidProfile(scores) {
+    const MASKS = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
+    const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
+    const VALID_DYADS = Object.keys(DYADES_AMPLIFICATIONS).map(k => k.split('+').sort());
+    const VALID_TRIADS = Object.keys(TRIADES_AMPLIFICATIONS).map(k => k.split('+').sort());
+
+    const sorted = MASKS.map(m => ({ key: m, pct: scores[m] || 0 }))
+        .sort((a, b) => b.pct - a.pct || TIEBREAK.indexOf(a.key) - TIEBREAK.indexOf(b.key));
+
+    const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0;
+
+    // Triade valide ?
+    if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15) {
+        const triadColors = [sorted[0].key, sorted[1].key, sorted[2].key].sort();
+        if (VALID_TRIADS.some(t => t.join(',') === triadColors.join(','))) {
+            return {
+                type: 'triade',
+                masks: triadColors,
+                primary: sorted[0].key,
+                secondary: sorted[1].key,
+                tertiary: sorted[2].key
+            };
+        }
+    }
+
+    // Dyade valide (parmi les 3 meilleures paires possibles)
+    const candidatePairs = [
+        [sorted[0].key, sorted[1].key],
+        [sorted[0].key, sorted[2].key],
+        [sorted[1].key, sorted[2].key]
+    ];
+    for (let pair of candidatePairs) {
+        const pairSorted = [...pair].sort();
+        if (VALID_DYADS.some(d => d.join(',') === pairSorted.join(','))) {
+            const sA = scores[pairSorted[0]], sB = scores[pairSorted[1]];
+            if (sA >= 55 && sB >= 55 && Math.abs(sA - sB) <= 10) {
+                const subtype = (sA >= 65) ? 'forte' : 'modérée';
+                return {
+                    type: subtype === 'forte' ? 'dyade' : 'dyade_moderee',
+                    masks: pairSorted,
+                    primary: sA >= sB ? pairSorted[0] : pairSorted[1],
+                    secondary: sA >= sB ? pairSorted[1] : pairSorted[0],
+                    subtype: subtype
+                };
+            }
+        }
+    }
+
+    // Monomasque dominant
+    if (S1 >= 75 && (S1 - S2) > 10) {
+        return { type: 'mono', masks: [sorted[0].key], primary: sorted[0].key, secondary: (S2 >= 60) ? sorted[1].key : null };
+    }
+    if (S1 >= 60 && (S1 - S2) > 10) {
+        return { type: 'mono_fort', masks: [sorted[0].key], primary: sorted[0].key };
+    }
+
+    // Pan-masques
+    const active60 = sorted.filter(m => m.pct >= 60);
+    if (active60.length >= 5) {
+        const spread = Math.max(...active60.map(m => m.pct)) - Math.min(...active60.map(m => m.pct));
+        if (spread <= 20) {
+            return { type: 'pan', masks: active60.map(m => m.key), primary: sorted[0].key };
+        }
+    }
+
+    // Adaptatif
+    if (S1 < 50) {
+        return { type: S1 < 30 ? 'adaptatif_eq' : 'adaptatif_vig', masks: sorted.map(m => m.key), primary: sorted[0].key };
+    }
+
+    return { type: 'residuel', masks: [sorted[0].key], primary: sorted[0].key };
+}
+
+// ═══════════════ NEXT PAGE (modifiée) ═══════════════
 async function nextPage(idx) {
-  const pid = new URLSearchParams(window.location.search).get('pid') || null;  // <-- ajouté ici
+  const pid = new URLSearchParams(window.location.search).get('pid') || null;
   const pageItems = pages[idx];
   const allOk = pageItems.every(it => responses[it.id] !== undefined);
   const warn = document.getElementById(`warn-${idx}`);
@@ -747,54 +854,48 @@ async function nextPage(idx) {
   document.getElementById('overlay-text').textContent = 'Analyse de votre cartographie…';
 
   const sc = computeScores();
-
   try {
-    const _scorePayload = JSON.stringify({
-      rouge:  sc.rouge,
-      orange: sc.orange,
-      jaune:  sc.jaune,
-      vert:   sc.vert,
-      bleu:   sc.bleu,
-      indigo: sc.indigo,
-      violet: sc.violet,
-      spa:    sc.spa,
-    });
-    localStorage.setItem('valeur_scores',    _scorePayload);
-    localStorage.setItem('valeur_prenom',    demographics.prenom);
-    localStorage.setItem('valeur_email',     demographics.email);
-    localStorage.setItem('valeur_ts',        Date.now().toString());
+    localStorage.setItem('valeur_scores', JSON.stringify({
+      rouge:sc.rouge, orange:sc.orange, jaune:sc.jaune, vert:sc.vert,
+      bleu:sc.bleu, indigo:sc.indigo, violet:sc.violet, spa:sc.spa
+    }));
+    localStorage.setItem('valeur_prenom', demographics.prenom);
+    localStorage.setItem('valeur_email', demographics.email);
+    localStorage.setItem('valeur_ts', Date.now().toString());
     localStorage.removeItem('valeur_wip');
   } catch(e){}
 
-  const masks   = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const scPct   = {};
+  const masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
+  const scPct = {};
   masks.forEach(m => { scPct[m] = sc[m]; });
-  const dom     = masks.sort((a,b) => scPct[b]-scPct[a])[0];
-  const profil  = detectConfigExcel(scPct);
+  const dom = masks.sort((a,b) => scPct[b]-scPct[a])[0];
+  const profil = detectValidProfile(scPct);
 
-  // Sauvegarde silencieuse vers Google Sheets
+  // Sauvegarde silencieuse Google Sheets (inchangée)
   try {
     fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+      method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email:    demographics.email || '',
-        prenom:   demographics.prenom || '',
-        scores:   scPct,
+        email: demographics.email || '',
+        prenom: demographics.prenom || '',
+        scores: scPct,
         masque_dominant: dom,
         profil_type: profil.type,
-        spa:      sc.spa,
-        date:     new Date().toISOString()
+        spa: sc.spa,
+        date: new Date().toISOString()
       })
     });
   } catch(e) {}
 
-  // ── ENVOI SILENCIEUX VERS NEON (CABINET) ──
+  // Envoi vers l'API privée (NOUVELLE URL)
   try {
-    await fetch('https://valeur-backend-api.vercel.app/api/save-result', {
+    await fetch('https://valeur-cabinet-api.vercel.app/api/save-result', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-cabinet-secret': 'valeur-cab-2026'
+      },
       body: JSON.stringify({
         patient_id: pid || null,
         prenom: demographics.prenom,
@@ -806,104 +907,16 @@ async function nextPage(idx) {
         source: 'cabinet'
       })
     });
-  } catch (e) {
-    // silencieux
-  }
+  } catch (e) { /* silencieux */ }
 
-  // Redirection vers le portrait local
+  // Redirection vers le portrait
   const _masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const _scoresQuery = _masks.map(function(m){ return m + '=' + (scPct[m] || 0); }).join('&');
+  const _scoresQuery = _masks.map(m => m + '=' + (scPct[m] || 0)).join('&');
   window.location.href = CONFIG.RESULTS_URL + '?'
     + _scoresQuery
     + '&spa=' + (sc.spa || 0)
     + '&email=' + encodeURIComponent(demographics.email || '')
     + '&prenom=' + encodeURIComponent(demographics.prenom || '');
-}
-
-// ════════════════════════════════════════════════════════
-// SCORING V3 — Échelle 0-5
-// ════════════════════════════════════════════════════════
-function adj(item, raw) {
-  return item.inv ? (5 - raw) : raw;
-}
-
-function computeScores() {
-  const masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const sc = {};
-
-  masks.forEach(m => {
-    const items = [...MASQUE_ITEMS].filter(it => it.mask === m);
-    const sum   = items.reduce((acc, it) => acc + adj(it, responses[it.id] ?? 0), 0);
-    sc[m] = Math.round(sum / MASK_MAX[m] * 100);
-  });
-
-  const spaSum = SPA_ITEMS.reduce((acc, it) => acc + (responses[it.id] ?? 0), 0);
-  sc.spa = Math.round(spaSum / SPA_MAX * 100);
-
-  return sc;
-}
-
-function getLevelFromBrut(pct) {
-  if (pct < 30) return { label: 'FAIBLE',       key: 'faible' };
-  if (pct < 50) return { label: 'MODÉRÉ',       key: 'modéré' };
-  if (pct < 70) return { label: 'SIGNIFICATIF', key: 'significatif' };
-  if (pct < 85) return { label: 'ÉLEVÉ',        key: 'élevé' };
-  return           { label: 'DOMINANT',      key: 'dominant' };
-}
-
-function detectConfigExcel(scPct) {
-  const TIEBREAK_ORDER = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
-  const masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const sorted = masks
-    .map(m => ({ key: m, pct: scPct[m] || 0 }))
-    .sort((a, b) => {
-      if (b.pct !== a.pct) return b.pct - a.pct;
-      return TIEBREAK_ORDER.indexOf(a.key) - TIEBREAK_ORDER.indexOf(b.key);
-    });
-
-  const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0;
-  const S3 = sorted[2]?.pct || 0, S4 = sorted[3]?.pct || 0;
-
-  if (S1 < 50) {
-    const subtype = S1 < 30 ? 'équilibré' : 'vigilant';
-    return { type: 'Adaptatif', subtype, masks: sorted.map(m => m.key) };
-  }
-
-  const above60 = sorted.filter(m => m.pct >= 60);
-  if (above60.length >= 5) {
-    const spread = above60[0].pct - above60[above60.length - 1].pct;
-    if (spread <= 20) {
-      return { type: 'Pan-masques', masks: above60.map(m => m.key) };
-    }
-  }
-
-  if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15 && (S2 - S4) > 10) {
-    return { type: 'Triade', masks: [sorted[0].key, sorted[1].key, sorted[2].key] };
-  }
-
-  if (S1 >= 55 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 10) {
-    return { type: 'Triade', subtype: 'serrée', masks: [sorted[0].key, sorted[1].key, sorted[2].key] };
-  }
-
-  if (S1 >= 65 && S2 >= 65 && (S1 - S2) <= 10) {
-    const tertiaire = (S3 >= 55 && S3 <= 64) ? sorted[2].key : null;
-    return { type: 'Dyade', subtype: tertiaire ? 'forte + tertiaire' : 'forte', masks: [sorted[0].key, sorted[1].key], tertiary: tertiaire };
-  }
-
-  if (S1 >= 55 && S2 >= 55 && (S1 - S2) <= 10) {
-    return { type: 'Dyade', subtype: 'modérée', masks: [sorted[0].key, sorted[1].key] };
-  }
-
-  if (S1 >= 75 && (S1 - S2) > 10) {
-    const secondary = (S2 >= 60 && S2 <= 74 && (S1 - S2) >= 11 && (S1 - S2) <= 20) ? sorted[1].key : null;
-    return { type: 'Mono', subtype: secondary ? 'dominant + secondaire notable' : 'dominant pur', masks: [sorted[0].key], secondary };
-  }
-
-  if (S1 >= 60 && (S1 - S2) > 10) {
-    return { type: 'Mono', subtype: 'fort', masks: [sorted[0].key] };
-  }
-
-  return { type: 'Résiduel', masks: [sorted[0].key] };
 }
 </script>
 </body>
