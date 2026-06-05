@@ -247,30 +247,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;ali
     <div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div>
   </div>
   <div class="card">
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;margin-bottom:8px">Où envoyer votre portrait&nbsp;?</h2>
-    <p style="font-size:.85rem;color:var(--ink4);line-height:1.65;margin-bottom:20px">Votre portrait personnalisé vous est envoyé par email dès la fin du questionnaire — avec un lien permanent pour y revenir à tout moment, depuis n'importe quel appareil.</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;margin-bottom:8px">Qui passe le questionnaire ?</h2>
+    <p style="font-size:.85rem;color:var(--ink4);line-height:1.65;margin-bottom:20px">Le portrait sera généré automatiquement et associé au dossier patient.</p>
     <div class="form-section">
       <div class="form-field" style="margin-bottom:14px">
         <label>Prénom <span class="required-star">*</span></label>
         <input type="text" id="d-prenom" placeholder="ex. Marie" autocomplete="given-name">
       </div>
-      <div class="form-field" style="margin-bottom:14px">
-        <label>Email <span class="required-star">*</span></label>
-        <input type="email" id="d-email" placeholder="votre@email.com" autocomplete="email" oninput="clearEmailError()">
-        <span class="field-hint">Pour recevoir votre portrait et retrouver vos résultats</span>
-      </div>
       <div class="form-field" style="margin-bottom:6px">
-        <label>Confirmer l'email <span class="required-star">*</span></label>
-        <input type="email" id="d-email-confirm" placeholder="votre@email.com" autocomplete="off" oninput="clearEmailError()">
-        <span id="email-error" style="font-size:.78rem;color:var(--rouge);margin-top:4px;display:none"></span>
+        <label>Nom</label>
+        <input type="text" id="d-nom" placeholder="Nom de famille" autocomplete="family-name">
       </div>
     </div>
   </div>
   <div style="margin:0 0 14px;background:rgba(168,135,58,.06);border:1px solid rgba(168,135,58,.2);border-radius:8px;padding:12px 16px">
     <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
-      <input type="checkbox" id="rgpd-consent" style="margin-top:3px;flex-shrink:0;accent-color:#A8873A">
+      <input type="checkbox" id="rgpd-consent" style="margin-top:3px;flex-shrink:0;accent-color:#A8873A" checked>
       <span style="font-size:12px;color:var(--ink3);line-height:1.6">
-        J'accepte que mes réponses soient enregistrées et utilisées dans le cadre du suivi en cabinet. Données confidentielles.
+        Données enregistrées dans le dossier patient du cabinet. Confidentiel.
       </span>
     </label>
   </div>
@@ -279,7 +273,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;ali
     <button class="btn btn-primary" onclick="startQuestionnaire()">Démarrer →</button>
   </div>
 </div>
-
 <!-- ── PAGES QUESTIONNAIRE (injectées dynamiquement) ── -->
 <div id="screen-pages-container"></div>
 
