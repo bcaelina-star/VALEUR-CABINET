@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow"><title>PSY-XX-012 · V.A.L.E.U.R©</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>
+:root{--M:#1D5F8A;--or:#C9A84C;--or-bg:rgba(201,168,76,.09);--or-bd:rgba(201,168,76,.35);
+  --fond:#FFF;--cr:#FAF8F4;--tx:#1A1714;--tx2:#4A4138;--tx3:#8C8278;--fi:#DDD8CF;
+  --ch:linear-gradient(90deg,#B5312A,#C4581F,#B8930A,#2D7A4F,#1D5F8A,#5C3280,#7A3594);
+  --fs:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media print{@page{size:A4;margin:0}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always}.page:last-child{page-break-after:avoid}}
+body{background:#E5E1D9;font-family:var(--fb);font-weight:300;color:var(--tx);-webkit-font-smoothing:antialiased}
+.page{width:210mm;min-height:297mm;margin:6mm auto;background:var(--fond);display:flex;flex-direction:column;box-shadow:0 3px 32px rgba(0,0,0,.16)}
+.bande{height:3mm;flex-shrink:0;background:var(--M)}
+.bande.ch{background:var(--ch)}
+.entete{flex-shrink:0;height:22mm;padding:0 13mm;display:flex;align-items:center;justify-content:space-between;border-bottom:.5pt solid var(--fi)}
+.eh-g{display:flex;flex-direction:column;gap:2px}
+.eh-fam{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3)}
+.eh-titre{font-family:var(--fs);font-size:15pt;font-weight:400;color:var(--tx);line-height:1.1}
+.eh-titre em{color:var(--M);font-style:italic}
+.eh-sous{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx3);margin-top:1px}
+.eh-logo{font-family:var(--fs);font-size:10pt;font-weight:600;letter-spacing:3px;color:var(--or)}
+.eh-logo sup{font-size:6pt;vertical-align:super}
+.eh-code{font-size:7pt;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border:1pt solid var(--fi);padding:2px 7px}
+.corps{flex:1;display:flex;flex-direction:column;padding:0 13mm;min-height:0}
+.spc{flex:1}
+.fi{height:.5pt;background:var(--fi);flex-shrink:0}
+.slbl{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--M);margin:3mm 0 1.5mm;flex-shrink:0}
+.accroche{flex-shrink:0;background:var(--cr);margin:4mm -13mm 0;padding:4mm 13mm;border-left:2.5pt solid var(--M)}
+.accroche p{font-family:var(--fs);font-size:10pt;font-style:italic;font-weight:300;color:var(--tx);line-height:1.6}
+.body-txt{font-size:8pt;font-weight:300;color:var(--tx2);line-height:1.65;flex-shrink:0}
+.et{display:grid;grid-template-columns:7mm 1fr;column-gap:3.5mm;padding:2mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.et:last-child{border-bottom:none}
+.et-n{font-family:var(--fs);font-size:13pt;font-weight:300;color:var(--M);opacity:.5;line-height:1;padding-top:.5mm}
+.et-t{font-size:8pt;font-weight:500;color:var(--tx);margin-bottom:1mm}
+.et-x{font-size:7.5pt;font-weight:300;color:var(--tx2);line-height:1.55}
+.or-box{flex-shrink:0;background:var(--or-bg);border-left:2.5pt solid var(--or);margin:3mm -13mm 0;padding:3.5mm 13mm}
+.or-box p{font-family:var(--fs);font-size:9.5pt;font-style:italic;color:var(--tx);line-height:1.6}
+.or-ttl{font-size:6pt;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:1.5mm}
+.m-box{flex-shrink:0;background:var(--cr);border-left:2.5pt solid var(--M);margin:3mm -13mm 0;padding:3.5mm 13mm}
+.m-box p{font-family:var(--fs);font-size:9.5pt;font-style:italic;color:var(--tx);line-height:1.6}
+.rl{height:6mm;border-bottom:.5pt solid var(--fi);display:block;width:100%}
+.rl-lbl{font-size:6pt;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:1mm;display:block}
+.obs{flex-shrink:0;margin-top:2mm}
+.src{font-size:5.5pt;color:var(--tx3);letter-spacing:.3px;margin-top:2mm;flex-shrink:0;line-height:1.5}
+.chroma{height:3mm;background:var(--ch);flex-shrink:0}
+.z9{flex-shrink:0;padding:2mm 13mm;margin:0 -13mm;border-top:.5pt solid var(--fi);display:flex;align-items:center;gap:8px}
+.z9-lab{font-size:6pt;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
+.z9-arr{font-size:7pt;color:var(--M)}
+.z9-txt{font-family:var(--fs);font-size:7.5pt;font-style:italic;color:var(--tx2)}
+.z9-txt a{color:var(--M);text-decoration:none}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:5mm;flex-shrink:0}
+.col3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm;flex-shrink:0}
+.tag{display:inline-block;font-size:7pt;padding:1.5px 7px;border-radius:9px;background:var(--or-bg);color:var(--or);border:.5pt solid var(--or-bd);margin:1px}
+.ill{flex-shrink:0;display:flex;justify-content:center;align-items:center;margin:2mm 0}
+.lecon{font-size:7.5pt;color:var(--tx2);padding:1.5mm 3mm;border-left:2pt solid var(--M);background:var(--cr);margin-bottom:2mm;flex-shrink:0;line-height:1.5}
+.lecon em{color:var(--M);font-style:italic}
+.force-row{display:flex;align-items:flex-start;gap:3mm;padding:1.5mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.force-row:last-child{border-bottom:none}
+.force-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:2mm}
+.force-mask{font-size:7.5pt;font-weight:500;width:38mm;flex-shrink:0;color:var(--tx)}
+.force-txt{font-size:7pt;color:var(--tx2);line-height:1.5;flex:1}
+.attach-card{border:.5pt solid var(--fi);border-radius:2px;padding:3mm;background:var(--cr);flex-shrink:0}
+.attach-card-title{font-size:8pt;font-weight:600;color:var(--M);margin-bottom:1.5mm}
+.attach-card-txt{font-size:7pt;color:var(--tx2);line-height:1.5}
+.attach-mask{font-size:6.5pt;color:var(--or);margin-top:1.5mm;font-weight:500}
+.resp-guide{display:flex;align-items:center;justify-content:center;gap:6mm;flex-shrink:0;padding:3mm 0}
+.resp-circle{width:28mm;height:28mm;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:7pt;font-weight:500;text-align:center;border:2pt solid}
+</style></head><body><div class="page"><div class="bande" style="background:#1D5F8A"></div>
+  <div class="entete"><div class="eh-g"><div class="eh-fam">PSY · Psychoéducation · Séance 3</div>
+    <div class="eh-titre">Fenêtre de Tolérance <em>& SNA</em></div><div class="eh-sous">Comprendre votre système nerveux autonome — la clé de la régulation</div></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">PSY-XX-012 · p.1/2</div></div></div>
+  <div class="corps">
+<div class="accroche"><p>Votre corps dispose d'un système de régulation naturel qui détermine à chaque instant si vous êtes en mode alarme ou en mode présence. Comprendre ce système, c'est tenir la clé de votre liberté intérieure.</p></div>
+<div class="fi" style="margin-top:3mm"></div>
+<div class="slbl">La fenêtre de tolérance — Dan Siegel (2010)</div>
+<div class="ill"><svg width="175" height="110" viewBox="0 0 175 110" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hyperactivation zone -->
+  <rect x="10" y="5" width="155" height="28" rx="4" fill="#FFF0EE" stroke="#B5312A" stroke-width="1"/>
+  <text x="88" y="15" text-anchor="middle" font-size="7" font-weight="600" fill="#B5312A" font-family="DM Sans">HYPERACTIVATION</text>
+  <text x="88" y="24" text-anchor="middle" font-size="6" fill="#B5312A" font-family="DM Sans">Agitation · Anxiété · Impulsivité · Panique</text>
+  <!-- Window zone -->
+  <rect x="10" y="37" width="155" height="36" rx="4" fill="#F0F7F3" stroke="#2D7A4F" stroke-width="1.5"/>
+  <text x="88" y="52" text-anchor="middle" font-size="8" font-weight="600" fill="#2D7A4F" font-family="DM Sans">FENÊTRE DE TOLÉRANCE</text>
+  <text x="88" y="64" text-anchor="middle" font-size="6.5" fill="#2D7A4F" font-family="DM Sans">Pensée claire · Émotions gérables · Choix possibles</text>
+  <!-- Hypoactivation zone -->
+  <rect x="10" y="77" width="155" height="28" rx="4" fill="#F0F0FF" stroke="#5C3280" stroke-width="1"/>
+  <text x="88" y="90" text-anchor="middle" font-size="7" font-weight="600" fill="#5C3280" font-family="DM Sans">HYPOACTIVATION</text>
+  <text x="88" y="99" text-anchor="middle" font-size="6" fill="#5C3280" font-family="DM Sans">Engourdissement · Dissociation · Repli · Vide</text>
+  <!-- Arrow -->
+  <line x1="3" y1="5" x2="3" y2="105" stroke="#8C8278" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr2)"/>
+  <defs>
+    <marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8C8278"/>
+    </marker>
+  </defs>
+  <text x="3" y="110" text-anchor="middle" font-size="5" fill="#8C8278" font-family="DM Sans">Énergie</text>
+</svg></div>
+<div class="body-txt" style="margin-bottom:2mm"><p>La fenêtre de tolérance est la zone dans laquelle vous pouvez penser clairement, ressentir sans être submergé·e, et faire des choix. Quand vos masques s'activent intensément, vous en sortez — vers le haut (hyperactivation) ou vers le bas (hypoactivation). <strong>Le travail V.A.L.E.U.R© est de revenir dans la fenêtre — et de l'élargir progressivement.</strong></p></div>
+<div class="fi"></div>
+<div class="slbl">Le Système Nerveux Autonome (SNA)</div>
+<div class="ill"><svg width="175" height="70" viewBox="0 0 175 70" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="5" width="80" height="60" rx="5" fill="#FFF0EE" stroke="#B5312A" stroke-width="1.2"/>
+  <text x="42" y="22" text-anchor="middle" font-size="7.5" font-weight="600" fill="#B5312A" font-family="DM Sans">⚡ Sympathique</text>
+  <text x="42" y="34" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Accélère le cœur</text>
+  <text x="42" y="43" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Active l'alarme</text>
+  <text x="42" y="52" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Prépare à fuir/combattre</text>
+  <text x="42" y="61" text-anchor="middle" font-size="6" font-style="italic" fill="#B5312A" font-family="DM Sans">Mode masque</text>
+  <rect x="93" y="5" width="80" height="60" rx="5" fill="#F0F7F3" stroke="#2D7A4F" stroke-width="1.2"/>
+  <text x="133" y="22" text-anchor="middle" font-size="7.5" font-weight="600" fill="#2D7A4F" font-family="DM Sans">🌿 Parasympathique</text>
+  <text x="133" y="34" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Ralentit le cœur</text>
+  <text x="133" y="43" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Active la récupération</text>
+  <text x="133" y="52" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Restaure le discernement</text>
+  <text x="133" y="61" text-anchor="middle" font-size="6" font-style="italic" fill="#2D7A4F" font-family="DM Sans">Mode présence</text>
+</svg></div>
+<div class="body-txt"><p>Le SNA régule automatiquement votre réponse au stress. Chaque activation de masque déclenche le système sympathique — l'alarme. Pour revenir dans la fenêtre, il faut activer le système parasympathique — le frein naturel. C'est exactement ce que fait la cohérence cardiaque.</p></div>
+<div class="src">Siegel D.J. (2010) Mindsight · Porges S.W. (2011) Polyvagal Theory · Cannon W.B. (1929) Fight-or-flight response · Céline Bourbon 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="PSY-XX-012.html">p. 2 — Cohérence cardiaque et conscience observatrice</a></span></div></div>
+  <div class="chroma"></div>
+</div><div class="page"><div class="bande" style="background:#1D5F8A"></div>
+  <div class="entete"><div class="eh-g"><div class="eh-fam">PSY · Psychoéducation · Séance 3</div>
+    <div class="eh-titre">Cohérence Cardiaque <em>& Conscience Observatrice</em></div><div class="eh-sous">Deux outils fondamentaux pour revenir dans votre fenêtre</div></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">PSY-XX-012 · p.2/2</div></div></div>
+  <div class="corps">
+<div class="slbl" style="margin-top:4mm">La cohérence cardiaque — protocole complet</div>
+<div class="ill"><svg width="160" height="80" viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Inspiration circle -->
+  <circle cx="55" cy="40" r="32" fill="none" stroke="#1D5F8A" stroke-width="2" stroke-dasharray="0"/>
+  <circle cx="55" cy="40" r="32" fill="#EEF4FF" opacity="0.6"/>
+  <text x="55" y="33" text-anchor="middle" font-size="8" font-weight="600" fill="#1D5F8A" font-family="DM Sans">↑ INSPIRER</text>
+  <text x="55" y="45" text-anchor="middle" font-size="14" fill="#1D5F8A" font-family="Georgia" font-weight="300">5s</text>
+  <text x="55" y="58" text-anchor="middle" font-size="6.5" fill="#4A4138" font-family="DM Sans">Gonflez le ventre</text>
+  <!-- Arrow -->
+  <path d="M90 40 L110 40" stroke="#C9A84C" stroke-width="2" marker-end="url(#garr)"/>
+  <defs>
+    <marker id="garr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#C9A84C"/>
+    </marker>
+  </defs>
+  <!-- Expiration circle -->
+  <circle cx="130" cy="40" r="22" fill="#F0F7F3" stroke="#2D7A4F" stroke-width="2"/>
+  <text x="130" y="33" text-anchor="middle" font-size="7.5" font-weight="600" fill="#2D7A4F" font-family="DM Sans">↓ EXPIRER</text>
+  <text x="130" y="44" text-anchor="middle" font-size="13" fill="#2D7A4F" font-family="Georgia" font-weight="300">5s</text>
+  <text x="130" y="55" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">Relâchez</text>
+  <!-- Labels -->
+  <text x="80" y="78" text-anchor="middle" font-size="6.5" fill="#C9A84C" font-family="DM Sans" font-weight="600">× 5 cycles = 1 session = 3 heures d'effet</text>
+</svg></div>
+<div class="col2" style="margin-top:2mm">
+  <div class="attach-card">
+    <div class="attach-card-title">⏰ Quand pratiquer</div>
+    <div class="attach-card-txt">3 fois par jour · 5 minutes<br><strong>Matin — Midi — Soir</strong><br>Idéalement avant les repas. Avant les séances particulièrement chargées.</div>
+  </div>
+  <div class="attach-card">
+    <div class="attach-card-title">🫀 Ce qui se passe</div>
+    <div class="attach-card-txt">En 3 minutes : activation du nerf vague → régulation parasympathique → retour dans la fenêtre de tolérance. L'effet dure <strong>3 heures</strong> après 5 minutes de pratique.</div>
+  </div>
+</div>
+<div class="body-txt" style="margin-bottom:2mm;margin-top:2mm"><p><strong>Étape 1 (débutant) :</strong> 5s inspiration / 5s expiration. <strong>Étape 2 :</strong> 4s inspiration / 6s expiration — plus efficace pour la relaxation profonde. Respiration ventrale (ventre) préférable à la respiration thoracique.</p></div>
+<div class="fi"></div>
+<div class="slbl">La conscience observatrice — votre outil de défusion</div>
+<div class="ill"><svg width="155" height="65" viewBox="0 0 155 65" xmlns="http://www.w3.org/2000/svg">
+  <!-- Film room -->
+  <rect x="2" y="2" width="100" height="61" rx="5" fill="#252018" stroke="#C9A84C" stroke-width="1.5"/>
+  <rect x="10" y="10" width="84" height="44" rx="3" fill="#1A1814"/>
+  <text x="52" y="28" text-anchor="middle" font-size="7" fill="#C9A84C" font-family="DM Sans">🎬 Le masque joue</text>
+  <text x="52" y="40" text-anchor="middle" font-size="6" fill="#8C8278" font-family="DM Sans">sur l'écran</text>
+  <rect x="30" y="50" width="44" height="8" rx="2" fill="#C9A84C" opacity="0.3"/>
+  <text x="52" y="57" text-anchor="middle" font-size="5.5" fill="#C9A84C" font-family="DM Sans">VOUS — dans le fauteuil</text>
+  <!-- Observer -->
+  <circle cx="128" cy="30" r="20" fill="#FAF8F4" stroke="#C9A84C" stroke-width="1.5"/>
+  <text x="128" y="24" text-anchor="middle" font-size="10" fill="#C9A84C">👁</text>
+  <text x="128" y="35" text-anchor="middle" font-size="6" font-weight="600" fill="#4A4138" font-family="DM Sans">Conscience</text>
+  <text x="128" y="43" text-anchor="middle" font-size="6" fill="#4A4138" font-family="DM Sans">observatrice</text>
+  <text x="128" y="58" text-anchor="middle" font-size="5.5" fill="#8C8278" font-family="DM Sans">Toujours là</text>
+  <line x1="103" y1="30" x2="108" y2="30" stroke="#C9A84C" stroke-width="1.5" stroke-dasharray="3,2"/>
+</svg></div>
+<div class="body-txt"><p>La conscience observatrice est la part de vous qui ne change pas pendant que tout le reste change. Elle peut regarder le masque jouer sans en être submergée. Si vous pouvez observer une émotion, une part de vous n'est pas cette émotion. <strong>C'est depuis cet endroit que la liberté commence.</strong></p></div>
+<div class="or-box" style="margin-top:2mm">
+  <div class="or-ttl">La séquence d'urgence V.A.L.E.U.R©</div>
+  <p>Masque actif → 5 respirations en cohérence cardiaque → conscience observatrice → 3 questions VOIR</p>
+</div>
+<div class="src">McCraty R. (2006) HeartMath Institute · Porges S.W. (2011) Polyvagal Theory · Kabat-Zinn J. (1990) MBSR · Farb N.A.S. (2007) Neuroimaging mindfulness · Céline Bourbon — Application V.A.L.E.U.R© 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="PSY-XX-013.html">PSY-XX-013 · L'Attachement et les traumas relationnels</a></span></div></div>
+  <div class="chroma"></div>
+</div></body></html>

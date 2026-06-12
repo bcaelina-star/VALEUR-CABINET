@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow"><title>PSY-XX-013 · V.A.L.E.U.R©</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>
+:root{--M:#2D7A4F;--or:#C9A84C;--or-bg:rgba(201,168,76,.09);--or-bd:rgba(201,168,76,.35);
+  --fond:#FFF;--cr:#FAF8F4;--tx:#1A1714;--tx2:#4A4138;--tx3:#8C8278;--fi:#DDD8CF;
+  --ch:linear-gradient(90deg,#B5312A,#C4581F,#B8930A,#2D7A4F,#1D5F8A,#5C3280,#7A3594);
+  --fs:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media print{@page{size:A4;margin:0}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always}.page:last-child{page-break-after:avoid}}
+body{background:#E5E1D9;font-family:var(--fb);font-weight:300;color:var(--tx);-webkit-font-smoothing:antialiased}
+.page{width:210mm;min-height:297mm;margin:6mm auto;background:var(--fond);display:flex;flex-direction:column;box-shadow:0 3px 32px rgba(0,0,0,.16)}
+.bande{height:3mm;flex-shrink:0;background:var(--M)}
+.bande.ch{background:var(--ch)}
+.entete{flex-shrink:0;height:22mm;padding:0 13mm;display:flex;align-items:center;justify-content:space-between;border-bottom:.5pt solid var(--fi)}
+.eh-g{display:flex;flex-direction:column;gap:2px}
+.eh-fam{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3)}
+.eh-titre{font-family:var(--fs);font-size:15pt;font-weight:400;color:var(--tx);line-height:1.1}
+.eh-titre em{color:var(--M);font-style:italic}
+.eh-sous{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx3);margin-top:1px}
+.eh-logo{font-family:var(--fs);font-size:10pt;font-weight:600;letter-spacing:3px;color:var(--or)}
+.eh-logo sup{font-size:6pt;vertical-align:super}
+.eh-code{font-size:7pt;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border:1pt solid var(--fi);padding:2px 7px}
+.corps{flex:1;display:flex;flex-direction:column;padding:0 13mm;min-height:0}
+.spc{flex:1}
+.fi{height:.5pt;background:var(--fi);flex-shrink:0}
+.slbl{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--M);margin:3mm 0 1.5mm;flex-shrink:0}
+.accroche{flex-shrink:0;background:var(--cr);margin:4mm -13mm 0;padding:4mm 13mm;border-left:2.5pt solid var(--M)}
+.accroche p{font-family:var(--fs);font-size:10pt;font-style:italic;font-weight:300;color:var(--tx);line-height:1.6}
+.body-txt{font-size:8pt;font-weight:300;color:var(--tx2);line-height:1.65;flex-shrink:0}
+.et{display:grid;grid-template-columns:7mm 1fr;column-gap:3.5mm;padding:2mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.et:last-child{border-bottom:none}
+.et-n{font-family:var(--fs);font-size:13pt;font-weight:300;color:var(--M);opacity:.5;line-height:1;padding-top:.5mm}
+.et-t{font-size:8pt;font-weight:500;color:var(--tx);margin-bottom:1mm}
+.et-x{font-size:7.5pt;font-weight:300;color:var(--tx2);line-height:1.55}
+.or-box{flex-shrink:0;background:var(--or-bg);border-left:2.5pt solid var(--or);margin:3mm -13mm 0;padding:3.5mm 13mm}
+.or-box p{font-family:var(--fs);font-size:9.5pt;font-style:italic;color:var(--tx);line-height:1.6}
+.or-ttl{font-size:6pt;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:1.5mm}
+.m-box{flex-shrink:0;background:var(--cr);border-left:2.5pt solid var(--M);margin:3mm -13mm 0;padding:3.5mm 13mm}
+.m-box p{font-family:var(--fs);font-size:9.5pt;font-style:italic;color:var(--tx);line-height:1.6}
+.rl{height:6mm;border-bottom:.5pt solid var(--fi);display:block;width:100%}
+.rl-lbl{font-size:6pt;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:1mm;display:block}
+.obs{flex-shrink:0;margin-top:2mm}
+.src{font-size:5.5pt;color:var(--tx3);letter-spacing:.3px;margin-top:2mm;flex-shrink:0;line-height:1.5}
+.chroma{height:3mm;background:var(--ch);flex-shrink:0}
+.z9{flex-shrink:0;padding:2mm 13mm;margin:0 -13mm;border-top:.5pt solid var(--fi);display:flex;align-items:center;gap:8px}
+.z9-lab{font-size:6pt;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
+.z9-arr{font-size:7pt;color:var(--M)}
+.z9-txt{font-family:var(--fs);font-size:7.5pt;font-style:italic;color:var(--tx2)}
+.z9-txt a{color:var(--M);text-decoration:none}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:5mm;flex-shrink:0}
+.col3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm;flex-shrink:0}
+.tag{display:inline-block;font-size:7pt;padding:1.5px 7px;border-radius:9px;background:var(--or-bg);color:var(--or);border:.5pt solid var(--or-bd);margin:1px}
+.ill{flex-shrink:0;display:flex;justify-content:center;align-items:center;margin:2mm 0}
+.lecon{font-size:7.5pt;color:var(--tx2);padding:1.5mm 3mm;border-left:2pt solid var(--M);background:var(--cr);margin-bottom:2mm;flex-shrink:0;line-height:1.5}
+.lecon em{color:var(--M);font-style:italic}
+.force-row{display:flex;align-items:flex-start;gap:3mm;padding:1.5mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.force-row:last-child{border-bottom:none}
+.force-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:2mm}
+.force-mask{font-size:7.5pt;font-weight:500;width:38mm;flex-shrink:0;color:var(--tx)}
+.force-txt{font-size:7pt;color:var(--tx2);line-height:1.5;flex:1}
+.attach-card{border:.5pt solid var(--fi);border-radius:2px;padding:3mm;background:var(--cr);flex-shrink:0}
+.attach-card-title{font-size:8pt;font-weight:600;color:var(--M);margin-bottom:1.5mm}
+.attach-card-txt{font-size:7pt;color:var(--tx2);line-height:1.5}
+.attach-mask{font-size:6.5pt;color:var(--or);margin-top:1.5mm;font-weight:500}
+.resp-guide{display:flex;align-items:center;justify-content:center;gap:6mm;flex-shrink:0;padding:3mm 0}
+.resp-circle{width:28mm;height:28mm;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:7pt;font-weight:500;text-align:center;border:2pt solid}
+</style></head><body><div class="page"><div class="bande" style="background:#2D7A4F"></div>
+  <div class="entete"><div class="eh-g"><div class="eh-fam">PSY · Psychoéducation · Séance 3</div>
+    <div class="eh-titre">Attachement <em>& Traumas Relationnels</em></div><div class="eh-sous">Les origines des masques dans le système nerveux autonome</div></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">PSY-XX-013 · p.1/2</div></div></div>
+  <div class="corps">
+<div class="accroche"><p>Avant même que les mots n'existent pour vous, votre cerveau a appris comment se sentir en sécurité dans le lien. Ces apprentissages précoces sont à l'origine de vos masques — et ils vivent dans votre système nerveux, pas seulement dans votre mémoire.</p></div>
+<div class="fi" style="margin-top:3mm"></div>
+<div class="slbl">Les 4 styles d'attachement — Bowlby & Ainsworth</div>
+<div class="ill"><svg width="175" height="130" viewBox="0 0 175 130" xmlns="http://www.w3.org/2000/svg">
+  <!-- Center -->
+  <circle cx="87" cy="65" r="22" fill="#F0F7F3" stroke="#2D7A4F" stroke-width="2"/>
+  <text x="87" y="60" text-anchor="middle" font-size="7" font-weight="600" fill="#2D7A4F" font-family="DM Sans">Attachement</text>
+  <text x="87" y="71" text-anchor="middle" font-size="7" fill="#2D7A4F" font-family="DM Sans">SÉCURE</text>
+  <text x="87" y="80" text-anchor="middle" font-size="5.5" fill="#4A4138" font-family="DM Sans">Équilibre · Choix</text>
+  <!-- Anxieux ambivalent - top left -->
+  <circle cx="30" cy="28" r="24" fill="#FFF0EE" stroke="#B5312A" stroke-width="1.5"/>
+  <text x="30" y="21" text-anchor="middle" font-size="6.5" font-weight="600" fill="#B5312A" font-family="DM Sans">Anxieux</text>
+  <text x="30" y="30" text-anchor="middle" font-size="6.5" font-weight="600" fill="#B5312A" font-family="DM Sans">ambivalent</text>
+  <text x="30" y="40" text-anchor="middle" font-size="5.5" fill="#4A4138" font-family="DM Sans">Hypervigilance</text>
+  <text x="30" y="48" text-anchor="middle" font-size="5" fill="#B5312A" font-family="DM Sans">→ Masque Vert</text>
+  <!-- Evitant - top right -->
+  <circle cx="145" cy="28" r="24" fill="#EEF4FF" stroke="#1D5F8A" stroke-width="1.5"/>
+  <text x="145" y="21" text-anchor="middle" font-size="6.5" font-weight="600" fill="#1D5F8A" font-family="DM Sans">Anxieux</text>
+  <text x="145" y="30" text-anchor="middle" font-size="6.5" font-weight="600" fill="#1D5F8A" font-family="DM Sans">évitant</text>
+  <text x="145" y="40" text-anchor="middle" font-size="5.5" fill="#4A4138" font-family="DM Sans">Autosuffisance</text>
+  <text x="145" y="48" text-anchor="middle" font-size="5" fill="#1D5F8A" font-family="DM Sans">→ Masque Bleu</text>
+  <!-- Desorganise - bottom -->
+  <circle cx="87" cy="118" r="20" fill="#F5F0FF" stroke="#5C3280" stroke-width="1.5"/>
+  <text x="87" y="112" text-anchor="middle" font-size="6.5" font-weight="600" fill="#5C3280" font-family="DM Sans">Désorganisé</text>
+  <text x="87" y="121" text-anchor="middle" font-size="5.5" fill="#4A4138" font-family="DM Sans">Contradictoire</text>
+  <text x="87" y="129" text-anchor="middle" font-size="5" fill="#5C3280" font-family="DM Sans">→ Masques mixtes</text>
+  <!-- Lines -->
+  <line x1="55" y1="44" x2="70" y2="53" stroke="#DDD8CF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="120" y1="44" x2="105" y2="53" stroke="#DDD8CF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="87" y1="87" x2="87" y2="98" stroke="#DDD8CF" stroke-width="1" stroke-dasharray="3,2"/>
+</svg></div>
+<div style="border:.5pt solid #2D7A4F22;border-left:2.5pt solid #2D7A4F;padding:2.5mm 3mm;margin-bottom:2mm;background:#2D7A4F09;flex-shrink:0">
+  <div style="font-size:8pt;font-weight:600;color:#2D7A4F;margin-bottom:1mm">Sécure</div>
+  <div style="font-size:7pt;color:#4A4138;line-height:1.5;margin-bottom:1mm">Figures d'attachement réactives et cohérentes. Expressions émotionnelles accueillies. L'enfant apprend : « Je peux exprimer ce que je ressens et recevoir du soutien. »</div>
+  <div style="font-size:6.5pt;color:#8C8278;line-height:1.5;margin-bottom:1mm;font-style:italic">Adulte : régulation émotionnelle adaptative, relations stables, résolution de conflits sans menace pour le lien.</div>
+  <div style="font-size:6pt;color:#2D7A4F;font-weight:500">SNA équilibré · accès à la fenêtre de tolérance</div>
+</div><div style="border:.5pt solid #B5312A22;border-left:2.5pt solid #B5312A;padding:2.5mm 3mm;margin-bottom:2mm;background:#B5312A09;flex-shrink:0">
+  <div style="font-size:8pt;font-weight:600;color:#B5312A;margin-bottom:1mm">Anxieux-ambivalent</div>
+  <div style="font-size:7pt;color:#4A4138;line-height:1.5;margin-bottom:1mm">Réponses parentales inconsistantes. L'enfant amplifie ses signaux pour obtenir une réponse. Il apprend : « Pour être vu, je dois insister, m'accrocher, surveiller. »</div>
+  <div style="font-size:6.5pt;color:#8C8278;line-height:1.5;margin-bottom:1mm;font-style:italic">Adulte : hypervigilance relationnelle, peur de l'abandon, recherche constante de réassurance.</div>
+  <div style="font-size:6pt;color:#B5312A;font-weight:500">SNA hyperactivé · Masque Vert dominant</div>
+</div><div style="border:.5pt solid #1D5F8A22;border-left:2.5pt solid #1D5F8A;padding:2.5mm 3mm;margin-bottom:2mm;background:#1D5F8A09;flex-shrink:0">
+  <div style="font-size:8pt;font-weight:600;color:#1D5F8A;margin-bottom:1mm">Anxieux-évitant</div>
+  <div style="font-size:7pt;color:#4A4138;line-height:1.5;margin-bottom:1mm">Besoins émotionnels négligés ou rejetés. L'enfant apprend à supprimer ses besoins. Il retient : « Pour rester en sécurité, je dois ne dépendre de personne. »</div>
+  <div style="font-size:6.5pt;color:#8C8278;line-height:1.5;margin-bottom:1mm;font-style:italic">Adulte : autosuffisance défensive, évitement de l'intimité, valeur fondée sur la performance.</div>
+  <div style="font-size:6pt;color:#1D5F8A;font-weight:500">SNA inhibé · Masque Bleu ou Orange dominant</div>
+</div><div style="border:.5pt solid #5C328022;border-left:2.5pt solid #5C3280;padding:2.5mm 3mm;margin-bottom:2mm;background:#5C328009;flex-shrink:0">
+  <div style="font-size:8pt;font-weight:600;color:#5C3280;margin-bottom:1mm">Désorganisé</div>
+  <div style="font-size:7pt;color:#4A4138;line-height:1.5;margin-bottom:1mm">Figure d'attachement = source de peur (maltraitance, instabilité). L'enfant est pris entre se rapprocher et fuir. Il ne peut pas développer de stratégie cohérente.</div>
+  <div style="font-size:6.5pt;color:#8C8278;line-height:1.5;margin-bottom:1mm;font-style:italic">Adulte : comportements contradictoires, difficulté à faire confiance, vulnérabilité élevée aux traumas.</div>
+  <div style="font-size:6pt;color:#5C3280;font-weight:500">SNA dysrégulé · profil adaptatif multi-masques</div>
+</div>
+<div class="src">Bowlby J. (1969) Attachment and Loss · Ainsworth M.D.S. (1978) Patterns of Attachment · Main M. (1985) Attachement désorganisé · Céline Bourbon 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="PSY-XX-013.html">p. 2 — SNA, conditionnement et chemin de guérison</a></span></div></div>
+  <div class="chroma"></div>
+</div><div class="page"><div class="bande" style="background:#2D7A4F"></div>
+  <div class="entete"><div class="eh-g"><div class="eh-fam">PSY · Psychoéducation · Séance 3</div>
+    <div class="eh-titre">Du <em>Conditionnement au Changement</em></div><div class="eh-sous">SNA, mémoire implicite et chemin de guérison</div></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">PSY-XX-013 · p.2/2</div></div></div>
+  <div class="corps">
+<div class="slbl" style="margin-top:4mm">Le chemin du trauma vers le masque</div>
+<div class="ill"><svg width="175" height="68" viewBox="0 0 175 68" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="8" width="34" height="52" rx="4" fill="#FFF0EE" stroke="#B5312A" stroke-width="1"/>
+  <text x="19" y="28" text-anchor="middle" font-size="6.5" fill="#B5312A" font-family="DM Sans" font-weight="600">Trauma</text>
+  <text x="19" y="38" text-anchor="middle" font-size="6.5" fill="#B5312A" font-family="DM Sans" font-weight="600">relation-</text>
+  <text x="19" y="48" text-anchor="middle" font-size="6.5" fill="#B5312A" font-family="DM Sans" font-weight="600">nel</text>
+  <path d="M37 34 L52 34" stroke="#C9A84C" stroke-width="1.5" marker-end="url(#garr2)"/>
+  <defs><marker id="garr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#C9A84C"/></marker></defs>
+  <rect x="53" y="8" width="34" height="52" rx="4" fill="#F5F5FF" stroke="#5C3280" stroke-width="1"/>
+  <text x="70" y="28" text-anchor="middle" font-size="6.5" fill="#5C3280" font-family="DM Sans" font-weight="600">SNA</text>
+  <text x="70" y="38" text-anchor="middle" font-size="6.5" fill="#5C3280" font-family="DM Sans" font-weight="600">condition-</text>
+  <text x="70" y="48" text-anchor="middle" font-size="6.5" fill="#5C3280" font-family="DM Sans" font-weight="600">né</text>
+  <path d="M88 34 L103 34" stroke="#C9A84C" stroke-width="1.5" marker-end="url(#garr2)"/>
+  <rect x="104" y="8" width="34" height="52" rx="4" fill="#EDE8DF" stroke="#B8930A" stroke-width="1"/>
+  <text x="121" y="28" text-anchor="middle" font-size="6.5" fill="#B8930A" font-family="DM Sans" font-weight="600">Masque</text>
+  <text x="121" y="38" text-anchor="middle" font-size="6.5" fill="#B8930A" font-family="DM Sans" font-weight="600">de</text>
+  <text x="121" y="48" text-anchor="middle" font-size="6.5" fill="#B8930A" font-family="DM Sans" font-weight="600">protection</text>
+  <path d="M139 34 L154 34" stroke="#2D7A4F" stroke-width="1.5" marker-end="url(#garr3)"/>
+  <defs><marker id="garr3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2D7A4F"/></marker></defs>
+  <rect x="155" y="16" width="18" height="36" rx="4" fill="#F0F7F3" stroke="#2D7A4F" stroke-width="1"/>
+  <text x="164" y="32" text-anchor="middle" font-size="6" fill="#2D7A4F" font-family="DM Sans" font-weight="600">Prise</text>
+  <text x="164" y="42" text-anchor="middle" font-size="6" fill="#2D7A4F" font-family="DM Sans">de</text>
+  <text x="164" y="52" text-anchor="middle" font-size="6" fill="#2D7A4F" font-family="DM Sans">cons-</text>
+  <text x="164" y="60" text-anchor="middle" font-size="5" fill="#2D7A4F" font-family="DM Sans">cience</text>
+  <text x="88" y="67" text-anchor="middle" font-size="5.5" fill="#8C8278" font-family="DM Sans">Bowlby · Ainsworth · Porges · Siegel</text>
+</svg></div>
+<div class="body-txt" style="margin-bottom:3mm"><p>Les traumas d'attachement ne sont pas des souvenirs stockés dans la mémoire narrative (hippocampe). Ils sont des <strong>conditionnements du système nerveux autonome</strong> — stockés dans la mémoire implicite, corporelle. C'est pourquoi vous pouvez réagir intensément à une situation mineure sans comprendre pourquoi. Ce n'est pas irrationnel : c'est votre SNA qui a reconnu un pattern familier et déclenché la réponse apprise.</p></div>
+<div class="fi"></div>
+<div class="slbl">Ce qui peut changer — la neuroplasticité de l'attachement</div>
+<div class="col2" style="margin-top:1mm;margin-bottom:2mm">
+  <div class="attach-card">
+    <div class="attach-card-title">L'attachement n'est pas figé</div>
+    <div class="attach-card-txt">Des expériences relationnelles correctives — avec un thérapeute, un partenaire sécure, un groupe — peuvent modifier les modèles internes opérants. La plasticité cérébrale rend cela possible à tout âge.</div>
+  </div>
+  <div class="attach-card">
+    <div class="attach-card-title">Le corps d'abord</div>
+    <div class="attach-card-txt">Les traumas d'attachement vivent dans le corps. La cohérence cardiaque, le travail somatique, la régulation du SNA — ces outils agissent directement là où les masques sont ancrés.</div>
+  </div>
+</div>
+<div class="or-box">
+  <div class="or-ttl">Ce que cela change pour votre masque</div>
+  <p>Votre masque n'est pas un défaut de personnalité. C'est une réponse adaptative à une expérience d'attachement insécure. Comprendre d'où il vient, c'est commencer à ne plus être obligé·e de lui obéir.</p>
+</div>
+<div class="obs"><span class="rl-lbl">Mon style d'attachement probable — ce que je reconnais dans ma propre histoire</span><div class="rl"></div><div class="rl"></div></div>
+<div class="obs"><span class="rl-lbl">Le masque que cela a généré — et comment il se manifeste dans mes relations aujourd'hui</span><div class="rl"></div><div class="rl"></div></div>
+<div class="src">Siegel D.J. (1999) The Developing Mind · Porges S.W. (2011) Polyvagal Theory · Schore A.N. (2003) Affect Regulation · Fonagy P. (1997) Mentalisation · Céline Bourbon 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="fiche_V_voir.html">Étape V · VOIR — commencer le travail avec le masque</a></span></div></div>
+  <div class="chroma"></div>
+</div></body></html>
