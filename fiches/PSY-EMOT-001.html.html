@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thermographie des Émotions – Cabinet V.A.L.E.U.R©</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #FCFAF7;
+            color: #1A1814;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            line-height: 1.7;
+        }
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 400;
+            color: #C4581F; /* Orange – évoque la chaleur corporelle */
+            margin-bottom: 8px;
+        }
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: 24px;
+            color: #C9A84C;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(201,168,76,0.3);
+            padding-bottom: 6px;
+        }
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 20px;
+            color: #2A2622;
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #8C827D;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .highlight {
+            background: #F6F4F0;
+            border-left: 4px solid #C4581F;
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        .highlight.gold {
+            border-left-color: #C9A84C;
+        }
+        .exercise-box {
+            background: #FFF8F4;
+            border: 1px solid rgba(196,88,31,0.2);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+        .exercise-box h3 {
+            color: #C4581F;
+            margin-top: 0;
+        }
+        .step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .step-num {
+            background: #C4581F;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-style: italic;
+            text-align: center;
+            margin: 28px 0;
+            color: #3A3632;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            h1 { font-size: 32px; }
+        }
+        .card-mini {
+            background: #fff;
+            border: 1px solid rgba(26,24,20,0.08);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .card-mini h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(196,88,31,0.1);
+            color: #C4581F;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-right: 4px;
+        }
+        .footer {
+            margin-top: 48px;
+            font-size: 12px;
+            color: #B8B0A5;
+            text-align: center;
+            border-top: 1px solid rgba(26,24,20,0.08);
+            padding-top: 24px;
+        }
+        ul, ol {
+            padding-left: 24px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(26,24,20,0.08);
+            text-align: left;
+        }
+        th {
+            font-weight: 500;
+            color: #C4581F;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .formula {
+            text-align: center;
+            font-size: 28px;
+            font-family: 'Cormorant Garamond', serif;
+            margin: 24px 0;
+        }
+        .formula span {
+            color: #C4581F;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h1>La thermographie des émotions</h1>
+    <p class="subtitle">Apprendre à localiser, nommer et accueillir vos émotions pour mieux y répondre</p>
+
+    <p>Nous avons tous ressenti un jour « une boule au ventre », « un poids sur la poitrine » ou « une chaleur qui monte au visage ». Ces expressions ne sont pas des métaphores : <strong>les émotions s’inscrivent dans le corps</strong>. Des recherches en neurosciences ont même permis de dresser des <strong>cartes corporelles des émotions</strong> : chaque émotion active des zones spécifiques du corps, mesurables par thermographie. Comprendre ce langage corporel est une étape clé pour se libérer des masques de défense.</p>
+
+    <h2>La science derrière les cartes corporelles</h2>
+    <p>En 2014, une équipe finlandaise (Nummenmaa et al.) a demandé à plus de 700 volontaires de colorier sur une silhouette les zones où ils ressentaient une activation (chaleur, tension) ou une désactivation (froid, engourdissement) lors de différentes émotions. Les résultats, publiés dans <em>PNAS</em>, montrent que les émotions de base ont des signatures corporelles <strong>universelles</strong>, indépendantes de la culture.</p>
+
+    <div class="highlight">
+        <p><strong>Exemples :</strong></p>
+        <ul>
+            <li><strong>Colère :</strong> activation intense de la tête, des épaules, des bras, de la poitrine (préparation au combat).</li>
+            <li><strong>Peur :</strong> activation de la poitrine et du ventre, jambes froides (réaction de survie).</li>
+            <li><strong>Tristesse :</strong> désactivation générale, sensation de vide dans la poitrine.</li>
+            <li><strong>Joie :</strong> activation globale, chaleur diffuse sur tout le corps.</li>
+        </ul>
+    </div>
+
+    <h2>Émotion = besoin insatisfait</h2>
+    <p>Chaque émotion est un <strong>signal</strong>. Elle vous informe qu’un besoin fondamental demande votre attention. Tant que ce besoin n’est pas écouté, l’émotion persiste, s’intensifie, et peut même se chroniciser. Voici quelques correspondances clés :</p>
+
+    <table>
+        <tr><th>Émotion</th><th>Besoin sous‑jacent</th><th>Question à se poser</th></tr>
+        <tr><td>Colère</td><td>Justice, respect, réparation</td><td>Qu’est‑ce qui a été bafoué ? De quoi ai‑je besoin pour me sentir respecté·e ?</td></tr>
+        <tr><td>Peur</td><td>Sécurité, protection</td><td>De quoi ai‑je besoin pour me sentir en sécurité ?</td></tr>
+        <tr><td>Tristesse</td><td>Réconfort, lien, sens</td><td>Qu’est‑ce que j’ai perdu ? De quel réconfort ai‑je besoin ?</td></tr>
+        <tr><td>Joie</td><td>Partage, célébration</td><td>Avec qui ai‑je envie de partager ce moment ?</td></tr>
+        <tr><td>Dégoût</td><td>Protection, limites</td><td>Qu’est‑ce qui dépasse mes limites ?</td></tr>
+    </table>
+
+    <h2>La formule V.A.L.E.U.R : D = e × r²</h2>
+    <div class="formula">
+        <span>D</span> = <span>e</span> × <span>r</span>²
+    </div>
+    <p><strong>D</strong> = Détresse ressentie<br>
+    <strong>e</strong> = intensité de l’émotion brute<br>
+    <strong>r</strong> = résistance (le fait de lutter contre l’émotion, de la juger, de la refouler)</p>
+
+    <p>En d’autres termes, <strong>plus vous résistez à ce que vous ressentez, plus la souffrance est amplifiée de façon exponentielle</strong>. À l’inverse, accueillir l’émotion, la laisser circuler dans le corps sans la combattre, fait redescendre la détresse. C’est tout le sens de l’étape <strong>ACCUEILLIR</strong> de la méthode V.A.L.E.U.R.</p>
+
+    <h2>Localiser l’émotion dans le corps (étape LOCALISER)</h2>
+    <p>Pour sortir de la fusion avec une émotion, la première étape consiste à <strong>la localiser physiquement</strong>. Cela active le cortex préfrontal, diminue l’activité de l’amygdale, et crée un espace de choix. Voici comment faire :</p>
+
+    <div class="exercise-box">
+        <h3>🧘 Exercice : scanner corporel des émotions</h3>
+        <p><strong>Durée :</strong> 5 minutes</p>
+        <div class="step">
+            <div class="step-num">1</div>
+            <div>Installez‑vous confortablement, fermez les yeux si cela vous est agréable, et prenez trois respirations profondes.</div>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <div>Parcourez mentalement votre corps de la tête aux pieds. <strong>Où se situe la sensation la plus intense ?</strong> (chaleur, tension, poids, froid, picotement…)</div>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <div>Placez votre main sur cette zone (si accessible). <strong>Décrivez la sensation</strong> avec des mots simples : « c’est serré », « ça brûle », « c’est lourd ».</div>
+        </div>
+        <div class="step">
+            <div class="step-num">4</div>
+            <div>Nommez l’émotion associée : « c’est de la colère », « c’est de la tristesse », « c’est de la peur ».</div>
+        </div>
+        <div class="step">
+            <div class="step-num">5</div>
+            <div>Posez‑vous la question : <strong>« De quoi cette émotion a‑t‑elle besoin ? »</strong> (réconfort, sécurité, expression, etc.). Restez quelques instants avec la sensation, sans chercher à la modifier.</div>
+        </div>
+        <p style="margin-top:16px;"><strong>🔁 À répéter chaque fois qu’une émotion forte émerge.</strong> Cet exercice est un entraînement à l’étape LOCALISER de la méthode V.A.L.E.U.R.</p>
+    </div>
+
+    <h2>Pourquoi cela fonctionne</h2>
+    <p>En localisant l’émotion dans le corps, vous activez le <strong>cortex insulaire</strong> (conscience intéroceptive) et le <strong>cortex préfrontal</strong> (régulation), ce qui diminue l’activité de l’amygdale. Vous passez d’un mode réactif (sympathique) à un mode d’observation (voie ventrale vagale). Ce processus est au cœur de la <strong>défusion</strong> et de la <strong>régulation émotionnelle</strong>.</p>
+
+    <div class="highlight gold">
+        <p><strong>À retenir :</strong> Une émotion n’est pas un problème à résoudre, c’est un message à écouter. En l’accueillant dans le corps, vous réduisez la résistance (le « r » de la formule) et donc la détresse globale.</p>
+    </div>
+
+    <p style="font-size:12px; color:#8C827D;">Sources : Nummenmaa, L., Glerean, E., Hari, R., & Hietanen, J. K. (2014). Bodily maps of emotions. <em>PNAS</em>, 111(2), 646‑651. · Craig, A. D. (2002). How do you feel? Interoception: the sense of the physiological condition of the body. <em>Nature Reviews Neuroscience</em>, 3(8), 655‑666.</p>
+
+    <div class="footer">Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue · Cabinet</div>
+</body>
+</html>

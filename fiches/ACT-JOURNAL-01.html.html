@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal de bord V.A.L.E.U.R© – Cabinet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #FCFAF7;
+            color: #1A1814;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            line-height: 1.7;
+        }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 400; color: #C9A84C; margin-bottom: 8px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 24px; color: #C9A84C; margin-top: 36px; margin-bottom: 12px; border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 6px; }
+        .subtitle { font-size: 16px; color: #8C827D; margin-bottom: 24px; font-style: italic; }
+        .exercise-box { background: #FFFDF7; border: 1px solid rgba(201,168,76,0.2); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+        .exercise-box h3 { color: #C9A84C; margin-top: 0; font-family: 'Cormorant Garamond', serif; }
+        .field { margin-bottom: 16px; }
+        .field label { display: block; font-weight: 500; margin-bottom: 4px; }
+        .field input, .field textarea { width: 100%; padding: 10px; border: 1px solid rgba(26,24,20,0.12); border-radius: 8px; font-family: 'DM Sans', sans-serif; }
+        .field textarea { min-height: 80px; resize: vertical; }
+        .footer { margin-top: 48px; font-size: 12px; color: #B8B0A5; text-align: center; border-top: 1px solid rgba(26,24,20,0.08); padding-top: 24px; }
+        .print-btn { display: inline-block; background: #C9A84C; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; margin-top: 20px; font-size: 14px; cursor: pointer; }
+        @media print { .print-btn { display: none; } }
+    </style>
+</head>
+<body>
+    <h1>Journal de bord V.A.L.E.U.R©</h1>
+    <p class="subtitle">Suivez votre progression au fil des jours – une semaine type pour cultiver la conscience</p>
+
+    <p>Ce journal est conçu pour vous accompagner dans les six étapes de la méthode V.A.L.E.U.R. Remplissez‑le chaque jour (ou chaque fois que vous en ressentez le besoin) pour observer vos schémas, vos progrès et vos prises de conscience.</p>
+
+    <div class="exercise-box">
+        <h3>Semaine du ________ au ________</h3>
+
+        <div class="field"><label>Lundi – VOIR :</label><textarea placeholder="Quel masque s’est activé aujourd’hui ? Dans quelle situation ?"></textarea></div>
+        <div class="field"><label>Mardi – ACCUEILLIR :</label><textarea placeholder="Ai‑je résisté à une émotion ? Qu’est‑ce que ça a amplifié ?"></textarea></div>
+        <div class="field"><label>Mercredi – LOCALISER :</label><textarea placeholder="Où dans mon corps ai‑je ressenti cette émotion ? (décrire la sensation)"></textarea></div>
+        <div class="field"><label>Jeudi – EXPLORER :</label><textarea placeholder="Quel conflit entre sécurité et élan de vie est apparu ?"></textarea></div>
+        <div class="field"><label>Vendredi – UNIFIER :</label><textarea placeholder="Qu’ai‑je fait pour intégrer mes différentes parties ?"></textarea></div>
+        <div class="field"><label>Samedi – RENFORCER :</label><textarea placeholder="Quelle petite action ai‑je posée pour agir dans une direction nouvelle ?"></textarea></div>
+        <div class="field"><label>Dimanche – Bilan de la semaine :</label><textarea placeholder="Qu’est‑ce que j’ai appris sur moi ? De quoi suis‑je fier·ère ?"></textarea></div>
+    </div>
+
+    <p>💡 <strong>Conseil :</strong> Imprimez ce modèle (Ctrl+P) et remplissez‑le à la main, ou conservez‑le dans votre espace personnel. La régularité est la clé.</p>
+
+    <button class="print-btn" onclick="window.print()">🖨 Imprimer ce journal</button>
+
+    <div class="footer">Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue · Cabinet</div>
+</body>
+</html>

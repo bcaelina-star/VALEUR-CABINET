@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valeurs Profondes – Cabinet V.A.L.E.U.R©</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FCFAF7; --bg2: #F6F4F0; --bg3: #F0EDE8;
+            --ink: #1A1814; --ink2: #3A3632; --ink3: #8C827D; --ink4: #B8B0A5;
+            --gold: #C9A84C; --gold2: #A8873A; --gold-bg: rgba(201,168,76,0.08);
+            --line: rgba(26,24,20,0.08);
+            --rouge: #B5312A; --orange: #C4581F; --jaune: #B8930A;
+            --vert: #2D7A4F; --bleu: #1D5F8A; --indigo: #5C3280; --violet: #7A3594;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+            --radius: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg); font-family: var(--font-body); font-weight: 350;
+            color: var(--ink); line-height: 1.7; -webkit-font-smoothing: antialiased;
+            max-width: 820px; margin: 0 auto; padding: 48px 24px 80px;
+        }
+        h1 {
+            font-family: var(--font-display); font-size: 46px; font-weight: 400;
+            color: var(--ink); margin-bottom: 4px;
+        }
+        h2 {
+            font-family: var(--font-display); font-weight: 400; font-size: 26px;
+            color: var(--gold); margin-top: 44px; margin-bottom: 16px;
+            border-bottom: 1px solid var(--line); padding-bottom: 10px;
+        }
+        h3 {
+            font-family: var(--font-display); font-weight: 500; font-size: 20px;
+            color: var(--ink2); margin-top: 28px; margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 16px; color: var(--ink3); margin-bottom: 32px; font-style: italic;
+        }
+        .highlight {
+            background: var(--bg2); border-left: 4px solid var(--gold);
+            padding: 20px 24px; border-radius: 0 var(--radius) var(--radius) 0; margin: 24px 0;
+        }
+        .highlight.dark {
+            background: var(--ink); color: var(--bg);
+            border-left-color: var(--gold);
+        }
+        .highlight.dark p { color: var(--bg); }
+        .quote {
+            font-family: var(--font-display); font-size: 24px; font-style: italic;
+            text-align: center; margin: 36px 0; color: var(--ink2); line-height: 1.5;
+        }
+        .quote strong { color: var(--gold); font-weight: 500; }
+        .exercise-box {
+            background: #FFFDF5; border: 1px solid rgba(201,168,76,0.25);
+            border-radius: var(--radius); padding: 28px 28px; margin: 28px 0;
+        }
+        .exercise-box h3 {
+            font-family: var(--font-display); font-size: 22px; color: var(--gold2);
+            margin-top: 0; margin-bottom: 16px;
+        }
+        .exercise-box h4 {
+            font-family: var(--font-display); font-weight: 500; font-size: 18px;
+            color: var(--ink); margin-top: 20px; margin-bottom: 8px;
+        }
+        .step {
+            display: flex; gap: 14px; margin-bottom: 14px; align-items: flex-start;
+        }
+        .step-num {
+            background: var(--gold); color: white; width: 30px; height: 30px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: 600; font-size: 15px; flex-shrink: 0;
+        }
+        .step-text { padding-top: 3px; }
+        .value-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px; margin: 20px 0;
+        }
+        .value-chip {
+            background: white; border: 1px solid var(--line); border-radius: 8px;
+            padding: 8px 12px; font-size: 13px; cursor: pointer; transition: all .2s;
+            text-align: center; user-select: none;
+        }
+        .value-chip:hover { border-color: var(--gold); background: var(--gold-bg); }
+        .value-chip.selected { border-color: var(--gold); background: rgba(201,168,76,0.18); font-weight: 500; }
+        .work-area {
+            background: white; border: 1px dashed var(--line); border-radius: var(--radius);
+            padding: 24px; margin: 20px 0; min-height: 120px;
+        }
+        .work-area h4 { font-family: var(--font-display); font-size: 18px; color: var(--gold2); margin-bottom: 12px; }
+        .work-area textarea {
+            width: 100%; border: none; background: transparent;
+            font-family: var(--font-body); font-size: 14px; resize: vertical;
+            min-height: 100px; color: var(--ink); line-height: 1.7;
+        }
+        .work-area textarea:focus { outline: none; }
+        .mask-link {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            font-size: 12px; font-weight: 500; margin: 3px; color: white;
+        }
+        .mask-link.R { background: var(--rouge); } .mask-link.O { background: var(--orange); }
+        .mask-link.J { background: var(--jaune); } .mask-link.V { background: var(--vert); }
+        .mask-link.B { background: var(--bleu); } .mask-link.I { background: var(--indigo); }
+        .mask-link.Vi { background: var(--violet); }
+        .spa-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--gold-bg); border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 20px; padding: 6px 16px; font-size: 13px; margin: 8px 4px;
+        }
+        .spa-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+        .footer {
+            margin-top: 48px; font-size: 12px; color: var(--ink4);
+            text-align: center; border-top: 1px solid var(--line); padding-top: 24px;
+        }
+        .domain-section {
+            margin: 28px 0;
+        }
+        .domain-section h3 {
+            font-family: var(--font-display); font-size: 18px; color: var(--gold2);
+            margin-bottom: 8px;
+        }
+        .domain-list {
+            display: flex; flex-wrap: wrap; gap: 6px;
+        }
+        .domain-tag {
+            background: var(--bg2); border: 1px solid var(--line);
+            border-radius: 16px; padding: 4px 14px; font-size: 12px;
+        }
+        @media print {
+            body { background: white; padding: 20px; }
+            .exercise-box, .work-area, .highlight { break-inside: avoid; page-break-inside: avoid; }
+            .value-chip { border: 1px solid #ccc; }
+            .value-chip.selected { background: #eee; }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 34px; }
+            .value-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Détermination des valeurs profondes</h1>
+<p class="subtitle">Retrouver votre centre vrai, jamais disparu sous les masques – Exercice inter‑séances</p>
+
+<div class="quote">
+    « Il n'y a pas de vent favorable<br>pour celui qui ne sait pas où il va. »<br>
+    <strong>— Sénèque</strong>
+</div>
+
+<p>Les masques ne sont pas vos ennemis. Ce sont des <strong>protections</strong> qui ont déformé vos <strong>valeurs profondes</strong>. Derrière chaque masque se cache une valeur authentique qui, une fois libérée, devient votre boussole intérieure. <strong>Votre nature vraie n'a jamais disparu</strong> : elle a été recouverte, comme un tableau sous une couche de poussière. Cet exercice vous guide pour <strong>identifier vos valeurs fondamentales</strong>, les hiérarchiser, et commencer à aligner votre vie sur elles.</p>
+
+<div class="highlight dark">
+    <h3 style="color:var(--gold); font-family:var(--font-display); font-weight:400; margin-top:0;">Votre centre vrai</h3>
+    <p>Quand vous étiez enfant, avant que les masques ne se forment, vous saviez ce qui comptait pour vous. La joie, la curiosité, l'amour, la justice… Ces élans n'ont pas disparu. Ils sont simplement <strong>enfouis sous les stratégies de survie</strong>. La méthode V.A.L.E.U.R© vous aide à les retrouver, à les nommer, et à les incarner. C'est ce que nous appelons le <strong>Score de Présence Authentique (SPA)</strong> : plus vos actions sont alignées avec vos valeurs profondes, plus votre SPA est élevé, et plus vos masques s'apaisent.</p>
+</div>
+
+<h2>1. Les valeurs universelles : la boussole humaine</h2>
+<p>Le psychologue Shalom Schwartz a identifié <strong>10 valeurs universelles</strong> présentes dans toutes les cultures (Schwartz, 1992, 2012). Elles sont regroupées en 4 pôles : <strong>Ouverture au changement</strong>, <strong>Affirmation de soi</strong>, <strong>Continuité</strong>, <strong>Dépassement de soi</strong>. Russ Harris, pionnier de la thérapie ACT, y ajoute l'importance des <strong>domaines de vie</strong> (Harris, 2009). Les valeurs sont des <strong>directions</strong>, pas des destinations. On ne les atteint jamais complètement, on les incarne pas après pas.</p>
+
+<div class="highlight">
+    <h3>🔬 Les 10 valeurs universelles de Schwartz</h3>
+    <div class="value-grid">
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Autonomie</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Stimulation</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Hédonisme</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Réussite</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Pouvoir</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Sécurité</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Conformité</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Tradition</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Bienveillance</div>
+        <div class="value-chip" style="background:white; cursor:default; border:none; font-weight:500;">Universalisme</div>
+    </div>
+    <p style="font-size:13px; margin-top:8px;">À celles-ci, nous ajoutons deux valeurs clés de la psychologie positive : <strong>Authenticité</strong> et <strong>Contribution</strong>.</p>
+</div>
+
+<div class="domain-section">
+    <h3>🌐 Les domaines de vie (Harris, 2009)</h3>
+    <p style="font-size:14px;">Les valeurs s'expriment dans différents domaines de votre existence. Prenez un instant pour considérer ceux qui comptent le plus pour vous :</p>
+    <div class="domain-list">
+        <span class="domain-tag">Relations amoureuses</span>
+        <span class="domain-tag">Famille</span>
+        <span class="domain-tag">Amitié</span>
+        <span class="domain-tag">Carrière / Travail</span>
+        <span class="domain-tag">Santé / Bien‑être</span>
+        <span class="domain-tag">Loisirs / Créativité</span>
+        <span class="domain-tag">Spiritualité</span>
+        <span class="domain-tag">Engagement social</span>
+        <span class="domain-tag">Éducation / Apprentissage</span>
+    </div>
+</div>
+
+<h2>2. Identifiez vos valeurs dominantes</h2>
+<p>Parmi les valeurs ci‑dessous, <strong>cliquez sur les 5 qui résonnent le plus avec vous aujourd'hui</strong>. Ne réfléchissez pas trop : fiez‑vous à votre premier ressenti, celui qui vient du cœur, pas du mental.</p>
+
+<div class="value-grid" id="valueGrid">
+    <!-- Générées dynamiquement en JS -->
+</div>
+<p style="font-size:13px; color:var(--ink3); margin-top:8px;"><span id="counter">0</span> / 5 valeurs sélectionnées</p>
+
+<div class="work-area">
+    <h4>✍️ Mes 5 valeurs dominantes</h4>
+    <div id="selectedValues" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;"></div>
+    <textarea placeholder="Prenez le temps de les écrire à la main pour mieux les intégrer. Ensuite, pour chaque valeur, demandez-vous : dans quel domaine de ma vie cette valeur est-elle la plus importante ?"></textarea>
+</div>
+
+<h2>3. Derrière chaque masque, une valeur blessée</h2>
+<p>Chaque masque est une <strong>valeur profonde qui a été blessée ou déformée</strong> par les expériences de vie. En identifiant la valeur sous le masque, vous pouvez commencer à la libérer. Voici les correspondances :</p>
+
+<div class="highlight" style="border-left-color: var(--rouge);">
+    <strong><span class="mask-link R">Rouge</span> → Sécurité</strong><br>
+    La peur de la maladie cache un besoin profond de <strong>sécurité et de paix intérieure</strong>. La valeur authentique est la <strong>sérénité corporelle</strong>.
+</div>
+
+<div class="highlight" style="border-left-color: var(--orange);">
+    <strong><span class="mask-link O">Orange</span> → Authenticité émotionnelle</strong><br>
+    La coupure des émotions cache une <strong>sensibilité profonde</strong>. La valeur authentique est l'<strong>expression libre de soi</strong>.
+</div>
+
+<div class="highlight" style="border-left-color: var(--jaune);">
+    <strong><span class="mask-link J">Jaune</span> → Confiance en la vie</strong><br>
+    L'intolérance à l'incertitude cache un besoin de <strong>foi en l'avenir</strong>. La valeur authentique est la <strong>confiance</strong>.
+</div>
+
+<div class="highlight" style="border-left-color: var(--vert);">
+    <strong><span class="mask-link V">Vert</span> → Amour inconditionnel</strong><br>
+    La peur du rejet cache une <strong>capacité d'aimer immense</strong>. La valeur authentique est l'<strong>amour libre</strong>.
+</div>
+
+<div class="highlight" style="border-left-color: var(--bleu);">
+    <strong><span class="mask-link B">Bleu</span> → Leadership authentique</strong><br>
+    Le besoin de contrôle cache une <strong>force intérieure puissante</strong>. La valeur authentique est l'<strong>autorité naturelle</strong>.
+</div>
+
+<div class="highlight" style="border-left-color: var(--indigo);">
+    <strong><span class="mask-link I">Indigo</span> → Estime de soi intrinsèque</strong><br>
+    La peur du jugement cache un <strong>désir de contribution unique</strong>. La valeur authentique est la <strong>reconnaissance de sa propre valeur</strong>.
+</div>
+
+<div class="highlight" style="border-left-color: var(--violet);">
+    <strong><span class="mask-link Vi">Violet</span> → Identité authentique</strong><br>
+    La confusion identitaire cache une <strong>quête de sens profonde</strong>. La valeur authentique est l'<strong>authenticité</strong>.
+</div>
+
+<div class="work-area">
+    <h4>✍️ Quel masque vous parle le plus aujourd'hui ? Quelle valeur veut-il protéger ?</h4>
+    <textarea placeholder="Exemple : Mon masque Vert cache une valeur d'Amour inconditionnel. Quand je m'adapte aux autres, c'est parce que j'ai peur de perdre le lien. Pourtant, ma valeur profonde est d'aimer librement, sans peur..."></textarea>
+</div>
+
+<h2>4. L'alignement : le Score de Présence Authentique (SPA)</h2>
+<p>Le SPA mesure l'écart entre <strong>ce que vous faites</strong> et <strong>ce qui compte vraiment pour vous</strong>. Plus vos actions sont alignées avec vos valeurs profondes, plus votre SPA est élevé, et plus vos masques s'apaisent. C'est un indicateur de votre <strong>centre vrai</strong>.</p>
+
+<div style="text-align:center; margin: 24px 0;">
+    <div class="spa-badge"><span class="dot"></span> SPA élevé = Alignement valeurs / actions</div>
+    <div class="spa-badge" style="opacity:0.6;">SPA bas = Décalage valeurs / actions</div>
+</div>
+
+<div class="work-area">
+    <h4>✍️ Sur une échelle de 0 à 10, à quel point vos actions quotidiennes sont-elles alignées avec vos 5 valeurs profondes ?</h4>
+    <textarea placeholder="Notez votre ressenti : 0 = pas du tout aligné, 10 = parfaitement aligné. Qu'est-ce qui pourrait faire monter ce score d'un point ?"></textarea>
+</div>
+
+<h2>5. Plan d'action : un petit pas vers vos valeurs</h2>
+<p>Choisissez <strong>une valeur</strong> parmi les 5 que vous avez identifiées. Décidez d'une <strong>micro‑action</strong> que vous pouvez réaliser dans les 48 heures pour incarner cette valeur. Elle doit être simple, concrète et mesurable.</p>
+
+<div class="exercise-box">
+    <h3>🎯 Mon plan d'action valeur</h3>
+
+    <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Valeur choisie :</strong> <span id="planValue" style="color:var(--gold);">____________</span></div>
+    </div>
+    <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Micro‑action concrète :</strong><br>
+        <em>Exemple : « Appeler ma sœur ce soir pour lui dire que je l'aime » (valeur : Amour)</em><br>
+        <textarea placeholder="Décrivez votre micro‑action..." style="width:100%; margin-top:6px; min-height:60px;"></textarea>
+        </div>
+    </div>
+    <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Quand ?</strong> (date et heure précise) : ____________________</div>
+    </div>
+    <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>Comment je me sentirai après l'avoir fait ?</strong><br>
+        <textarea placeholder="Visualisez le résultat..."></textarea>
+        </div>
+    </div>
+</div>
+
+<h2>6. Synthèse : ma déclaration de valeurs</h2>
+<p>Réunissez tout le travail de cette fiche en une phrase qui vous ressemble. Cette phrase deviendra votre <strong>phare dans les moments de doute</strong>, quand les masques essaieront de reprendre le contrôle.</p>
+
+<div class="work-area">
+    <h4>✍️ Ma déclaration de valeurs</h4>
+    <textarea placeholder="Exemple : Je choisis de vivre avec authenticité, en cultivant l'amour et la liberté, dans tous les domaines de ma vie. Mes masques ne me définissent pas. Ma valeur est ma boussole."></textarea>
+</div>
+
+<div class="highlight dark">
+    <p style="font-family: var(--font-display); font-size:20px; font-style:italic; text-align:center; margin:0;">
+        « Ce n'est pas votre masque qui vous définit.<br>C'est la valeur qu'il protège. »
+    </p>
+</div>
+
+<p style="font-size:12px; color:var(--ink3); margin-top:32px;">
+    <strong>Sources :</strong> Schwartz, S. H. (1992). Universals in the content and structure of values. <em>Advances in Experimental Social Psychology</em>. · Schwartz, S. H. (2012). An overview of the Schwartz theory of basic values. <em>Online Readings in Psychology and Culture</em>. · Harris, R. (2009). <em>ACT Made Simple</em>. New Harbinger Publications. · Wood, A. M., Linley, P. A., Maltby, J., Baliousis, M., & Joseph, S. (2008). The authentic personality. <em>Journal of Counseling Psychology</em>. · Sénèque, <em>Lettres à Lucilius</em> (Ier siècle).
+</p>
+
+<div class="footer">
+    Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue · Cabinet · Exercice inter‑séances
+</div>
+
+<script>
+    const values = [
+        "Autonomie", "Stimulation", "Hédonisme", "Réussite",
+        "Pouvoir", "Sécurité", "Conformité", "Tradition",
+        "Bienveillance", "Universalisme", "Authenticité", "Contribution"
+    ];
+    const grid = document.getElementById('valueGrid');
+    const counter = document.getElementById('counter');
+    const selectedContainer = document.getElementById('selectedValues');
+    let selected = [];
+
+    values.forEach(val => {
+        const chip = document.createElement('div');
+        chip.className = 'value-chip';
+        chip.textContent = val;
+        chip.addEventListener('click', () => {
+            if (chip.classList.contains('selected')) {
+                chip.classList.remove('selected');
+                selected = selected.filter(v => v !== val);
+            } else {
+                if (selected.length >= 5) {
+                    alert('Vous avez déjà sélectionné 5 valeurs. Retirez-en une avant d\'en ajouter une nouvelle.');
+                    return;
+                }
+                chip.classList.add('selected');
+                selected.push(val);
+            }
+            updateCounter();
+            updateSelectedDisplay();
+        });
+        grid.appendChild(chip);
+    });
+
+    function updateCounter() {
+        counter.textContent = selected.length;
+    }
+
+    function updateSelectedDisplay() {
+        selectedContainer.innerHTML = selected.map(v =>
+            `<span style="background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3); border-radius:16px; padding:4px 14px; font-size:13px; font-weight:500;">${v}</span>`
+        ).join('');
+        if (selected.length === 1) {
+            document.getElementById('planValue').textContent = selected[0];
+        } else if (selected.length > 1) {
+            document.getElementById('planValue').textContent = '(choisissez-en une parmi vos 5)';
+        } else {
+            document.getElementById('planValue').textContent = '____________';
+        }
+    }
+</script>
+
+</body>
+</html>
