@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow"><title>fiche_U_unifier · V.A.L.E.U.R©</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"><style>
+:root{--M:#1D5F8A;--or:#C9A84C;--or-bg:rgba(201,168,76,.09);--or-bd:rgba(201,168,76,.35);
+  --fond:#FFF;--cr:#FAF8F4;--tx:#1A1714;--tx2:#4A4138;--tx3:#8C8278;--fi:#DDD8CF;
+  --ch:linear-gradient(90deg,#B5312A,#C4581F,#B8930A,#2D7A4F,#1D5F8A,#5C3280,#7A3594);
+  --fs:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media print{@page{size:A4;margin:0}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always}.page:last-child{page-break-after:avoid}}
+body{background:#E5E1D9;font-family:var(--fb);font-weight:300;color:var(--tx);-webkit-font-smoothing:antialiased}
+.page{width:210mm;min-height:297mm;margin:6mm auto;background:var(--fond);display:flex;flex-direction:column;box-shadow:0 3px 32px rgba(0,0,0,.16)}
+.bande{height:3mm;flex-shrink:0;background:var(--M)}
+.bande.ch{background:var(--ch)}
+.entete{flex-shrink:0;height:22mm;padding:0 13mm;display:flex;align-items:center;justify-content:space-between;border-bottom:.5pt solid var(--fi)}
+.eh-g{display:flex;flex-direction:column;gap:2px}
+.eh-fam{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3)}
+.eh-titre{font-family:var(--fs);font-size:15pt;font-weight:400;color:var(--tx);line-height:1}
+.eh-titre em{color:var(--M);font-style:italic}
+.eh-sous{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx3);margin-top:1px}
+.eh-logo{font-family:var(--fs);font-size:10pt;font-weight:600;letter-spacing:3px;color:var(--or)}
+.eh-logo sup{font-size:6pt;vertical-align:super}
+.eh-code{font-size:7pt;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border:1pt solid var(--fi);padding:2px 7px}
+.corps{flex:1;display:flex;flex-direction:column;padding:0 13mm;min-height:0}
+.spc{flex:1}
+.fi{height:.5pt;background:var(--fi);flex-shrink:0}
+.slbl{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--M);margin:4mm 0 2mm;flex-shrink:0}
+.accroche{flex-shrink:0;background:var(--cr);margin:5mm -13mm 0;padding:5mm 13mm;border-left:2.5pt solid var(--M)}
+.accroche p{font-family:var(--fs);font-size:10.5pt;font-style:italic;font-weight:300;color:var(--tx);line-height:1.65}
+.body-txt{font-size:8.5pt;font-weight:300;color:var(--tx2);line-height:1.7;flex-shrink:0}
+.et{display:grid;grid-template-columns:8mm 1fr;column-gap:4mm;padding:2.5mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.et:last-child{border-bottom:none}
+.et-n{font-family:var(--fs);font-size:15pt;font-weight:300;color:var(--M);opacity:.55;line-height:1;padding-top:.5mm}
+.et-t{font-size:8.5pt;font-weight:500;color:var(--tx);margin-bottom:1.5mm}
+.et-x{font-size:8pt;font-weight:300;color:var(--tx2);line-height:1.6}
+.or-box{flex-shrink:0;background:var(--or-bg);border-left:2.5pt solid var(--or);margin:4mm -13mm 0;padding:4mm 13mm}
+.or-box p{font-family:var(--fs);font-size:10pt;font-style:italic;color:var(--tx);line-height:1.65}
+.or-ttl{font-size:6.5pt;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:2mm}
+.m-box{flex-shrink:0;background:var(--cr);border-left:2.5pt solid var(--M);margin:3mm -13mm 0;padding:4mm 13mm}
+.m-box p{font-family:var(--fs);font-size:10pt;font-style:italic;color:var(--tx);line-height:1.65}
+.rl{height:6mm;border-bottom:.5pt solid var(--fi);display:block;width:100%}
+.rl-lbl{font-size:6pt;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:1mm;display:block}
+.obs{flex-shrink:0;margin-top:2mm}
+.src{font-size:6pt;color:var(--tx3);letter-spacing:.5px;margin-top:2mm;flex-shrink:0}
+.chroma{height:3mm;background:var(--ch);flex-shrink:0}
+.z9{flex-shrink:0;padding:2.5mm 13mm;margin:0 -13mm;border-top:.5pt solid var(--fi);display:flex;align-items:center;gap:8px}
+.z9-lab{font-size:6.5pt;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
+.z9-arr{font-size:7pt;color:var(--M)}
+.z9-txt{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx2)}
+.z9-txt a{color:var(--M);text-decoration:none}
+.valeur-tag{display:inline-block;font-size:9pt;font-weight:400;color:var(--M);background:var(--cr);border:1pt solid var(--fi);padding:2mm 5mm;margin:1mm;font-family:var(--fs);border-radius:1px;cursor:default}
+.valeur-tag:hover{background:var(--M);color:#fff}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:6mm;flex-shrink:0}
+.phrase-u{font-family:var(--fs);font-size:11pt;font-style:italic;color:var(--tx);border:.5pt solid var(--fi);padding:3mm 5mm;margin:2mm 0;border-radius:1px;background:var(--cr);flex-shrink:0}
+</style></head><body>
+<div class="page"><div class="bande" style="background:#1D5F8A"></div>
+  <div class="entete"><div class="eh-g"><div class="eh-fam">UNIFIER · Étape U · Module 5</div>
+    <div class="eh-titre">La <em>Troisième Voie</em></div><div class="eh-sous">Tenir les deux besoins — ni obéir au masque, ni le combattre</div></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">fiche_U_unifier · p.1/2</div></div></div>
+  <div class="corps">
+<div class="accroche"><p>« Mon masque veut me protéger. ET je veux aussi vivre autrement. Je peux trouver un chemin qui honore les deux. »<br><span style="font-size:8pt;color:var(--tx3)">Formule d'unification — Méthode V.A.L.E.U.R©</span></p></div>
+<div class="fi" style="margin-top:4mm"></div>
+<div class="slbl">Ce qui se passe en vous</div>
+<div class="body-txt" style="margin-bottom:3mm"><p>Vous avez vu le masque (V). Traversé ce qu'il déclenche (A). Écouté votre corps (L). Entendu les deux parties en vous (E). Maintenant vient la question la plus décisive : <strong>la troisième voie</strong>.</p><br>
+<p>Ni obéir au masque — ni le combattre. Ces deux postures le renforcent. La troisième voie consiste à <strong>honorer simultanément le besoin de protection du masque ET le désir authentique de votre nature profonde</strong>. Ce n'est pas un compromis — c'est une intégration.</p></div>
+<div class="fi"></div>
+<div class="slbl">Ce que cela fait à votre cerveau</div>
+<div class="body-txt" style="margin-bottom:3mm"><p>L'approche paradoxale — accueillir la peur ET avancer — active simultanément le système parasympathique (sécurité) et le cortex préfrontal (action). La <em>flexibilité psychologique</em> (Hayes 1999) est la capacité à rester en contact avec l'expérience interne tout en agissant selon ses valeurs. C'est le mécanisme central de l'étape UNIFIER.</p></div>
+<div class="fi"></div>
+<div class="slbl">Le protocole — 4 temps</div>
+<div class="et"><div class="et-n">1</div><div><div class="et-t">Nommer les deux besoins</div><div class="et-x">Masque : « Mon masque veut _________ » (sécurité, contrôle, être aimé, ne pas échouer…). Nature profonde : « Et je veux aussi _________ » (vivre, contribuer, aimer, créer, me montrer…). Les deux sont vrais en même temps.</div></div></div>
+<div class="et"><div class="et-n">2</div><div><div class="et-t">La phrase d'unification</div><div class="et-x">Construisez votre phrase personnelle : <em>« Mon masque veut [protection]. ET je veux aussi [désir authentique]. Je peux trouver un chemin qui honore les deux. »</em> Dites-la à voix haute. Répétez-la jusqu'à ce qu'elle vous appartienne.</div></div></div>
+<div class="et"><div class="et-n">3</div><div><div class="et-t">Trouver le micro-acte</div><div class="et-x">Quelle est la plus petite action possible qui honore VOTRE désir authentique — sans trahir la sécurité de votre masque ? Un pas minuscule. Concret. Faisable aujourd'hui.</div><div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1mm">Le masque accepte plus facilement un pas qu'un saut.</div></div></div>
+<div class="et"><div class="et-n">4</div><div><div class="et-t">Valider la nouvelle voie</div><div class="et-x">Après l'acte : le masque est-il moins actif ? Votre nature profonde est-elle présente ? C'est la signature de la troisième voie — les deux peuvent coexister.</div></div></div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="fiche_U_unifier.html">p. 2 — Votre tension personnelle et la phrase d'unification</a></span></div></div>
+  <div class="chroma"></div></div>
+<div class="page"><div class="bande" style="background:#1D5F8A"></div>
+  <div class="entete"><div class="eh-g"><div class="eh-fam">UNIFIER · Étape U · Module 5</div>
+    <div class="eh-titre">Votre <em>troisième voie</em></div><div class="eh-sous">Construire la phrase d'unification et les micro-actes</div></div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">fiche_U_unifier · p.2/2</div></div></div>
+  <div class="corps">
+<div class="body-txt" style="margin:5mm 0 3mm"><p>L'étape UNIFIER est la plus personnelle du parcours. Ce qui suit appartient uniquement à vous. Il n'y a pas de bonne réponse — il y a votre réponse.</p></div>
+<div class="fi"></div>
+<div class="slbl">Mon conflit intérieur</div>
+<div class="obs"><span class="rl-lbl">La tension entre mon masque et mon désir profond (en une phrase)</span><div class="rl"></div><div class="rl"></div></div>
+<div class="obs"><span class="rl-lbl">La peur fondamentale au bout de la chaîne (ce que mon masque protège vraiment)</span><div class="rl"></div><div class="rl"></div></div>
+<div class="fi" style="margin-top:2mm"></div>
+<div class="slbl">Ma phrase d'unification personnelle</div>
+<div class="phrase-u">« Mon masque veut ________________________________________.<br>ET je veux aussi __________________________________.<br>Je peux trouver un chemin qui honore les deux. »</div>
+<div class="fi" style="margin-top:2mm"></div>
+<div class="slbl">3 défis pour cette semaine</div>
+<div class="et"><div class="et-n">1</div><div><div class="et-t">Prononcer la phrase</div><div class="et-x">Dites votre phrase d'unification à voix haute chaque matin cette semaine. Avant d'agir, avant de répondre au masque.</div><div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1mm">La voix donne un poids que l'écriture seule ne donne pas.</div></div></div>
+<div class="et"><div class="et-n">2</div><div><div class="et-t">Le micro-acte quotidien</div><div class="et-x">Identifiez chaque jour une situation où votre masque prend le relais. Faites le micro-acte qui honore votre désir authentique — même de 1 %.</div><div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1mm">1 % authentique vaut mieux que 0 % de perfection.</div></div></div>
+<div class="et"><div class="et-n">3</div><div><div class="et-t">Observer la coexistence</div><div class="et-x">Après chaque micro-acte : est-ce que le masque et votre nature profonde ont pu coexister ? Notez ce qui s'est passé.</div><div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1mm">La coexistence — pas l'absence de masque — est le signe d'UNIFIER accompli.</div></div></div>
+<div class="obs"><span class="rl-lbl">Ce que j'ai observé — les moments où les deux ont coexisté</span><div class="rl"></div><div class="rl"></div></div>
+<div class="src">Hayes S.C. (1999) Acceptance and Commitment Therapy · Protocole V.A.L.E.U.R© — Livrets masques · Deci & Ryan (2000) SDT · Céline Bourbon 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="fiche_R_renforcer.html">Étape R · RENFORCER — La Lettre au Masque</a></span></div></div>
+  <div class="chroma"></div></div>
+</body></html>

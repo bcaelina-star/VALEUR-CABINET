@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>PSY-XX-011 · Score SPA · V.A.L.E.U.R©</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--or:#C9A84C;--or-bg:rgba(201,168,76,.09);--or-bd:rgba(201,168,76,.35);
+  --fond:#FFF;--cr:#FAF8F4;--tx:#1A1714;--tx2:#4A4138;--tx3:#8C8278;--fi:#DDD8CF;
+  --ch:linear-gradient(90deg,#B5312A,#C4581F,#B8930A,#2D7A4F,#1D5F8A,#5C3280,#7A3594);
+  --fs:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media print{@page{size:A4;margin:0}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always}.page:last-child{page-break-after:avoid}}
+body{background:#E5E1D9;font-family:var(--fb);font-weight:300;color:var(--tx);-webkit-font-smoothing:antialiased}
+.page{width:210mm;min-height:297mm;margin:6mm auto;background:var(--fond);display:flex;flex-direction:column;box-shadow:0 3px 32px rgba(0,0,0,.16)}
+.bande{height:3mm;flex-shrink:0;background:var(--M,var(--or))}
+.bande.ch{background:var(--ch)}
+.entete{flex-shrink:0;height:22mm;padding:0 13mm;display:flex;align-items:center;justify-content:space-between;border-bottom:.5pt solid var(--fi)}
+.eh-g{display:flex;flex-direction:column;gap:2px}
+.eh-fam{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3)}
+.eh-titre{font-family:var(--fs);font-size:15pt;font-weight:400;color:var(--tx);line-height:1}
+.eh-titre em{color:var(--or);font-style:italic}
+.eh-sous{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx3);margin-top:1px}
+.eh-logo{font-family:var(--fs);font-size:10pt;font-weight:600;letter-spacing:3px;color:var(--or)}
+.eh-logo sup{font-size:6pt;vertical-align:super}
+.eh-code{font-size:7pt;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border:1pt solid var(--fi);padding:2px 7px}
+.corps{flex:1;display:flex;flex-direction:column;padding:0 13mm;min-height:0}
+.spc{flex:1}
+.fi{height:.5pt;background:var(--fi);flex-shrink:0}
+.slbl{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--or);margin:4mm 0 2mm;flex-shrink:0}
+.slbl.m{color:var(--M,var(--or))}
+.accroche{flex-shrink:0;background:var(--cr);margin:5mm -13mm 0;padding:5mm 13mm;border-left:2.5pt solid var(--or)}
+.accroche p{font-family:var(--fs);font-size:10.5pt;font-style:italic;font-weight:300;color:var(--tx);line-height:1.65}
+.body-txt{font-size:8.5pt;font-weight:300;color:var(--tx2);line-height:1.7;flex-shrink:0}
+.etape{display:grid;grid-template-columns:8mm 1fr;column-gap:4mm;padding:2.5mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.etape:last-child{border-bottom:none}
+.et-num{font-family:var(--fs);font-size:15pt;font-weight:300;color:var(--or);opacity:.55;line-height:1;padding-top:.5mm}
+.et-titre{font-size:8.5pt;font-weight:500;color:var(--tx);margin-bottom:1.5mm}
+.et-txt{font-size:8pt;font-weight:300;color:var(--tx2);line-height:1.6}
+.or-box{flex-shrink:0;background:var(--or-bg);border-left:2.5pt solid var(--or);margin:4mm -13mm 0;padding:4mm 13mm}
+.or-box p{font-family:var(--fs);font-size:10pt;font-style:italic;color:var(--tx);line-height:1.65}
+.or-ttl{font-size:6.5pt;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:2mm}
+.rl{height:6mm;border-bottom:.5pt solid var(--fi);display:block;width:100%}
+.rl-lbl{font-size:6pt;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:1mm;display:block}
+.obs{flex-shrink:0;margin-top:2mm}
+.src{font-size:6pt;color:var(--tx3);letter-spacing:.5px;margin-top:2mm;flex-shrink:0}
+.chroma{height:3mm;background:var(--ch);flex-shrink:0}
+.z9{flex-shrink:0;padding:2.5mm 13mm;margin:0 -13mm;border-top:.5pt solid var(--fi);display:flex;align-items:center;gap:8px}
+.z9-lab{font-size:6.5pt;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
+.z9-arr{font-size:7pt;color:var(--or)}
+.z9-txt{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx2)}
+.z9-txt a{color:var(--or);text-decoration:none}
+.spa-arc-wrap{flex-shrink:0;display:flex;justify-content:center;padding:4mm 0 2mm}
+.neurotag{display:inline-flex;align-items:center;gap:4px;font-size:7pt;padding:2px 8px;border:1pt solid var(--fi);border-radius:9px;color:var(--tx3);margin:1mm 1mm 0 0;flex-shrink:0}
+.neuro-grid{display:flex;flex-wrap:wrap;margin-bottom:2mm;flex-shrink:0}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:8mm;flex-shrink:0}
+.mask-bar{display:flex;align-items:center;gap:6px;margin-bottom:2mm;flex-shrink:0}
+.mb-lbl{font-size:7.5pt;width:48px;color:var(--tx2);flex-shrink:0}
+.mb-track{flex:1;height:4px;background:var(--fi);border-radius:2px;overflow:hidden}
+.mb-fill{height:100%;border-radius:2px}
+.mb-val{font-size:7pt;color:var(--tx3);width:24px;text-align:right;flex-shrink:0}
+</style>
+</head><body>
+<div class="page">
+  <div class="bande" style="background:#C9A84C"></div>
+  <div class="entete"><div class="eh-g">
+    <div class="eh-fam">PSY · Psychoéducation · Tous masques · Séance 4</div>
+    <div class="eh-titre" >Le Score <em>SPA</em></div>
+    <div class="eh-sous">Score de Présence Authentique — la boussole neuroscientifique de votre liberté intérieure</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">PSY-XX-011 · p.1/2</div>
+  </div></div>
+  <div class="corps">
+<div class="accroche"><p>Ce score ne mesure pas si vous allez bien. Il mesure à quelle fréquence vous êtes <em>déjà vous-même</em> — malgré tout ce que vos masques font pour vous en éloigner.</p></div>
+<div class="fi" style="margin-top:4mm"></div>
+<div class="slbl">Ce que le SPA mesure — et ce qu'il ne mesure pas</div>
+<div class="body-txt" style="margin-bottom:3mm">
+<p><strong>Il ne mesure pas :</strong> votre santé mentale, votre bien-être, votre niveau d'évolution. Le SPA n'est pas un verdict sur qui vous êtes.</p>
+<br>
+<p><strong>Il mesure :</strong> la part de votre espace psychique qui n'est <em>pas</em> occupée par les masques adaptatifs. Un SPA de 65 signifie que vos masques occupent en moyenne 35 % de votre espace intérieur — laissant 65 % d'espace à qui vous êtes vraiment.</p>
+</div>
+<div class="fi"></div>
+<div class="slbl">La formule</div>
+<div style="flex-shrink:0;text-align:center;padding:4mm 0">
+  <div style="font-family:var(--fs);font-size:22pt;font-weight:300;color:var(--tx)">SPA = 100 − <span style="color:var(--or)">moyenne</span> des 7 scores masques</div>
+  <div style="font-size:8pt;color:var(--tx3);margin-top:2mm">Chaque masque est scoré de 0 à 100 % selon son emprise. La moyenne donne l'emprise globale. SPA = ce qui reste libre.</div>
+</div>
+<div class="fi"></div>
+<div class="slbl">Ce qui se passe dans votre cerveau selon le SPA</div>
+<div class="etape"><div class="et-num" style="font-size:10pt;opacity:1;color:#B5312A;font-weight:600">0–29</div><div>
+  <div class="et-titre">Emprise dominante — mode survie</div>
+  <div class="et-txt">L'amygdale (centre d'alarme) est hyperactive. Le cortex préfrontal (discernement) est inhibé. Les comportements automatiques de masque consomment la majorité des ressources attentionnelles. La fenêtre de tolérance est étroite.</div>
+</div></div>
+<div class="etape"><div class="et-num" style="font-size:10pt;opacity:1;color:#B8930A;font-weight:600">30–49</div><div>
+  <div class="et-titre">Présence émergente — le travail commence à porter</div>
+  <div class="et-txt">Des espaces de conscience observatrice apparaissent. Le réseau du mode par défaut (DMN) commence à s'intégrer avec le réseau exécutif. Vous commencez à vous voir — parfois avant d'agir.</div>
+</div></div>
+<div class="etape"><div class="et-num" style="font-size:10pt;opacity:1;color:#2D7A4F;font-weight:600">50–74</div><div>
+  <div class="et-titre">Présence croissante — majorité de temps authentique</div>
+  <div class="et-txt">L'axe préfrontal-limbique est mieux régulé. La variabilité de la fréquence cardiaque (HRV) augmente. Vous avez accès à des états de pleine présence. Les masques s'activent encore — mais vous les reconnaissez.</div>
+</div></div>
+<div class="etape"><div class="et-num" style="font-size:10pt;opacity:1;color:#1D5F8A;font-weight:600">75–100</div><div>
+  <div class="et-titre">Présence authentique — liberté de choisir</div>
+  <div class="et-txt">Intégration neurale entre les réseaux limbique, préfrontal et insulaire. Les masques sont devenus des informations — plus des pilotes automatiques. La plasticité synaptique stabilise les nouveaux schémas de réponse.</div>
+</div></div>
+<div class="src">Wood A.M., Linley P.A. et al. (2008) The authentic personality · Journal of Counseling Psychology 55(3) · Siegel D.J. (2010) Mindsight · Kernis & Goldman (2006) Authenticity · Damasio A. (1994) L'Erreur de Descartes · Céline Bourbon 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="PSY-XX-011.html">p. 2 — Lire et utiliser son SPA</a></span></div></div>
+  <div class="chroma"></div>
+</div>
+<div class="page">
+  <div class="bande" style="background:#C9A84C"></div>
+  <div class="entete"><div class="eh-g">
+    <div class="eh-fam">PSY · Psychoéducation · Tous masques</div>
+    <div class="eh-titre" >Lire et <em>utiliser son SPA</em></div>
+    <div class="eh-sous">Comprendre le mouvement — et cultiver la présence au quotidien</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">PSY-XX-011 · p.2/2</div>
+  </div></div>
+  <div class="corps">
+<div class="body-txt" style="margin:5mm 0 3mm">
+<p>Le SPA varie. Ce n'est pas une ligne droite — c'est une courbe vivante. Il peut baisser lors d'une période difficile. Ce n'est pas un échec. C'est de l'information. L'objectif n'est pas d'atteindre 100 — mais de maintenir le cap et de voir le mouvement.</p>
+</div>
+<div class="fi"></div>
+<div class="slbl">Ce qui fait monter le SPA — données neuroscientifiques</div>
+<div class="neuro-grid">
+  <span class="neurotag">🧠 Pleine conscience quotidienne · réduit l'activation amygdalienne (Hölzel 2011)</span>
+  <span class="neurotag">💓 Cohérence cardiaque · restaure l'axe vagal (McCraty 2006)</span>
+  <span class="neurotag">🪞 Conscience observatrice · active le cortex préfrontal médian (Farb 2007)</span>
+  <span class="neurotag">✍ Écriture expressive · intègre l'expérience émotionnelle (Pennebaker 1997)</span>
+  <span class="neurotag">🤝 Lien sécure · down-régule le système nerveux sympathique (Porges 2011)</span>
+  <span class="neurotag">🔄 Répétition des nouveaux comportements · reconsolidation mnésique (Nader 2000)</span>
+</div>
+<div class="fi" style="margin-top:3mm"></div>
+<div class="slbl">Ce qui fait baisser le SPA</div>
+<div class="neuro-grid">
+  <span class="neurotag">⚡ Fatigue chronique · rétrécit la fenêtre de tolérance</span>
+  <span class="neurotag">🔇 Isolement social · active le circuit de la douleur sociale</span>
+  <span class="neurotag">🌀 Rumination · amplifie l'activité du DMN sans intégration</span>
+  <span class="neurotag">🥊 Résistance aux émotions · D=e×r²</span>
+</div>
+<div class="fi" style="margin-top:3mm"></div>
+<div class="slbl">Mon SPA — suivi et observations</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6mm;flex-shrink:0;margin-bottom:3mm">
+  <div>
+    <div style="font-family:var(--fs);font-size:32pt;font-weight:300;color:var(--or);line-height:1;padding:3mm 0">___</div>
+    <div style="font-size:7pt;color:var(--tx3)">Mon SPA aujourd'hui / 100</div>
+  </div>
+  <div>
+    <div style="font-family:var(--fs);font-size:32pt;font-weight:300;color:var(--tx3);line-height:1;padding:3mm 0">___</div>
+    <div style="font-size:7pt;color:var(--tx3)">Dans 3 mois (objectif)</div>
+  </div>
+</div>
+<div class="obs"><span class="rl-lbl">Ce qui fait monter mon SPA — contextes où je me sens le plus moi-même</span><div class="rl"></div><div class="rl"></div></div>
+<div class="obs"><span class="rl-lbl">Ce qui fait baisser mon SPA — situations où mes masques sont les plus actifs</span><div class="rl"></div><div class="rl"></div></div>
+<div class="obs"><span class="rl-lbl">Ce que ce score m'apprend sur moi — maintenant</span><div class="rl"></div><div class="rl"></div></div>
+<div class="or-box" style="margin-top:3mm">
+  <div class="or-ttl">À retenir</div>
+  <p>Vous n'êtes pas votre SPA. Vous êtes celui ou celle qui peut l'observer — et choisir, pas à pas, de libérer davantage d'espace à qui vous êtes vraiment.</p>
+</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="ACT-XX-001.html">ACT-XX-001 · Protocole VOIR — mettre en pratique</a></span></div></div>
+  <div class="chroma"></div>
+</div>
+</body></html>

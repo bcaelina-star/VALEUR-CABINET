@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>fiche_V_voir · V.A.L.E.U.R©</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--or:#C9A84C;--or-bg:rgba(201,168,76,.09);--or-bd:rgba(201,168,76,.35);
+  --fond:#FFF;--cr:#FAF8F4;--tx:#1A1714;--tx2:#4A4138;--tx3:#8C8278;--fi:#DDD8CF;
+  --ch:linear-gradient(90deg,#B5312A,#C4581F,#B8930A,#2D7A4F,#1D5F8A,#5C3280,#7A3594);
+  --fs:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media print{@page{size:A4;margin:0}body{margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{page-break-after:always}.page:last-child{page-break-after:avoid}}
+body{background:#E5E1D9;font-family:var(--fb);font-weight:300;color:var(--tx);-webkit-font-smoothing:antialiased}
+.page{width:210mm;min-height:297mm;margin:6mm auto;background:var(--fond);display:flex;flex-direction:column;box-shadow:0 3px 32px rgba(0,0,0,.16)}
+.bande{height:3mm;flex-shrink:0;background:var(--M,var(--or))}
+.bande.ch{background:var(--ch)}
+.entete{flex-shrink:0;height:22mm;padding:0 13mm;display:flex;align-items:center;justify-content:space-between;border-bottom:.5pt solid var(--fi)}
+.eh-g{display:flex;flex-direction:column;gap:2px}
+.eh-fam{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3)}
+.eh-titre{font-family:var(--fs);font-size:15pt;font-weight:400;color:var(--tx);line-height:1}
+.eh-titre em{color:var(--or);font-style:italic}
+.eh-sous{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx3);margin-top:1px}
+.eh-logo{font-family:var(--fs);font-size:10pt;font-weight:600;letter-spacing:3px;color:var(--or)}
+.eh-logo sup{font-size:6pt;vertical-align:super}
+.eh-code{font-size:7pt;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border:1pt solid var(--fi);padding:2px 7px}
+.corps{flex:1;display:flex;flex-direction:column;padding:0 13mm;min-height:0}
+.spc{flex:1}
+.fi{height:.5pt;background:var(--fi);flex-shrink:0}
+.slbl{font-size:6.5pt;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--or);margin:4mm 0 2mm;flex-shrink:0}
+.slbl.m{color:var(--M,var(--or))}
+.accroche{flex-shrink:0;background:var(--cr);margin:5mm -13mm 0;padding:5mm 13mm;border-left:2.5pt solid var(--or)}
+.accroche p{font-family:var(--fs);font-size:10.5pt;font-style:italic;font-weight:300;color:var(--tx);line-height:1.65}
+.body-txt{font-size:8.5pt;font-weight:300;color:var(--tx2);line-height:1.7;flex-shrink:0}
+.etape{display:grid;grid-template-columns:8mm 1fr;column-gap:4mm;padding:2.5mm 0;border-bottom:.5pt solid var(--fi);flex-shrink:0}
+.etape:last-child{border-bottom:none}
+.et-num{font-family:var(--fs);font-size:15pt;font-weight:300;color:var(--or);opacity:.55;line-height:1;padding-top:.5mm}
+.et-titre{font-size:8.5pt;font-weight:500;color:var(--tx);margin-bottom:1.5mm}
+.et-txt{font-size:8pt;font-weight:300;color:var(--tx2);line-height:1.6}
+.or-box{flex-shrink:0;background:var(--or-bg);border-left:2.5pt solid var(--or);margin:4mm -13mm 0;padding:4mm 13mm}
+.or-box p{font-family:var(--fs);font-size:10pt;font-style:italic;color:var(--tx);line-height:1.65}
+.or-ttl{font-size:6.5pt;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--or);margin-bottom:2mm}
+.rl{height:6mm;border-bottom:.5pt solid var(--fi);display:block;width:100%}
+.rl-lbl{font-size:6pt;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:1mm;display:block}
+.obs{flex-shrink:0;margin-top:2mm}
+.src{font-size:6pt;color:var(--tx3);letter-spacing:.5px;margin-top:2mm;flex-shrink:0}
+.chroma{height:3mm;background:var(--ch);flex-shrink:0}
+.z9{flex-shrink:0;padding:2.5mm 13mm;margin:0 -13mm;border-top:.5pt solid var(--fi);display:flex;align-items:center;gap:8px}
+.z9-lab{font-size:6.5pt;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}
+.z9-arr{font-size:7pt;color:var(--or)}
+.z9-txt{font-family:var(--fs);font-size:8pt;font-style:italic;color:var(--tx2)}
+.z9-txt a{color:var(--or);text-decoration:none}
+.spa-arc-wrap{flex-shrink:0;display:flex;justify-content:center;padding:4mm 0 2mm}
+.neurotag{display:inline-flex;align-items:center;gap:4px;font-size:7pt;padding:2px 8px;border:1pt solid var(--fi);border-radius:9px;color:var(--tx3);margin:1mm 1mm 0 0;flex-shrink:0}
+.neuro-grid{display:flex;flex-wrap:wrap;margin-bottom:2mm;flex-shrink:0}
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:8mm;flex-shrink:0}
+.mask-bar{display:flex;align-items:center;gap:6px;margin-bottom:2mm;flex-shrink:0}
+.mb-lbl{font-size:7.5pt;width:48px;color:var(--tx2);flex-shrink:0}
+.mb-track{flex:1;height:4px;background:var(--fi);border-radius:2px;overflow:hidden}
+.mb-fill{height:100%;border-radius:2px}
+.mb-val{font-size:7pt;color:var(--tx3);width:24px;text-align:right;flex-shrink:0}
+</style>
+</head><body>
+<div class="page">
+  <div class="bande" style="background:#C9A84C"></div>
+  <div class="entete"><div class="eh-g">
+    <div class="eh-fam">VOIR · Étape V · Module 1</div>
+    <div class="eh-titre" >Le <em>Témoin Intérieur</em></div>
+    <div class="eh-sous">Reconnaître le masque au moment où il prend le relais</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">fiche_V_voir · p.1/2</div>
+  </div></div>
+  <div class="corps">
+<div class="accroche"><p>« Vous n'êtes pas vos pensées. Vous êtes celui ou celle qui les observe. »<br><span style="font-size:8pt;color:var(--tx3)">Céline Bourbon — De la peur à la joie d'être soi</span></p></div>
+<div class="fi" style="margin-top:4mm"></div>
+<div class="slbl">Ce qui se passe en vous</div>
+<div class="body-txt" style="margin-bottom:3mm"><p>Depuis votre plus jeune âge, un mécanisme de protection s'est mis en place. Ce mécanisme — votre masque — est une adaptation intelligente. Il a fait son travail. Mais il a perdu la notion du temps. Il continue à protéger d'un danger qui n'existe plus vraiment aujourd'hui. Comme un soldat qui continue à se battre longtemps après la fin de la guerre, parce qu'il n'a pas reçu la nouvelle.</p><br><p>La première étape — VOIR — n'est pas de combattre le masque. C'est d'apprendre à le reconnaître. À le nommer. À créer cet espace précieux entre vous et lui.</p></div>
+<div class="fi"></div>
+<div class="slbl">Ce que cela fait à votre cerveau</div>
+<div class="body-txt" style="margin-bottom:3mm"><p>Quand vous observez vos pensées au lieu de vous y identifier, le cortex préfrontal médian s'active — le siège du discernement. L'amygdale (centre de l'alarme) diminue d'activité. En neuroimagerie, cette capacité — appelée <em>défusion cognitive</em> (Hayes 1999) ou <em>décentration</em> (Fresco 2007) — est associée à une réduction mesurable de l'anxiété et de la réactivité émotionnelle.</p></div>
+<div class="fi"></div>
+<div class="slbl">Le protocole — 3 temps</div>
+<div class="etape"><div class="et-num">1</div><div>
+  <div class="et-titre">Observer</div>
+  <div class="et-txt">Lors du prochain déclenchement : posez-vous ces 3 questions. Qu'est-ce que je suis en train de faire là ? Quel masque est en train de parler ? Y a-t-il une part de moi qui observe cela depuis un endroit stable ?</div>
+</div></div><div class="etape"><div class="et-num">2</div><div>
+  <div class="et-titre">Nommer</div>
+  <div class="et-txt">Dites intérieurement : « Mon Masque [couleur] est en train de [comportement]. » Pas « je suis anxieux·se » — mais « mon masque génère de l'anxiété. » Ce seul changement crée un centimètre de distance. Ce centimètre, c'est la liberté.</div>
+</div></div><div class="etape"><div class="et-num">3</div><div>
+  <div class="et-titre">Revenir</div>
+  <div class="et-txt">Sentez vos pieds sur le sol. Votre dos dans le fauteuil. Le poids de votre corps. C'est votre ancrage. La conscience observatrice se positionne toujours dans le corps — pas dans la tête.</div>
+</div></div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="fiche_V_voir.html">p. 2 — Votre entraînement VOIR — cette semaine</a></span></div></div>
+  <div class="chroma"></div>
+</div>
+<div class="page">
+  <div class="bande" style="background:#C9A84C"></div>
+  <div class="entete"><div class="eh-g">
+    <div class="eh-fam">VOIR · Étape V · Module 1</div>
+    <div class="eh-titre" >Le <em>Témoin Intérieur</em></div>
+    <div class="eh-sous">Votre entraînement VOIR — cette semaine</div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+    <div class="eh-logo">V.A.L.E.U.R<sup>©</sup></div>
+    <div class="eh-code">fiche_V_voir · p.2/2</div>
+  </div></div>
+  <div class="corps">
+<div class="body-txt" style="margin:5mm 0 3mm"><p>VOIR est une compétence — pas une révélation. Elle s'entraîne, comme un muscle. Trois défis pour cette semaine :</p></div>
+<div class="fi"></div>
+<div class="slbl">3 défis pour cette semaine</div>
+<div class="etape"><div class="et-num">1</div><div>
+  <div class="et-titre">Observer sans intervenir</div>
+  <div class="et-txt">Chaque fois que votre masque s'active : posez les 3 questions VOIR. Sans chercher à changer le comportement — juste observer.</div>
+  <div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1.5mm">La conscience du masque en temps réel est déjà l'acte VOIR. L'action vient après.</div>
+</div></div><div class="etape"><div class="et-num">2</div><div>
+  <div class="et-titre">Le changement de préfixe</div>
+  <div class="et-txt">Transformez 3 pensées de masque en observations : au lieu de « Je suis anxieux·se » → « Il y a de l'anxiété en moi. » Au lieu de « Je dois vérifier » → « Mon masque génère une urgence de vérifier ».</div>
+  <div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1.5mm">Ce seul changement crée le centimètre de distance.</div>
+</div></div><div class="etape"><div class="et-num">3</div><div>
+  <div class="et-titre">Le fauteuil du spectateur</div>
+  <div class="et-txt">Lors d'une situation difficile : imaginez-vous assis·e dans un fauteuil de cinéma qui regarde la scène sur un écran. Vous êtes dans le fauteuil — pas sur l'écran.</div>
+  <div style="font-size:7.5pt;color:var(--tx3);font-style:italic;margin-top:1.5mm">C'est l'exercice fondamental de la défusion. Il s'apprend par répétition.</div>
+</div></div>
+<div class="fi" style="margin-top:3mm"></div>
+<div class="slbl">Ce que j'ai observé</div>
+<div class="obs"><span class="rl-lbl">Déclencheur et masque identifié</span><div class="rl"></div><div class="rl"></div></div>
+<div class="obs"><span class="rl-lbl">Ce qui a changé — même discrètement</span><div class="rl"></div><div class="rl"></div></div>
+<div class="obs"><span class="rl-lbl">Ce que je veux approfondir</span><div class="rl"></div><div class="rl"></div></div>
+<div class="src">Hayes S.C. (1999) ACT · Fresco D.M. (2007) Decentering · Kabat-Zinn J. (1990) MBSR · Farb N.A.S. (2007) Neuroimaging mindfulness · Céline Bourbon 2024</div>
+<div class="spc"></div>
+<div class="z9"><span class="z9-lab">Suite</span><span class="z9-arr">→</span><span class="z9-txt"><a href="fiche_A_accueillir.html">Étape A · ACCUEILLIR — La Vague</a></span></div></div>
+  <div class="chroma"></div>
+</div>
+</body></html>
