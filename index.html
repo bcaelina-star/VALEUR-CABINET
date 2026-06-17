@@ -4,899 +4,666 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Questionnaire Cabinet · V.A.L.E.U.R©</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Cabinet V.A.L.E.U.R©</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
     <style>
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{scroll-behavior:smooth}
-        body{font-family:'DM Sans',sans-serif;background:#F7F4EE;color:#1A1814;overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
-        input,textarea,select{-webkit-user-select:text;user-select:text}
-        :root{
-          --ivory:#F7F4EE;--ivory2:#F0EBE1;--ivory3:#E8E1D4;
-          --ink:#1A1814;--ink2:#2C2820;--ink3:#5A534A;--ink4:#8C8278;--ink5:#B8B0A5;
-          --gold:#A8873A;--gold2:#C9A84C;
-          --line:rgba(26,24,20,.1);--line2:rgba(26,24,20,.06);
-          --rouge:#B5312A;--orange:#C4581F;--jaune:#B8930A;
-          --vert:#2D7A4F;--bleu:#1D5F8A;--indigo:#5C3280;--violet:#7A3594;
-          --r:8px;--r-lg:12px;
+        :root {
+            --bg: #FCFAF7; --bg2: #F6F4F0; --bg3: #F0EDE8;
+            --ink: #1A1814; --ink2: #3A3632; --ink3: #8C827D; --ink4: #B8B0A5;
+            --gold: #C9A84C; --gold2: #A8873A; --gold-bg: rgba(201,168,76,.08);
+            --line: rgba(26,24,20,.08); --line2: rgba(26,24,20,.04);
+            --red: #B5312A; --orange: #C4581F; --yellow: #B8930A;
+            --green: #2D7A4F; --blue: #1D5F8A; --purple: #5C3280; --violet: #7A3594;
+            --shadow-sm: 0 1px 2px rgba(26,24,20,.04);
+            --shadow-md: 0 4px 12px rgba(26,24,20,.06);
+            --shadow-lg: 0 12px 32px rgba(26,24,20,.1);
+            --radius-sm: 8px; --radius: 14px; --radius-lg: 20px;
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+            --sidebar-w: 260px;
+            --header-h: 64px;
         }
-        @keyframes riseUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-        @keyframes pulse-dot{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
-        @keyframes spin{to{transform:rotate(360deg)}}
-        #pause-modal{position:fixed;inset:0;z-index:960;background:rgba(26,24,20,.6);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:24px}
-        #pause-modal.open{display:flex}
-        .pm-box{background:var(--ivory);border:1px solid var(--line);max-width:400px;width:100%;padding:44px 36px;text-align:center;position:relative;animation:fadeIn .3s ease}
-        .pm-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
-        .pm-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:10px}
-        .pm-body{font-size:13px;font-weight:300;color:var(--ink3);line-height:1.8;margin-bottom:16px}
-        .pm-info{padding:12px 14px;background:rgba(168,135,58,.06);border:1px solid rgba(168,135,58,.16);font-size:12px;color:var(--ink3);margin-bottom:22px;text-align:left}
-        .pm-btn{display:block;width:100%;background:var(--ink);color:var(--ivory);border:none;padding:14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-bottom:10px}
-        .pm-ghost{background:none;border:none;font-size:11px;color:var(--ink5);cursor:pointer;letter-spacing:1px;text-transform:uppercase;padding:4px}
-        nav{position:fixed;top:0;left:0;right:0;z-index:900;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(247,244,238,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
-        .nav-logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--ink);letter-spacing:4px;text-transform:uppercase;text-decoration:none}
-        .nav-logo sup{font-size:10px;vertical-align:super}
-        .nav-cta{background:var(--ink);color:var(--ivory);border:none;border-radius:2px;padding:9px 22px;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none}
-        .nav-links{display:flex;align-items:center;gap:28px}
-        .nav-link{font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);text-decoration:none}
-        .nav-link.active{color:var(--ink)}
-        @media(max-width:768px){.nav-links{display:none}.nav-cta{display:none}nav{padding:0 20px}}
-        .chroma{display:flex;height:5px;margin-top:62px}
-        .cs{flex:1}
-        .screen{display:none}
-        .screen.active{display:block;animation:fadeIn .3s ease}
-        .app{max-width:860px;margin:0 auto;padding:0 24px 80px}
-        .welcome-hero{padding:60px 0 44px;text-align:center;border-bottom:1px solid var(--line);margin-bottom:36px}
-        .wh-eyebrow{display:flex;align-items:center;justify-content:center;gap:14px;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;animation:riseUp .7s .1s both}
-        .wh-eyebrow::before,.wh-eyebrow::after{content:'';width:28px;height:1px;background:var(--gold);opacity:.5}
-        .wh-dots{display:flex;gap:7px;justify-content:center;margin-bottom:18px;animation:riseUp .7s .2s both}
-        .wh-dot{width:11px;height:11px;border-radius:50%;animation:pulse-dot 2.2s infinite}
-        .wh-dot:nth-child(1){background:var(--rouge);animation-delay:0s}
-        .wh-dot:nth-child(2){background:var(--orange);animation-delay:.18s}
-        .wh-dot:nth-child(3){background:var(--jaune);animation-delay:.36s}
-        .wh-dot:nth-child(4){background:var(--vert);animation-delay:.54s}
-        .wh-dot:nth-child(5){background:var(--bleu);animation-delay:.72s}
-        .wh-dot:nth-child(6){background:var(--indigo);animation-delay:.9s}
-        .wh-dot:nth-child(7){background:var(--violet);animation-delay:1.08s}
-        .wh-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6vw,68px);font-weight:300;line-height:1.05;color:var(--ink);margin-bottom:8px;animation:riseUp .8s .3s both}
-        .wh-h1 em{font-style:italic;color:var(--gold)}
-        .wh-sep{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px auto 24px;animation:riseUp .7s .45s both}
-        .wh-sep-line{width:36px;height:1px;background:var(--gold);opacity:.45}
-        .wh-sep-dot{width:5px;height:5px;border:1px solid var(--gold);transform:rotate(45deg);opacity:.6}
-        .leitmotiv{max-width:640px;margin:0 auto;background:var(--ivory2);border-left:3px solid var(--gold);padding:22px 28px;text-align:left;animation:riseUp .8s .55s both}
-        .leitmotiv-text{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.3vw,20px);font-style:italic;color:var(--ink3);line-height:1.85;margin-bottom:12px}
-        .leitmotiv-text em{color:var(--ink);font-style:normal;font-weight:400}
-        .leitmotiv-author{display:flex;align-items:center;gap:10px}
-        .leitmotiv-line{width:24px;height:1px;background:var(--gold);opacity:.5}
-        .leitmotiv-name{font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
-        .card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:32px;margin-bottom:18px}
-        .card h2{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:400;margin-bottom:14px;color:var(--ink)}
-        .card p{color:var(--ink3);margin-bottom:10px;font-size:.92rem;line-height:1.75}
-        .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
-        .info-chip{background:var(--ivory2);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:center}
-        .info-chip .value{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ink)}
-        .info-chip .label{font-size:.7rem;color:var(--ink4);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
-        .warn-box{background:rgba(168,135,58,.06);border:1px solid rgba(168,135,58,.2);border-radius:var(--r);padding:12px 16px;font-size:.84rem;color:var(--gold);margin-top:12px}
-        .warn-box strong{display:block;margin-bottom:2px;color:var(--ink2)}
-        .form-section{margin-bottom:22px}
-        .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-        .form-field{display:flex;flex-direction:column;gap:4px}
-        .form-field label{font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);font-weight:500}
-        .form-field input,.form-field select{background:#fff;border:1px solid rgba(26,24,20,.18);border-radius:var(--r);padding:11px 14px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.9rem;-webkit-user-select:text;user-select:text;-webkit-appearance:none}
-        .form-field input:focus,.form-field select:focus{outline:none;border-color:var(--gold)}
-        .required-star{color:var(--rouge)}
-        .field-hint{font-size:.7rem;color:var(--ink5)}
-        .progress-wrapper{position:sticky;top:62px;z-index:50;background:rgba(247,244,238,.96);backdrop-filter:blur(12px);padding:12px 0;border-bottom:1px solid var(--line);margin-bottom:24px}
-        .progress-info{display:flex;justify-content:space-between;margin-bottom:6px;font-size:.78rem;color:var(--ink4);font-weight:500}
-        .progress-bar{height:5px;background:var(--ivory3);border-radius:99px;overflow:hidden}
-        .progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#B5312A 0%,#C4581F 17%,#B8930A 33%,#2D7A4F 50%,#1D5F8A 67%,#5C3280 83%,#7A3594 100%);transition:width .5s ease}
-        .step-dots{display:flex;justify-content:center;gap:6px;margin-top:6px}
-        .step-dot{width:7px;height:7px;border-radius:50%;background:var(--ivory3);border:1px solid var(--line);transition:all .3s}
-        .step-dot.active{transform:scale(1.4);border-color:var(--ink);background:var(--ink)}
-        .step-dot.done{background:var(--gold);border-color:var(--gold)}
-        .page-header{padding:16px 0 20px;border-bottom:1px solid var(--line);margin-bottom:20px}
-        .page-badge{display:inline-block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:rgba(168,135,58,.08);border:1px solid rgba(168,135,58,.2);color:var(--gold);padding:3px 10px;border-radius:3px;margin-bottom:10px;font-weight:500}
-        .page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3vw,1.8rem);font-weight:300;color:var(--ink);margin-bottom:4px}
-        .page-desc{font-size:.85rem;color:var(--ink4);font-style:italic}
-        .items-container{display:flex;flex-direction:column;gap:12px}
-        .item-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 22px;transition:border-color .2s,box-shadow .2s}
-        .item-card:hover{border-color:rgba(168,135,58,.25);box-shadow:0 2px 10px rgba(26,24,20,.05)}
-        .item-card.answered{border-color:rgba(168,135,58,.35);background:rgba(168,135,58,.02)}
-        .item-card.spa-card{border-color:rgba(168,135,58,.15);background:rgba(168,135,58,.015)}
-        .item-card.spa-card.answered{border-color:rgba(168,135,58,.5);background:rgba(168,135,58,.04)}
-        .item-header{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start}
-        .item-num{flex-shrink:0;font-size:.66rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;background:rgba(168,135,58,.08);border:1px solid rgba(168,135,58,.18);border-radius:3px;margin-top:2px;font-weight:600}
-        .item-num.spa{background:rgba(168,135,58,.15);border-color:rgba(168,135,58,.35);color:var(--gold2)}
-        .item-text{font-family:'Cormorant Garamond',serif;font-size:clamp(.98rem,2.1vw,1.14rem);line-height:1.7;color:var(--ink);font-weight:400}
-        .likert{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
-        .likert-option{display:flex;flex-direction:column;align-items:center;gap:5px}
-        .likert-option input[type="radio"]{display:none}
-        .likert-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(26,24,20,.18);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:400;color:var(--ink4);transition:all .18s;user-select:none}
-        .likert-btn:hover{border-color:var(--gold);color:var(--ink);box-shadow:0 0 0 3px rgba(168,135,58,.1)}
-        .likert-option input:checked+.likert-btn{border-color:var(--gold);color:#fff;background:var(--gold);box-shadow:0 2px 8px rgba(168,135,58,.3)}
-        .likert-label{font-size:.55rem;text-align:center;color:var(--ink5);max-width:52px;line-height:1.25;font-weight:400}
-        .unanswered-msg{background:rgba(181,49,42,.06);border:1px solid rgba(181,49,42,.2);border-radius:var(--r);padding:10px 14px;font-size:.84rem;color:var(--rouge);margin-top:12px}
-        .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:2px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
-        .btn-primary{background:var(--ink);color:var(--ivory);box-shadow:0 2px 10px rgba(26,24,20,.15)}
-        .btn-primary:hover{background:var(--ink2);transform:translateY(-1px)}
-        .btn-secondary{background:transparent;color:var(--ink3);border:1px solid rgba(26,24,20,.2)}
-        .btn-secondary:hover{color:var(--ink);border-color:rgba(26,24,20,.4)}
-        .btn-full{width:100%;justify-content:center}
-        .btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-        .sending-overlay{position:fixed;inset:0;z-index:1000;background:rgba(247,244,238,.94);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-        .sending-spinner{width:40px;height:40px;border-radius:50%;border:2px solid rgba(168,135,58,.2);border-top-color:var(--gold);animation:spin 1s linear infinite}
-        .sending-text{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:300;color:var(--ink3)}
-        #milestone-toast{position:fixed;top:72px;left:50%;transform:translateX(-50%);z-index:950;max-width:480px;width:calc(100%-32px);background:var(--ink);color:var(--ivory);border-radius:3px;padding:0;box-shadow:0 8px 32px rgba(26,24,20,.28);display:none;overflow:hidden}
-        @keyframes milestoneIn{from{opacity:0;transform:translateX(-50%) translateY(-12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-        #milestone-toast.show{display:block;animation:milestoneIn .4s ease}
-        .mt-bar{height:3px}.mt-fill{height:100%;transition:width .5s ease}
-        .mt-inner{display:flex;align-items:center;gap:14px;padding:14px 18px}
-        .mt-accent{width:4px;align-self:stretch;border-radius:2px;flex-shrink:0}
-        .mt-emoji{font-size:20px;flex-shrink:0}
-        .mt-text{flex:1}
-        .mt-pct{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;margin-bottom:3px}
-        .mt-msg{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;line-height:1.4}
-        .mt-close{background:none;border:none;color:rgba(247,244,238,.5);font-size:16px;cursor:pointer;padding:4px;flex-shrink:0}
-        .footer-disclaimer{text-align:center;padding:20px 0;border-top:1px solid var(--line);font-size:.72rem;color:var(--ink5);letter-spacing:.04em;line-height:1.8;margin-top:16px}
-        .hidden{display:none!important}
-        @media(max-width:600px){
-          .app{padding:0 14px 60px}
-          .card{padding:20px 16px}
-          .likert{gap:3px}.likert-btn{width:30px;height:30px;font-size:.8rem}
-          .likert-label{display:none}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg); font-family: var(--font-body); font-weight: 350;
+            color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
         }
+        .login-screen {
+            width: 100%; max-width: 420px; padding: 40px 32px; text-align: center;
+            background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+            animation: fadeIn .5s ease;
+        }
+        .login-screen.hidden { display: none !important; }
+        .login-logo { font-family: var(--font-display); font-size: 36px; font-weight: 600; letter-spacing: 5px; color: var(--gold); margin-bottom: 8px; }
+        .login-sub { font-size: 14px; color: var(--ink3); margin-bottom: 32px; }
+        .login-input { width: 100%; padding: 14px 18px; border: 1px solid var(--line); border-radius: 30px; font-family: var(--font-body); font-size: 15px; text-align: center; margin-bottom: 20px; transition: .2s; }
+        .login-input:focus { outline: none; border-color: var(--gold); }
+        .login-btn { width: 100%; padding: 14px; border: none; border-radius: 30px; background: var(--gold); color: #fff; font-family: var(--font-body); font-size: 15px; font-weight: 500; letter-spacing: .5px; cursor: pointer; transition: .2s; }
+        .login-btn:hover { background: var(--gold2); }
+        .login-error { color: var(--red); font-size: 13px; margin-top: 12px; display: none; }
+        .dashboard { display: none; width: 100%; min-height: 100vh; }
+        .dashboard.visible { display: flex !important; }
+        .sidebar { width: var(--sidebar-w); min-height: 100vh; background: var(--ink); color: #F0EDE8; display: flex; flex-direction: column; position: fixed; left: 0; top: 0; bottom: 0; z-index: 100; transition: transform .3s ease; padding: 32px 24px 24px; }
+        .sb-logo { font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: 5px; color: var(--gold); margin-bottom: 44px; text-align: center; cursor: pointer; }
+        .sb-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+        .sb-link { display: flex; align-items: center; gap: 14px; padding: 13px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 420; color: rgba(240,237,232,.55); text-decoration: none; cursor: pointer; transition: all .18s ease; letter-spacing: .3px; }
+        .sb-link:hover { background: rgba(240,237,232,.05); color: rgba(240,237,232,.85); }
+        .sb-link.active { background: rgba(201,168,76,.12); color: var(--gold); font-weight: 500; }
+        .sb-icon { width: 22px; text-align: center; font-size: 18px; flex-shrink: 0; }
+        .sb-badge { margin-left: auto; background: var(--gold); color: var(--ink); font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 20px; }
+        .sb-footer { border-top: 1px solid rgba(240,237,232,.08); padding-top: 20px; font-size: 11px; color: rgba(240,237,232,.25); text-align: center; letter-spacing: 1px; }
+        .main { flex: 1; margin-left: var(--sidebar-w); min-height: 100vh; display: flex; flex-direction: column; }
+        .header { height: var(--header-h); background: rgba(252,250,247,.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 36px; gap: 20px; position: sticky; top: 0; z-index: 50; }
+        .header-search { flex: 1; max-width: 400px; position: relative; }
+        .header-search input { width: 100%; padding: 10px 16px 10px 42px; border: 1px solid var(--line); border-radius: 30px; font-family: var(--font-body); font-size: 14px; background: var(--bg2); color: var(--ink); transition: all .2s; }
+        .header-search input:focus { outline: none; border-color: var(--gold); background: #fff; }
+        .header-search .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 16px; color: var(--ink4); }
+        .header-actions { display: flex; gap: 10px; margin-left: auto; align-items: center; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border: none; border-radius: 30px; font-family: var(--font-body); font-size: 13px; font-weight: 500; letter-spacing: .4px; cursor: pointer; transition: all .2s ease; white-space: nowrap; }
+        .btn-gold { background: var(--gold); color: #fff; }
+        .btn-gold:hover { background: var(--gold2); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,.3); }
+        .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--ink2); }
+        .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-bg); }
+        .btn-danger { background: transparent; border: 1px solid rgba(181,49,42,.3); color: var(--red); }
+        .btn-danger:hover { background: rgba(181,49,42,.06); border-color: var(--red); }
+        .content { flex: 1; padding: 36px; overflow-y: auto; }
+        .page-title { font-family: var(--font-display); font-size: 34px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+        .page-sub { font-size: 14px; color: var(--ink3); margin-bottom: 32px; }
+        .stats-row { display: flex; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+        .stat-card { flex: 1; min-width: 140px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow-sm); }
+        .stat-num { font-family: var(--font-display); font-size: 36px; font-weight: 400; color: var(--ink); }
+        .stat-lbl { font-size: 12px; color: var(--ink3); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+        .patients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .patient-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow-sm); cursor: pointer; transition: all .2s ease; position: relative; }
+        .patient-card.prioritaire { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+        .patient-card:hover { border-color: var(--gold); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .pc-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+        .pc-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 500; color: #fff; flex-shrink: 0; }
+        .pc-name { font-family: var(--font-display); font-size: 20px; font-weight: 400; color: var(--ink); }
+        .pc-email { font-size: 12px; color: var(--ink4); }
+        .pc-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+        .pc-tag { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+        .pc-tag-mask { background: rgba(201,168,76,.1); color: var(--gold2); }
+        .pc-tag-spa { background: rgba(45,122,79,.08); color: var(--green); }
+        .pc-actions { display: flex; gap: 8px; margin-top: 14px; }
+        .pc-pin { position: absolute; top: 10px; right: 14px; font-size: 16px; cursor: pointer; }
+        .empty-state { text-align: center; padding: 72px 20px; }
+        .empty-icon { font-size: 56px; margin-bottom: 16px; opacity: .7; }
+        .empty-title { font-family: var(--font-display); font-size: 24px; color: var(--ink2); margin-bottom: 8px; }
+        .empty-sub { font-size: 14px; color: var(--ink3); margin-bottom: 24px; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(26,24,20,.5); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 999; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal { background: #fff; border-radius: var(--radius-lg); padding: 36px 32px; width: 480px; max-width: 92vw; max-height: 85vh; overflow-y: auto; box-shadow: var(--shadow-lg); position: relative; }
+        .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 22px; color: var(--ink4); cursor: pointer; }
+        .modal-close:hover { color: var(--ink); }
+        .modal h2 { font-family: var(--font-display); font-size: 26px; font-weight: 400; margin-bottom: 24px; }
+        .form-group { margin-bottom: 18px; }
+        .form-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink3); margin-bottom: 6px; font-weight: 500; }
+        .form-input { width: 100%; padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 14px; background: var(--bg); color: var(--ink); transition: .2s; }
+        .form-input:focus { outline: none; border-color: var(--gold); background: #fff; }
+        .form-row { display: flex; gap: 12px; }
+        .form-row > * { flex: 1; }
+        .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--ink); color: #fff; padding: 14px 28px; border-radius: 40px; font-size: 14px; font-weight: 500; z-index: 1100; transition: transform .3s ease; box-shadow: 0 8px 24px rgba(26,24,20,.3); }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .postit { background: #FFF9E6; border: 1px solid #F0D97A; border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; }
+        .postit h3 { font-family: var(--font-display); font-size: 18px; color: var(--gold2); margin-bottom: 8px; }
+        .postit textarea { width: 100%; border: none; background: transparent; font-family: var(--font-body); font-size: 13px; resize: vertical; min-height: 60px; color: var(--ink2); }
+        .postit textarea:focus { outline: none; }
+        .agenda-list { list-style: none; padding: 0; margin-bottom: 24px; }
+        .agenda-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+        .agenda-date { font-weight: 500; min-width: 100px; }
+        .agenda-patient { flex: 1; }
+        .agenda-notes { color: var(--ink3); font-size: 12px; }
+        .agenda-add { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .biblio-hero { padding: 20px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+        .biblio-hero h2 { font-family: var(--font-display); font-size: 28px; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+        .biblio-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 32px; }
+        .biblio-filters button { background: none; border: 1px solid var(--line); color: var(--ink3); font-family: var(--font-body); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all .2s; }
+        .biblio-filters button:hover,
+        .biblio-filters button.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,.06); }
+        .biblio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+        .biblio-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; cursor: pointer; transition: all .2s; display: flex; flex-direction: column; gap: 6px; }
+        .biblio-card:hover:not(.indisponible) { border-color: var(--gold); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .biblio-card.indisponible { opacity: 0.6; cursor: not-allowed; }
+        .biblio-card .biblio-code { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+        .biblio-card .biblio-titre { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--ink); }
+        .biblio-card .biblio-sous-titre { font-size: 12px; color: var(--ink3); }
+        .biblio-card .biblio-force { font-size: 11px; color: var(--ink2); font-style: italic; }
+        .biblio-card .biblio-badge { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 12px; background: rgba(201,168,76,.1); color: var(--gold); margin-top: 6px; align-self: flex-start; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 1024px) { .sidebar { width: 220px; } .main { margin-left: 220px; } }
+        @media (max-width: 768px) { .sidebar { transform: translateX(-100%); z-index: 200; } .sidebar.open { transform: translateX(0); } .main { margin-left: 0; } .header { padding: 0 18px; } .content { padding: 24px 16px; } .patients-grid { grid-template-columns: 1fr; } .stats-row { flex-direction: column; } .header-search { max-width: 200px; } .btn { padding: 8px 14px; font-size: 12px; } }
+        @media (max-width: 480px) { .header-actions { gap: 4px; } .header-search { max-width: 140px; } }
+        /* Sync status */
+        .sync-status {
+            position: fixed; bottom: 80px; right: 20px; background: white;
+            border-radius: 30px; padding: 8px 16px; font-size: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.1); display: flex; align-items: center; gap: 6px;
+            z-index: 1000; opacity: 0.9;
+        }
+        .sync-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .sync-dot.ok { background: var(--green); }
+        .sync-dot.error { background: var(--red); }
+        .sync-dot.syncing { background: var(--gold); animation: pulse 1s infinite; }
+        @keyframes pulse { 0%{opacity:.5} 50%{opacity:1} 100%{opacity:.5} }
     </style>
 </head>
 <body>
-
-<!-- Pause modal -->
-<div id="pause-modal">
-  <div class="pm-box">
-    <div style="font-size:24px;margin-bottom:14px">⏸</div>
-    <p class="pm-title">Votre progression est sauvegardée</p>
-    <p class="pm-body" id="pm-txt">Toutes vos réponses sont conservées sur cet appareil. Rouvrez cette page dans le même navigateur pour reprendre exactement là où vous en étiez.</p>
-    <div class="pm-info">🔒 Sauvegarde automatique — aucune action requise.</div>
-    <button class="pm-btn" onclick="closePauseModal()">Continuer le questionnaire →</button>
-    <button class="pm-ghost" onclick="closePauseModal()">Fermer</button>
-  </div>
+<!-- ÉCRAN DE CONNEXION -->
+<div id="login-screen" class="login-screen">
+    <div class="login-logo">V.A.L.E.U.R<sup style="font-size:.5em">©</sup></div>
+    <div class="login-sub">Cabinet · Céline Bourbon</div>
+    <input type="password" id="login-password" class="login-input" placeholder="Mot de passe" autofocus>
+    <button class="login-btn" onclick="authenticate()">Accéder au cabinet</button>
+    <div class="login-error" id="login-error">Mot de passe incorrect</div>
 </div>
 
-<!-- Milestone toast -->
-<div id="milestone-toast">
-  <div class="mt-bar"><div class="mt-fill" id="mt-fill"></div></div>
-  <div class="mt-inner">
-    <div class="mt-accent" id="mt-accent"></div>
-    <span class="mt-emoji" id="mt-emoji"></span>
-    <div class="mt-text">
-      <div class="mt-pct" id="mt-pct"></div>
-      <div class="mt-msg" id="mt-msg"></div>
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+    <aside class="sidebar" id="sidebar">
+        <div class="sb-logo" onclick="navTo('dashboard')">V.A.L.E.U.R<sup>©</sup></div>
+        <nav class="sb-nav">
+            <a class="sb-link active" data-page="dashboard" onclick="navTo('dashboard')">
+                <span class="sb-icon">◈</span> Dashboard
+            </a>
+            <a class="sb-link" data-page="patients" onclick="navTo('patients')">
+                <span class="sb-icon">👥</span> Patients
+                <span class="sb-badge" id="patient-count">0</span>
+            </a>
+            <a class="sb-link" data-page="agenda" onclick="navTo('agenda')">
+                <span class="sb-icon">📅</span> Agenda
+            </a>
+            <a class="sb-link" data-page="fiches" onclick="navTo('fiches')">
+                <span class="sb-icon">📋</span> Bibliothèque
+            </a>
+            <a class="sb-link" data-page="notes" onclick="navTo('notes')">
+                <span class="sb-icon">📝</span> Notes praticien
+            </a>
+            <a class="sb-link" href="https://bcaelina-star.github.io/VALEUR-CABINET/" target="_blank">
+                <span class="sb-icon">🔗</span> Questionnaire
+            </a>
+            <a class="sb-link" onclick="showHelp()">
+                <span class="sb-icon">❓</span> Mode d'emploi
+            </a>
+            <a class="sb-link" onclick="logout()">
+                <span class="sb-icon">↩</span> Déconnexion
+            </a>
+            <a class="sb-link" onclick="exportData()">
+                <span class="sb-icon">💾</span> Sauvegarder (JSON)
+            </a>
+            <a class="sb-link" onclick="document.getElementById('import-file').click()">
+                <span class="sb-icon">📂</span> Restaurer une sauvegarde
+            </a>
+            <a class="sb-link" onclick="forceSync()">
+                <span class="sb-icon">🔄</span> Forcer la synchronisation
+            </a>
+        </nav>
+        <div class="sb-footer">© Céline Bourbon · Cabinet</div>
+    </aside>
+    <div class="main">
+        <header class="header">
+            <button class="btn btn-ghost" onclick="toggleSidebar()" id="menu-btn" style="display:none;">☰</button>
+            <div class="header-search">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="global-search" placeholder="Rechercher un patient…" oninput="handleGlobalSearch()">
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-gold" onclick="openPatientModal()">+ Nouveau patient</button>
+            </div>
+        </header>
+        <div class="content" id="content-area"></div>
     </div>
-    <button class="mt-close" onclick="closeMilestone()">✕</button>
-  </div>
 </div>
 
-<nav>
-  <a href="#" class="nav-logo">V.A.L.E.U.R<sup>©</sup> Cabinet</a>
-  <div class="nav-links">
-    <a href="#" class="nav-link active">Questionnaire</a>
-  </div>
-  <a href="#" class="nav-cta">Usage professionnel</a>
-</nav>
-
-<div class="chroma">
-  <div class="cs" style="background:var(--rouge)"></div>
-  <div class="cs" style="background:var(--orange)"></div>
-  <div class="cs" style="background:var(--jaune)"></div>
-  <div class="cs" style="background:var(--vert)"></div>
-  <div class="cs" style="background:var(--bleu)"></div>
-  <div class="cs" style="background:var(--indigo)"></div>
-  <div class="cs" style="background:var(--violet)"></div>
-</div>
-
-<div class="sending-overlay hidden" id="sending-overlay">
-  <div class="sending-spinner"></div>
-  <div class="sending-text" id="overlay-text">Analyse de votre cartographie…</div>
-</div>
-
-<div class="app">
-
-<!-- ── WELCOME ─────────────────────────────────── -->
-<div id="screen-welcome" class="screen active">
-  <div class="welcome-hero">
-    <div class="wh-eyebrow">Méthode V.A.L.E.U.R© · Céline Bourbon, Psychologue</div>
-    <div class="wh-dots">
-      <span class="wh-dot"></span><span class="wh-dot"></span><span class="wh-dot"></span>
-      <span class="wh-dot"></span><span class="wh-dot"></span><span class="wh-dot"></span>
-      <span class="wh-dot"></span>
+<!-- MODAL PATIENT -->
+<div class="modal-overlay" id="patient-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closePatientModal()">✕</button>
+        <h2 id="modal-title">Nouveau patient</h2>
+        <div class="form-row">
+            <div class="form-group"><div class="form-label">Prénom</div><input class="form-input" id="pt-prenom" placeholder="Prénom"></div>
+            <div class="form-group"><div class="form-label">Nom</div><input class="form-input" id="pt-nom" placeholder="Nom"></div>
+        </div>
+        <div class="form-group"><div class="form-label">Email</div><input class="form-input" id="pt-email" type="email" placeholder="email@exemple.fr"></div>
+        <div class="form-group"><div class="form-label">Téléphone</div><input class="form-input" id="pt-tel" placeholder="06 XX XX XX XX"></div>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px;">
+            <button class="btn btn-danger" id="btn-delete-patient" style="display:none; margin-right:auto;" onclick="deletePatient()">🗑 Supprimer</button>
+            <button class="btn btn-ghost" onclick="closePatientModal()">Annuler</button>
+            <button class="btn btn-gold" id="btn-save-patient" onclick="savePatient()">Enregistrer</button>
+        </div>
     </div>
-    <h1 class="wh-h1">Les <em>7 peurs</em> qui<br>empêchent d'être soi</h1>
-    <div class="wh-sep"><div class="wh-sep-line"></div><div class="wh-sep-dot"></div><div class="wh-sep-line"></div></div>
-    <div class="leitmotiv">
-      <p class="leitmotiv-text">La première fois qu'un questionnaire de personnalité<br>ne vous dit pas <em>qui vous êtes</em> —<br>mais <em>ce qui vous empêche d'être vous-même.</em></p>
-      <div class="leitmotiv-author"><div class="leitmotiv-line"></div><span class="leitmotiv-name">Céline Bourbon · V.A.L.E.U.R©</span></div>
-    </div>
-  </div>
-  <div class="card">
-    <h2>Votre cartographie des masques</h2>
-    <p>Ce questionnaire d'auto-évaluation identifie vos stratégies de protection psychologique selon la Méthode V.A.L.E.U.R©. Ces mécanismes sont universels — ils ont tous été utiles à un moment. L'objectif est de mieux les comprendre pour retrouver liberté et authenticité.</p>
-    <div class="info-grid">
-      <div class="info-chip"><div class="value">85</div><div class="label">Affirmations</div></div>
-      <div class="info-chip"><div class="value">7</div><div class="label">Masques</div></div>
-      <div class="info-chip"><div class="value">~15-20 min</div><div class="label">Durée estimée</div></div>
-    </div>
-    <div class="warn-box">
-      <strong>Information importante</strong>
-      Outil d'auto-exploration psychoéducative. Non validé comme instrument diagnostique autonome — ne remplace pas une évaluation professionnelle.
-    </div>
-  </div>
-  <div class="card">
-    <h2>Consignes de passation</h2>
-    <p>· Choisissez un lieu calme, sans interruptions<br>
-       · Répondez selon votre fonctionnement réel ces <strong>6 derniers mois</strong><br>
-       · Privilégiez votre premier ressenti plutôt que l'analyse intellectuelle<br>
-       · Suspendez tout jugement — toutes les réponses sont valides</p>
-    <p style="margin-top:12px"><strong>Échelle :</strong> 0 = Pas du tout vrai pour moi → 5 = Décrit parfaitement mon expérience</p>
-  </div>
-  <button class="btn btn-primary btn-full" onclick="goToScreen('screen-demo')">Commencer le questionnaire →</button>
 </div>
 
-<!-- ── DEMO / INFOS ────────────── -->
-<div id="screen-demo" class="screen">
-  <div class="progress-wrapper">
-    <div class="progress-info"><span>Vos informations</span><span>Étape 1 / 6</span></div>
-    <div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div>
-  </div>
-  <div class="card">
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;margin-bottom:8px">Qui passe le questionnaire ?</h2>
-    <p style="font-size:.85rem;color:var(--ink4);line-height:1.65;margin-bottom:20px">Le portrait sera généré automatiquement et associé au dossier patient.</p>
-    <div class="form-section">
-      <div class="form-field" style="margin-bottom:14px">
-        <label>Prénom <span class="required-star">*</span></label>
-        <input type="text" id="d-prenom" placeholder="ex. Marie" autocomplete="given-name">
-      </div>
-      <div class="form-field" style="margin-bottom:6px">
-        <label>Nom</label>
-        <input type="text" id="d-nom" placeholder="Nom de famille" autocomplete="family-name">
-      </div>
+<!-- MODAL AIDE -->
+<div class="modal-overlay" id="help-modal">
+    <div class="modal" style="max-width:600px;">
+        <button class="modal-close" onclick="closeHelpModal()">✕</button>
+        <h2>Mode d'emploi du Cabinet V.A.L.E.U.R©</h2>
+        <div style="font-size:14px; line-height:1.8;">
+            <p><strong>1. Connexion</strong><br>Mot de passe « soleil ».</p>
+            <p><strong>2. Dashboard</strong><br>Post-it pour notes rapides, agenda, patients prioritaires (épinglés via l'étoile ☆).</p>
+            <p><strong>3. Gestion des patients</strong><br>Création, modification, suppression. Fiche patient complète avec scores, portrait, historique, objectifs, documents, journal de séances.</p>
+            <p><strong>4. Agenda</strong><br>Ajoutez des rendez-vous avec date, patient, notes.</p>
+            <p><strong>5. Bibliothèque</strong><br>Fiches cliniques. Pour ajouter une fiche : déposez le fichier HTML dans le dossier /fiches/ sur IONOS, puis ajoutez une entrée dans catalogue.json (code, cat, titre, fichier, dispo: true).</p>
+            <p><strong>6. Sauvegarde et transfert entre appareils</strong><br>Utilisez « 💾 Sauvegarder (JSON) » pour télécharger un fichier contenant toutes vos données. Pour transférer sur un autre ordinateur/tablette, enregistrez ce fichier sur iCloud Drive (ou un autre cloud), puis sur le nouvel appareil, ouvrez le cabinet et utilisez « 📂 Restaurer une sauvegarde ». Faites un export régulier !</p>
+            <p><strong>7. Synchronisation cloud (Vercel)</strong><br>Vos données sont automatiquement synchronisées avec votre API Vercel. Vous pouvez les retrouver sur n'importe quel appareil connecté au même compte. En bas à droite, un indicateur vous indique l'état de la synchronisation.</p>
+            <p><strong>8. Déconnexion</strong><br>Cliquez sur « Déconnexion » pour verrouiller l'accès au cabinet.</p>
+        </div>
     </div>
-  </div>
-  <div style="margin:0 0 14px;background:rgba(168,135,58,.06);border:1px solid rgba(168,135,58,.2);border-radius:8px;padding:12px 16px">
-    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
-      <input type="checkbox" id="rgpd-consent" style="margin-top:3px;flex-shrink:0;accent-color:#A8873A" checked>
-      <span style="font-size:12px;color:var(--ink3);line-height:1.6">
-        Données enregistrées dans le dossier patient du cabinet. Confidentiel.
-      </span>
-    </label>
-  </div>
-  <div class="btn-group">
-    <button class="btn btn-secondary" onclick="goToScreen('screen-welcome')">← Retour</button>
-    <button class="btn btn-primary" onclick="startQuestionnaire()">Démarrer →</button>
-  </div>
 </div>
 
-<!-- ── PAGES QUESTIONNAIRE (injectées dynamiquement) ── -->
-<div id="screen-pages-container"></div>
+<input type="file" id="import-file" style="display:none" onchange="importData(event)">
+<div class="toast" id="toast"></div>
 
-<div class="footer-disclaimer">
-  Outil psychoéducatif · Ne remplace pas une évaluation ou un suivi professionnel<br>
-  Méthode V.A.L.E.U.R© · Instruments : SHAI · TAS-20 · IUS-12 · ECR-R · LOC+NPI · FMPS+Clance · MSI · Wood et al. (2008)<br>
-  <span style="color:rgba(26,24,20,.25);font-size:.66rem">
-    © Céline Bourbon — Méthode V.A.L.E.U.R© — Tous droits réservés
-  </span>
+<!-- Indicateur de synchronisation -->
+<div id="sync-status" class="sync-status" style="display:none;">
+    <span class="sync-dot" id="sync-dot"></span>
+    <span id="sync-text">Synchronisé</span>
 </div>
-
-</div><!-- .app -->
 
 <script>
-// ── Détection code cadeau V.A.L.E.U.R© (conservée pour compatibilité) ──
-(function() {
-  try {
-    var _gp = new URLSearchParams(window.location.search);
-    var _gc = _gp.get('gift');
-    if (_gc && _gc.toUpperCase().indexOf('VALEUR-') === 0) {
-      localStorage.setItem('valeur_gift_code', _gc.trim().toUpperCase());
-    }
-  } catch(e) {}
-})();
+// ═══════════════ CONFIG ═══════════════
+var VALID_PASSWORD = 'soleil';
+var MASK_COLORS = { rouge:'#B5312A', orange:'#C4581F', jaune:'#B8930A', vert:'#2D7A4F', bleu:'#1D5F8A', indigo:'#5C3280', violet:'#7A3594' };
+var MASK_NAMES = { rouge:'Rouge', orange:'Orange', jaune:'Jaune', vert:'Vert', bleu:'Bleu', indigo:'Indigo', violet:'Violet' };
 
-/* ================================================================
-   © Céline Bourbon — Méthode V.A.L.E.U.R©
-   Questionnaire Cabinet — 85 items (78 masques + 7 SPA)
-   Échelle 0-5 · GitHub Pages (usage professionnel)
-   ================================================================ */
+var patients = [];
+var currentPage = 'dashboard';
+var editingPatientId = null;
+var catalogueData = null;
+var agenda = [];
+var postitText = '';
+var notesPraticien = '';
 
-// ── CONFIG ──────────────────────────────────────────────────────
-const CONFIG = {
-  RESULTS_URL:         'portrait.html',
-  ITEMS_PP:            17,
-};
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzKlucWo1S9h2dihzopfcBm7ETPtB49LPUofMmE0niXoEJObNcMyUg1aSdCpmsnFCJ1/exec';
+// ═══════════════ SYNCHRONISATION VERCEL ═══════════════
+var VERCEL_CABINET_API = 'https://valeur-backend-api.vercel.app/api/cabinet/sync';
+var SYNC_INTERVAL = 30000; // 30 secondes
+var syncTimer = null;
+var lastSyncTimestamp = 0;
 
-// ── MASK_MAX (échelle 0-5) ────────────────────────────────────────
-const MASK_MAX = {
-  rouge:  50,
-  orange: 65,
-  jaune:  45,
-  vert:   55,
-  bleu:   55,
-  indigo: 60,
-  violet: 60,
-};
-const SPA_MAX = 35;
-
-// ── ALL_ITEMS — 78 items masques ──
-const MASQUE_ITEMS = [
-  {id:'R1', mask:'rouge', inv:false, text:"Je surveille régulièrement les signaux de mon corps (rythme cardiaque, sensations) pour détecter un problème de santé."},
-  {id:'R2', mask:'rouge', inv:false, text:"Quand j'observe une sensation physique inhabituelle, ma pensée va rapidement vers une maladie grave."},
-  {id:'R3', mask:'rouge', inv:false, text:"Je consulte régulièrement des sources médicales (internet, médecins) pour vérifier mes symptômes."},
-  {id:'R4', mask:'rouge', inv:false, text:"La peur de développer une maladie grave (cancer, AVC…) occupe une place significative dans mes pensées."},
-  {id:'R5', mask:'rouge', inv:false, text:"J'ai déjà consulté plusieurs médecins pour les mêmes symptômes, en espérant trouver une rassurance définitive."},
-  {id:'R6', mask:'rouge', inv:false, text:"Je cherche fréquemment à être rassuré(e) par des professionnels de santé sur mon état physique."},
-  {id:'R7', mask:'rouge', inv:false, text:"Si j'apprenais avoir une maladie grave, je pense que je ne pourrais pas y faire face émotionnellement."},
-  {id:'R8', mask:'rouge', inv:false, text:"Je crois qu'une maladie grave ruinerait ma vie de façon permanente et irrémédiable."},
-  {id:'R9', mask:'rouge', inv:false, text:"Je pense souvent que je pourrais avoir une maladie grave sans le savoir encore."},
-  {id:'R10',mask:'rouge', inv:false, text:"Lorsqu'un proche est malade, je crains rapidement de contracter la même chose."},
-  {id:'O1', mask:'orange', inv:false, text:"Lorsqu'une conversation devient émotionnelle, je change naturellement de sujet ou je m'en détache."},
-  {id:'O2', mask:'orange', inv:false, text:"Je me sens plus à l'aise en m'occupant (travail, écrans) qu'en restant seul(e) avec mes émotions."},
-  {id:'O3', mask:'orange', inv:false, text:"Il m'est difficile de décrire précisément ce que je ressens émotionnellement dans une situation donnée."},
-  {id:'O4', mask:'orange', inv:false, text:"Même lors d'événements difficiles (deuil, échec important), je reste souvent sans larmes ni affect visible."},
-  {id:'O5', mask:'orange', inv:false, text:"Je préfère analyser les situations de façon logique plutôt que d'explorer les émotions qu'elles génèrent."},
-  {id:'O6', mask:'orange', inv:false, text:"Je me sens davantage observateur(trice) de ma propre vie que réellement acteur(trice) de mes émotions."},
-  {id:'O7', mask:'orange', inv:false, text:"Je préfère me concentrer sur les événements extérieurs et les faits concrets plutôt que sur mes états intérieurs."},
-  {id:'O8', mask:'orange', inv:false, text:"Face à un problème, je préfère l'analyser rationnellement plutôt que d'explorer les émotions qu'il génère."},
-  {id:'O9', mask:'orange', inv:false, text:"Je me demande souvent pourquoi je réagis émotionnellement comme je le fais."},
-  {id:'O10',mask:'orange', inv:false, text:"Mes émotions me déconcertent souvent."},
-  {id:'O11',mask:'orange', inv:false, text:"Il m'est difficile de révéler mes sentiments intimes, même à des personnes proches."},
-  {id:'O12',mask:'orange', inv:false, text:"Mon imagination et ma vie intérieure me semblent limitées."},
-  {id:'O13',mask:'orange', inv:false, text:"Je préfère laisser les choses se passer naturellement plutôt que de les comprendre émotionnellement."},
-  {id:'J1', mask:'jaune', inv:false, text:"Je me sens très mal à l'aise lorsqu'un événement prévu est modifié sans préavis."},
-  {id:'J2', mask:'jaune', inv:false, text:"Avant de décider, je dois réunir le maximum d'informations, même pour des décisions mineures."},
-  {id:'J3', mask:'jaune', inv:false, text:"Je prépare systématiquement des plans alternatifs (B, C, D) en cas d'imprévu."},
-  {id:'J4', mask:'jaune', inv:false, text:"Les situations ambiguës ou sans issue claire me sont particulièrement difficiles à tolérer."},
-  {id:'J5', mask:'jaune', inv:false, text:"Je prévois et planifie les activités du quotidien de façon très détaillée pour éviter tout imprévu."},
-  {id:'J6', mask:'jaune', inv:true,  text:"Je tolère bien de ne pas savoir comment les choses vont se dérouler et j'avance malgré l'incertitude."},
-  {id:'J7', mask:'jaune', inv:false, text:"Il m'est difficile d'agir quand je ne sais pas ce qui va se passer."},
-  {id:'J8', mask:'jaune', inv:false, text:"Il faut que je sache ce que l'avenir me réserve."},
-  {id:'J9', mask:'jaune', inv:false, text:"Je dois toujours être en mesure d'anticiper les événements."},
-  {id:'V1', mask:'vert', inv:false, text:"J'accepte le point de vue d'autrui même si je ne le partage pas, pour éviter tout conflit."},
-  {id:'V2', mask:'vert', inv:false, text:"La pensée d'être seul(e) ou abandonné(e) me provoque une angoisse significative."},
-  {id:'V3', mask:'vert', inv:false, text:"Je maintiens parfois des relations insatisfaisantes car la rupture me semblerait encore plus difficile."},
-  {id:'V4', mask:'vert', inv:false, text:"Je ressens un besoin fort d'être rassuré(e) par mes proches sur leur affection pour moi."},
-  {id:'V5', mask:'vert', inv:true,  text:"Je me sens généralement bien dans ma peau et capable d'assumer les défis relationnels."},
-  {id:'V6', mask:'vert', inv:false, text:"J'analyse en permanence les signes d'acceptation ou de rejet dans les comportements de mon entourage."},
-  {id:'V7', mask:'vert', inv:false, text:"J'ai peur que les personnes importantes pour moi ne souhaitent pas rester avec moi aussi longtemps que je le souhaite avec elles."},
-  {id:'V8', mask:'vert', inv:false, text:"Il m'est difficile de faire confiance totalement à mes partenaires ou proches."},
-  {id:'V9', mask:'vert', inv:false, text:"Il m'est difficile de me sentir vraiment à l'aise avec mes proches."},
-  {id:'V10',mask:'vert', inv:false, text:"Mes désirs d'être très proche des autres les effraient parfois."},
-  {id:'V11',mask:'vert', inv:true,  text:"J'ai confiance dans la capacité des autres à m'aimer de façon stable et durable."},
-  {id:'B1', mask:'bleu', inv:false, text:"Lorsque je vois quelqu'un faire une tâche « de travers », j'ai une forte impulsion à reprendre le contrôle."},
-  {id:'B2', mask:'bleu', inv:false, text:"J'ai tendance à diriger les groupes ou situations, même sans y avoir été invité(e)."},
-  {id:'B3', mask:'bleu', inv:false, text:"Lorsque quelqu'un prend une décision sans me consulter dans un domaine me concernant, je ressens une irritation marquée."},
-  {id:'B4', mask:'bleu', inv:false, text:"J'ai besoin de sentir que je suis indispensable dans mes relations professionnelles ou personnelles."},
-  {id:'B5', mask:'bleu', inv:false, text:"Quand je confie une tâche, j'ai régulièrement envie de vérifier ou corriger le travail de l'autre."},
-  {id:'B6', mask:'bleu', inv:false, text:"Je ressens de la colère ou une forte frustration lorsqu'une situation m'échappe ou ne se déroule pas comme prévu."},
-  {id:'B7', mask:'bleu', inv:false, text:"J'ai l'impression que ce qui m'arrive dépend surtout des autres ou du hasard, et peu de moi-même."},
-  {id:'B8', mask:'bleu', inv:true,  text:"Je me sens maître(sse) de ce qui se passe dans ma vie et de mes choix importants."},
-  {id:'B9', mask:'bleu', inv:false, text:"La perspective de ne pas contrôler mes émotions m'angoisse."},
-  {id:'B10',mask:'bleu', inv:false, text:"Je préfère tout faire moi-même pour éviter de dépendre du jugement ou de l'action des autres."},
-  {id:'B11',mask:'bleu', inv:false, text:"Je préfère prendre les risques moi-même plutôt que de laisser les autres décider à ma place."},
-  {id:'I1', mask:'indigo', inv:false, text:"Je retravaille mes productions (projets, présentations) bien au-delà de ce qui est objectivement nécessaire."},
-  {id:'I2', mask:'indigo', inv:false, text:"Je reporte souvent le démarrage d'un projet car je crains de ne pas être à la hauteur."},
-  {id:'I3', mask:'indigo', inv:false, text:"Je minimise spontanément mes réussites en les attribuant à la chance ou aux autres plutôt qu'à moi."},
-  {id:'I4', mask:'indigo', inv:false, text:"J'ai du mal à me sentir légitime dans mon rôle professionnel, même quand mes résultats sont objectivement bons."},
-  {id:'I5', mask:'indigo', inv:false, text:"Je sabote parfois inconsciemment une opportunité de réussite juste avant qu'elle se concrétise."},
-  {id:'I6', mask:'indigo', inv:false, text:"Mon dialogue intérieur est souvent très critique envers moi-même lorsque je n'atteins pas mes propres standards."},
-  {id:'I7', mask:'indigo', inv:false, text:"Lorsque j'échoue, j'ai honte de moi-même."},
-  {id:'I8', mask:'indigo', inv:false, text:"Lorsque j'échoue, je commence à me demander si je suis capable de faire quoi que ce soit correctement."},
-  {id:'I9', mask:'indigo', inv:false, text:"Quand je n'atteins pas mon objectif, j'ai l'impression d'être moins bien que les autres."},
-  {id:'I10',mask:'indigo', inv:false, text:"Lorsque j'échoue, je remets en question mes aptitudes et mes capacités profondes."},
-  {id:'I11',mask:'indigo', inv:false, text:"Quand j'échoue, je m'imagine perdre des opportunités importantes qui ne reviendront pas."},
-  {id:'I12',mask:'indigo', inv:false, text:"Quand j'échoue, je me sens coupable d'avoir déçu les personnes qui comptaient sur moi."},
-  {id:'Vi1', mask:'violet', inv:false, text:"J'ai l'impression de vivre ma vie « en pilote automatique », comme si je me regardais de l'extérieur."},
-  {id:'Vi2', mask:'violet', inv:false, text:"Il m'est difficile d'exprimer des préférences authentiques car je ne sais plus ce que je veux vraiment."},
-  {id:'Vi3', mask:'violet', inv:false, text:"J'ai abandonné progressivement des passions ou centres d'intérêt qui me définissaient autrefois."},
-  {id:'Vi4', mask:'violet', inv:false, text:"En situation de silence ou de solitude, je ressens un vide intérieur difficile à définir."},
-  {id:'Vi5', mask:'violet', inv:false, text:"Je refuse souvent des opportunités de changement (nouveau poste, déménagement) pour ne pas perturber ma stabilité."},
-  {id:'Vi6', mask:'violet', inv:false, text:"J'ai la sensation d'être une personne différente selon les périodes de ma vie, sans véritable fil conducteur."},
-  {id:'Vi7', mask:'violet', inv:false, text:"Je serais incapable de décrire clairement qui j'étais il y a 5 ans et qui je serai dans 5 ans."},
-  {id:'Vi8', mask:'violet', inv:false, text:"L'idée de changer profondément qui je suis me provoque une crainte existentielle que j'évite d'explorer."},
-  {id:'Vi9', mask:'violet', inv:false, text:"Je me sens déconnecté(e) de la personne que j'étais dans le passé."},
-  {id:'Vi10',mask:'violet', inv:false, text:"Je me sens comme une personne différente de celle que j'étais autrefois."},
-  {id:'Vi11',mask:'violet', inv:false, text:"J'ai souvent l'impression de ne pas savoir qui je suis vraiment."},
-  {id:'Vi12',mask:'violet', inv:false, text:"L'idée de me définir ou d'expliquer qui je suis m'angoisse ou me laisse dans le vide."},
-];
-
-const SPA_ITEMS = [
-  {id:'SPA-1', mask:'spa', inv:false, fenetre:'État de flux',
-   text:"Il m'arrive d'être tellement absorbé(e) par ce que je fais que je perds la notion du temps et du regard des autres."},
-  {id:'SPA-2', mask:'spa', inv:false, fenetre:'Résonance corporelle',
-   text:"Je ressens parfois dans mon corps un signal clair — légèreté, élan, soulagement — et je lui fais confiance sans chercher à l'analyser."},
-  {id:'SPA-3', mask:'spa', inv:false, fenetre:'Opinion spontanée',
-   text:"Il m'arrive de savoir ce que je pense ou ce que je veux avant de me demander ce que les autres en penseraient."},
-  {id:'SPA-4', mask:'spa', inv:false, fenetre:'Joie sans témoin',
-   text:"Je peux éprouver de la joie ou de la satisfaction dans un moment, sans avoir besoin de le partager ou de le faire valider."},
-  {id:'SPA-5', mask:'spa', inv:false, fenetre:'Élan sans raison',
-   text:"Il m'arrive d'être attiré(e) vers quelque chose — une idée, une activité, une direction — sans pouvoir l'expliquer rationnellement, et de le suivre quand même."},
-  {id:'SPA-6', mask:'spa', inv:false, fenetre:'Présence à soi',
-   text:"Dans certains moments, j'ai la sensation claire d'être moi-même — sans effort, sans rôle à tenir."},
-  {id:'SPA-7', mask:'spa', inv:false, fenetre:'Authenticité relationnelle',
-   text:"Il m'arrive d'exprimer une opinion, une émotion ou un besoin — même si je sais que ce n'est pas ce que l'autre attendait d'entendre."},
-];
-
-const SPA_POSITIONS = {11:'SPA-1', 22:'SPA-4', 33:'SPA-2', 44:'SPA-5', 55:'SPA-3', 66:'SPA-6', 77:'SPA-7'};
-const SPA_MAP = {};
-SPA_ITEMS.forEach(s => { SPA_MAP[s.id] = s; });
-
-// ══════════ LISTES BLANCHES POUR LA DÉTECTION ══════════
-const DYADES_AMPLIFICATIONS = {
-    "jaune+rouge":{}, "orange+vert":{}, "jaune+vert":{}, "orange+rouge":{},
-    "bleu+jaune":{}, "bleu+indigo":{}, "indigo+vert":{}, "indigo+jaune":{},
-    "jaune+violet":{}, "bleu+rouge":{}, "rouge+vert":{}, "indigo+rouge":{},
-    "rouge+violet":{}, "jaune+orange":{}, "bleu+orange":{}, "indigo+orange":{},
-    "orange+violet":{}, "bleu+vert":{}, "vert+violet":{}, "bleu+violet":{},
-    "indigo+violet":{}
-};
-
-const TRIADES_AMPLIFICATIONS = {
-    "jaune+orange+rouge":{}, "bleu+indigo+jaune":{}, "indigo+orange+vert":{},
-    "bleu+jaune+rouge":{}, "indigo+orange+violet":{}, "jaune+rouge+vert":{},
-    "bleu+jaune+vert":{}, "orange+rouge+violet":{}, "bleu+indigo+orange":{},
-    "jaune+orange+vert":{}, "indigo+jaune+rouge":{}, "bleu+vert+violet":{},
-    "bleu+jaune+orange":{}, "rouge+vert+violet":{}, "indigo+jaune+violet":{}
-};
-
-let responses     = {};
-let demographics  = {};
-let shuffledItems = [];
-let pages         = [];
-
-document.addEventListener('DOMContentLoaded', () => {
-  let wip = null;
-  try { wip = JSON.parse(localStorage.getItem('valeur_wip')); } catch(e){}
-  const wipFresh = wip && wip.ts && (Date.now() - wip.ts < 7 * 24 * 60 * 60 * 1000);
-  if (wipFresh && wip.responses && Object.keys(wip.responses).length > 0 && wip.shuffleOrder) {
-    const itemMap = {};
-    [...MASQUE_ITEMS, ...SPA_ITEMS].forEach(it => { itemMap[it.id] = it; });
-    shuffledItems = wip.shuffleOrder.map(id => itemMap[id]).filter(Boolean);
-    responses = wip.responses || {};
-    if (wip.demographics && wip.demographics.prenom) demographics = wip.demographics;
-    buildPages();
-    buildPageScreens();
-    restoreResponses();
-    showResumePrompt(Object.keys(responses).length, wip.pageIdx || 0);
-  } else {
-    buildShuffledSequence();
-    buildPages();
-    buildPageScreens();
-  }
-});
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+function setSyncStatus(state, text) {
+    var el = document.getElementById('sync-status');
+    var dot = document.getElementById('sync-dot');
+    var txt = document.getElementById('sync-text');
+    if (!el || !dot || !txt) return;
+    el.style.display = 'flex';
+    dot.className = 'sync-dot ' + state;
+    txt.textContent = text;
 }
 
-function buildShuffledSequence() {
-  const shuffledMasques = shuffle(MASQUE_ITEMS);
-  shuffledItems = [];
-  let mi = 0;
-  for (let pos = 1; pos <= 85; pos++) {
-    if (SPA_POSITIONS[pos]) {
-      shuffledItems.push(SPA_MAP[SPA_POSITIONS[pos]]);
-    } else {
-      shuffledItems.push(shuffledMasques[mi++]);
-    }
-  }
+function hideSyncStatus() {
+    var el = document.getElementById('sync-status');
+    if (el) el.style.display = 'none';
 }
 
-function buildPages() {
-  pages = [];
-  for (let i = 0; i < shuffledItems.length; i += CONFIG.ITEMS_PP) {
-    pages.push(shuffledItems.slice(i, i + CONFIG.ITEMS_PP));
-  }
-}
-
-const LIKERT_LABELS = [
-  'Pas du tout\nvrai pour moi',
-  'Rarement\nvrai pour moi',
-  'Parfois\nvrai pour moi',
-  'Souvent\nvrai pour moi',
-  'Généralement\nvrai pour moi',
-  'Décrit parfaitement\nmon expérience'
-];
-
-function buildLikert(item, pageIdx) {
-  var html = '<div class="likert">';
-  for (var v = 0; v < 6; v++) {
-    var oa = "onAnswer('" + item.id + "'," + v + "," + pageIdx + ")";
-    html += '<label class="likert-option">'
-      + '<input type="radio" name="item_' + item.id + '" value="' + v + '" onchange="' + oa + '">'
-      + '<div class="likert-btn">' + v + '</div>'
-      + '<span class="likert-label">' + LIKERT_LABELS[v].replace('\n','<br>') + '</span>'
-      + '</label>';
-  }
-  return html + '</div>';
-}
-
-function buildPageScreens() {
-  const container = document.getElementById('screen-pages-container');
-  pages.forEach((pageItems, idx) => {
-    const div = document.createElement('div');
-    div.id = `screen-page-${idx}`;
-    div.className = 'screen';
-    div.innerHTML = buildPageHTML(pageItems, idx);
-    container.appendChild(div);
-  });
-}
-
-function buildPageHTML(items, idx) {
-  const total = pages.length;
-  const answered = Object.keys(responses).length;
-  const pct = Math.round(answered / 85 * 100);
-  const isLast = idx === total - 1;
-
-  const dots = Array.from({length: total + 1}, (_, i) => {
-    const cls = i === idx + 1 ? ' active' : i <= idx ? ' done' : '';
-    return `<span class="step-dot${cls}"></span>`;
-  }).join('');
-
-  const itemsHTML = items.map((it, i) => {
-    const qn = idx * CONFIG.ITEMS_PP + (i + 1);
-    const isSpa = it.mask === 'spa';
-    return `
-    <div class="item-card${isSpa?' spa-card':''}" id="card-${it.id}">
-      <div class="item-header">
-        <span class="item-num${isSpa ? ' spa' : ''}">${String(qn).padStart(2,'0')}</span>
-        <span class="item-text">${it.text}</span>
-      </div>
-      ${buildLikert(it, idx)}
-    </div>`;
-  }).join('');
-
-  return `
-  <div class="progress-wrapper">
-    <div class="progress-info">
-      <span id="lbl-${idx}">${answered} / 85 affirmations répondues</span>
-      <span>Partie ${idx+1} / ${total}</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="fill-${idx}" style="width:${pct}%"></div></div>
-    <div class="step-dots" id="dots-${idx}">${dots}</div>
-    <div style="display:flex;justify-content:flex-end;padding-top:5px">
-      <button onclick="showPauseModal()"
-        style="background:none;border:none;font-size:10px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink5);cursor:pointer">
-        ⏸ Faire une pause
-      </button>
-    </div>
-  </div>
-  <div class="page-header">
-    <span class="page-badge">Partie ${idx+1} / ${total}</span>
-    <h2 class="page-title">Répondez spontanément</h2>
-    <p class="page-desc">0 = Pas du tout vrai · 5 = Décrit parfaitement mon expérience — ces 6 derniers mois</p>
-  </div>
-  <div class="items-container">${itemsHTML}</div>
-  <div id="warn-${idx}" class="unanswered-msg hidden">
-    ⚠ Merci de répondre à toutes les affirmations avant de continuer.
-  </div>
-  <div class="btn-group" style="margin-top:28px">
-    <button class="btn btn-secondary" onclick="prevPage(${idx})">← Précédent</button>
-    <button class="btn btn-primary" onclick="nextPage(${idx})">
-      ${isLast ? '✔ Voir mes résultats →' : 'Partie suivante →'}
-    </button>
-  </div>`;
-}
-
-const MILESTONES = {
-  2: {pct:'~40 %', color:'var(--bleu)', emoji:'◈', msg:'La moitié du chemin — votre portrait se précise.'},
-  4: {pct:'~80 %', color:'var(--indigo)', emoji:'◉', msg:'Votre rapport est presque prêt — encore quelques affirmations.'},
-};
-const shownMilestones = new Set();
-
-function showMilestone(pageIdx) {
-  const m = MILESTONES[pageIdx];
-  if (!m || shownMilestones.has(pageIdx)) return;
-  shownMilestones.add(pageIdx);
-  document.getElementById('mt-pct').textContent = m.pct + ' complétés';
-  document.getElementById('mt-msg').textContent = m.msg;
-  document.getElementById('mt-emoji').textContent = m.emoji;
-  document.getElementById('mt-accent').style.background = m.color;
-  document.getElementById('mt-pct').style.color = m.color;
-  document.getElementById('mt-fill').style.background = m.color;
-  document.getElementById('mt-fill').style.width = m.pct;
-  const t = document.getElementById('milestone-toast');
-  t.classList.add('show');
-  setTimeout(closeMilestone, 6000);
-}
-function closeMilestone() {
-  const t = document.getElementById('milestone-toast');
-  t.style.opacity = '0'; t.style.transition = 'opacity .3s';
-  setTimeout(() => { t.classList.remove('show'); t.style.opacity = ''; t.style.transition = ''; }, 300);
-}
-
-function goToScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
-  const m = id.match(/^screen-page-(\d+)$/);
-  if (m) showMilestone(parseInt(m[1]));
-}
-
-function prevPage(idx) {
-  idx === 0 ? goToScreen('screen-demo') : goToScreen(`screen-page-${idx-1}`);
-}
-
-function showPauseModal() {
-  const el = document.getElementById('pm-txt');
-  if (demographics.prenom) {
-    el.innerHTML = `Toutes vos réponses sont conservées sur cet appareil.<br>Patient : <strong style="color:var(--gold)">${demographics.prenom} ${demographics.nom || ''}</strong>`;
-  }
-  document.getElementById('pause-modal').classList.add('open');
-}
-function closePauseModal() { document.getElementById('pause-modal').classList.remove('open'); }
-
-function startQuestionnaire() {
-  const prenom = document.getElementById('d-prenom').value.trim();
-  const nom = document.getElementById('d-nom').value.trim();
-
-  if (!prenom) {
-    alert('Merci de renseigner votre prénom.');
-    document.getElementById('d-prenom').focus();
-    return;
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  const pid = params.get('pid') || null;
-
-  demographics = {
-    prenom,
-    nom,
-    email: '',
-    pid: pid,
-    age: null,
-    genre: null,
-    consent: true
-  };
-
-  try {
-    localStorage.setItem('valeur_lead', JSON.stringify({ prenom, nom, pid, ts: Date.now() }));
-    localStorage.setItem('valeur_prenom', prenom);
-    localStorage.removeItem('valeur_email');
-  } catch (e) {}
-
-  goToScreen('screen-page-0');
-}
-
-function onAnswer(id, val, pageIdx) {
-  responses[id] = parseInt(val);
-  document.getElementById(`card-${id}`)?.classList.add('answered');
-  const answered = Object.keys(responses).length;
-  const pct = Math.round(answered / 85 * 100);
-  const fill = document.getElementById(`fill-${pageIdx}`);
-  const lbl  = document.getElementById(`lbl-${pageIdx}`);
-  if (fill) fill.style.width = pct + '%';
-  if (lbl)  lbl.textContent = `${answered} / 85 affirmations répondues`;
-  updateDots(pageIdx);
-  saveWIP(pageIdx);
-}
-
-function updateDots(pageIdx) {
-  const el = document.getElementById(`dots-${pageIdx}`);
-  if (!el) return;
-  el.querySelectorAll('.step-dot').forEach((d, i) => {
-    d.className = 'step-dot' + (i === pageIdx + 1 ? ' active' : i <= pageIdx ? ' done' : '');
-  });
-}
-
-function saveWIP(pageIdx) {
-  try {
-    localStorage.setItem('valeur_wip', JSON.stringify({
-      responses, pageIdx,
-      shuffleOrder: shuffledItems.map(it => it.id),
-      demographics, ts: Date.now()
-    }));
-  } catch(e){}
-}
-
-function restoreResponses() {
-  Object.keys(responses).forEach(id => {
-    const val = responses[id];
-    const radio = document.querySelector(`input[name="item_${id}"][value="${val}"]`);
-    if (radio) {
-      radio.checked = true;
-      document.getElementById(`card-${id}`)?.classList.add('answered');
-    }
-  });
-}
-
-function showResumePrompt(answered, lastPageIdx) {
-  const target = document.getElementById('screen-welcome');
-  if (!target) return;
-  const banner = document.createElement('div');
-  banner.style.cssText = 'background:rgba(72,187,120,.1);border:1px solid rgba(72,187,120,.35);border-radius:12px;padding:18px 22px;margin:0 0 22px;text-align:center';
-  banner.innerHTML = `
-    <div style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#48BB78;margin-bottom:6px">Session en cours détectée</div>
-    <div style="font-size:14px;color:var(--ink);margin-bottom:12px">
-      Vous avez déjà répondu à <strong style="color:#48BB78">${answered} questions sur 85</strong>.<br>Voulez-vous reprendre ?
-    </div>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button onclick="resumeQuestionnaire(${lastPageIdx})"
-        style="background:#48BB78;color:#fff;border:none;border-radius:6px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer">
-        Reprendre (${answered}/85) →
-      </button>
-      <button onclick="startFresh()"
-        style="background:rgba(0,0,0,.05);color:var(--ink3);border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:10px 16px;font-size:13px;cursor:pointer">
-        Recommencer
-      </button>
-    </div>`;
-  target.insertBefore(banner, target.firstChild);
-}
-function resumeQuestionnaire(lastPageIdx) {
-  if (demographics.prenom && demographics.email) goToScreen(`screen-page-${lastPageIdx}`);
-  else goToScreen('screen-demo');
-}
-function startFresh() {
-  localStorage.removeItem('valeur_wip');
-  responses = {}; demographics = {};
-  location.reload();
-}
-
-// ═══════════════ SCORING (inchangé) ═══════════════
-function adj(item, raw) { return item.inv ? (5 - raw) : raw; }
-function computeScores() {
-  const masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const sc = {};
-  masks.forEach(m => {
-    const items = [...MASQUE_ITEMS].filter(it => it.mask === m);
-    const sum = items.reduce((acc, it) => acc + adj(it, responses[it.id] ?? 0), 0);
-    sc[m] = Math.round(sum / MASK_MAX[m] * 100);
-  });
-  const spaSum = SPA_ITEMS.reduce((acc, it) => acc + (responses[it.id] ?? 0), 0);
-  sc.spa = Math.round(spaSum / SPA_MAX * 100);
-  return sc;
-}
-
-// ═══════════════ NOUVELLE DÉTECTION (detectValidProfile) ═══════════════
-function detectValidProfile(scores) {
-    const MASKS = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-    const TIEBREAK = ['jaune','rouge','indigo','vert','bleu','orange','violet'];
-    const VALID_DYADS = Object.keys(DYADES_AMPLIFICATIONS).map(k => k.split('+').sort());
-    const VALID_TRIADS = Object.keys(TRIADES_AMPLIFICATIONS).map(k => k.split('+').sort());
-
-    const sorted = MASKS.map(m => ({ key: m, pct: scores[m] || 0 }))
-        .sort((a, b) => b.pct - a.pct || TIEBREAK.indexOf(a.key) - TIEBREAK.indexOf(b.key));
-
-    const S1 = sorted[0].pct, S2 = sorted[1]?.pct || 0, S3 = sorted[2]?.pct || 0;
-
-    // Triade valide
-    if (S1 >= 60 && S2 >= 55 && S3 >= 55 && (S1 - S3) <= 15) {
-        const triadColors = [sorted[0].key, sorted[1].key, sorted[2].key].sort();
-        if (VALID_TRIADS.some(t => t.join(',') === triadColors.join(','))) {
-            return {
-                type: 'triade',
-                masks: triadColors,
-                primary: sorted[0].key,
-                secondary: sorted[1].key,
-                tertiary: sorted[2].key
-            };
-        }
-    }
-
-    // Dyade valide (parmi les 3 meilleures paires)
-    const candidatePairs = [
-        [sorted[0].key, sorted[1].key],
-        [sorted[0].key, sorted[2].key],
-        [sorted[1].key, sorted[2].key]
-    ];
-    for (let pair of candidatePairs) {
-        const pairSorted = [...pair].sort();
-        if (VALID_DYADS.some(d => d.join(',') === pairSorted.join(','))) {
-            const sA = scores[pairSorted[0]], sB = scores[pairSorted[1]];
-            if (sA >= 55 && sB >= 55 && Math.abs(sA - sB) <= 10) {
-                const subtype = (sA >= 65) ? 'forte' : 'modérée';
-                return {
-                    type: subtype === 'forte' ? 'dyade' : 'dyade_moderee',
-                    masks: pairSorted,
-                    primary: sA >= sB ? pairSorted[0] : pairSorted[1],
-                    secondary: sA >= sB ? pairSorted[1] : pairSorted[0],
-                    subtype: subtype
-                };
-            }
-        }
-    }
-
-    // Monomasque dominant
-    if (S1 >= 75 && (S1 - S2) > 10) {
-        return { type: 'mono', masks: [sorted[0].key], primary: sorted[0].key, secondary: (S2 >= 60) ? sorted[1].key : null };
-    }
-    if (S1 >= 60 && (S1 - S2) > 10) {
-        return { type: 'mono_fort', masks: [sorted[0].key], primary: sorted[0].key };
-    }
-
-    // Pan-masques
-    const active60 = sorted.filter(m => m.pct >= 60);
-    if (active60.length >= 5) {
-        const spread = Math.max(...active60.map(m => m.pct)) - Math.min(...active60.map(m => m.pct));
-        if (spread <= 20) {
-            return { type: 'pan', masks: active60.map(m => m.key), primary: sorted[0].key };
-        }
-    }
-
-    // Adaptatif
-    if (S1 < 50) {
-        return { type: S1 < 30 ? 'adaptatif_eq' : 'adaptatif_vig', masks: sorted.map(m => m.key), primary: sorted[0].key };
-    }
-
-    return { type: 'residuel', masks: [sorted[0].key], primary: sorted[0].key };
-}
-
-// ═══════════════ NEXT PAGE (finale) ═══════════════
-async function nextPage(idx) {
-  const pid = new URLSearchParams(window.location.search).get('pid') || null;
-  const pageItems = pages[idx];
-  const allOk = pageItems.every(it => responses[it.id] !== undefined);
-  const warn = document.getElementById(`warn-${idx}`);
-  if (!allOk) {
-    warn.classList.remove('hidden');
-    const first = pageItems.find(it => responses[it.id] === undefined);
-    document.getElementById(`card-${first.id}`)?.scrollIntoView({behavior:'smooth', block:'center'});
-    return;
-  }
-  warn.classList.add('hidden');
-  if (idx < pages.length - 1) { goToScreen(`screen-page-${idx+1}`); return; }
-
-  const overlay = document.getElementById('sending-overlay');
-  overlay.classList.remove('hidden');
-  document.getElementById('overlay-text').textContent = 'Analyse de votre cartographie…';
-
-  const sc = computeScores();
-  try {
-    localStorage.setItem('valeur_scores', JSON.stringify({
-      rouge:sc.rouge, orange:sc.orange, jaune:sc.jaune, vert:sc.vert,
-      bleu:sc.bleu, indigo:sc.indigo, violet:sc.violet, spa:sc.spa
-    }));
-    localStorage.setItem('valeur_prenom', demographics.prenom);
-    localStorage.setItem('valeur_email', demographics.email);
-    localStorage.setItem('valeur_ts', Date.now().toString());
-    localStorage.removeItem('valeur_wip');
-  } catch(e){}
-
-  const masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const scPct = {};
-  masks.forEach(m => { scPct[m] = sc[m]; });
-  const dom = masks.sort((a,b) => scPct[b]-scPct[a])[0];
-  const profil = detectValidProfile(scPct);
-
-  // Sauvegarde silencieuse Google Sheets (avec la nouvelle URL de script)
-  try {
-    fetch(GOOGLE_SHEET_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: demographics.email || '',
-        prenom: demographics.prenom || '',
-        scores: scPct,
-        masque_dominant: dom,
-        profil_type: profil.type,
-        spa: sc.spa,
-        date: new Date().toISOString()
-      })
+// Envoi des données vers l'API Vercel
+function pushToVercel() {
+    var data = {
+        patients: patients,
+        agenda: agenda,
+        postitText: postitText,
+        notesPraticien: notesPraticien,
+        timestamp: Date.now()
+    };
+    setSyncStatus('syncing', 'Synchronisation...');
+    fetch(VERCEL_CABINET_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(function(res) { if (!res.ok) throw new Error('Erreur serveur'); return res.json(); })
+    .then(function(json) {
+        lastSyncTimestamp = Date.now();
+        setSyncStatus('ok', 'Synchronisé à l\'instant');
+        setTimeout(hideSyncStatus, 5000);
+    })
+    .catch(function(err) {
+        setSyncStatus('error', 'Erreur de synchro');
+        setTimeout(hideSyncStatus, 5000);
+        console.warn('Push Vercel échoué:', err);
     });
-  } catch(e) {}
-
-  // Redirection vers le portrait
-  const _masks = ['rouge','orange','jaune','vert','bleu','indigo','violet'];
-  const _scoresQuery = _masks.map(m => m + '=' + (scPct[m] || 0)).join('&');
-  window.location.href = CONFIG.RESULTS_URL + '?'
-    + _scoresQuery
-    + '&spa=' + (sc.spa || 0)
-    + '&email=' + encodeURIComponent(demographics.email || '')
-    + '&prenom=' + encodeURIComponent(demographics.prenom || '');
 }
+
+// Récupération des données depuis l'API Vercel (au démarrage)
+function pullFromVercel() {
+    return fetch(VERCEL_CABINET_API)
+        .then(function(res) { if (!res.ok) throw new Error('Non trouvé'); return res.json(); })
+        .then(function(serverData) {
+            if (serverData && serverData.timestamp) {
+                // Si le serveur a des données plus récentes que le localStorage, on les utilise
+                var localTimestamp = parseInt(localStorage.getItem('cabinet_last_modified') || '0');
+                if (serverData.timestamp > localTimestamp) {
+                    if (serverData.patients) patients = serverData.patients;
+                    if (serverData.agenda) agenda = serverData.agenda;
+                    if (serverData.postitText !== undefined) postitText = serverData.postitText;
+                    if (serverData.notesPraticien !== undefined) notesPraticien = serverData.notesPraticien;
+                    saveAll(); // On met à jour le localStorage avec les données serveur
+                    lastSyncTimestamp = serverData.timestamp;
+                    setSyncStatus('ok', 'Données restaurées depuis le cloud');
+                    setTimeout(hideSyncStatus, 5000);
+                    return true;
+                }
+            }
+            return false;
+        })
+        .catch(function(err) {
+            console.warn('Pull Vercel échoué:', err);
+            return false;
+        });
+}
+
+// Synchronisation bidirectionnelle initiale
+function initialSync() {
+    setSyncStatus('syncing', 'Connexion au cloud...');
+    pullFromVercel().then(function(restored) {
+        if (!restored) {
+            // Si aucune donnée serveur récente, on pousse les données locales
+            pushToVercel();
+        }
+        // Ensuite on lance le timer de synchro périodique
+        syncTimer = setInterval(function() {
+            pushToVercel();
+        }, SYNC_INTERVAL);
+    });
+}
+
+// Force la synchronisation (appelé depuis le menu)
+function forceSync() {
+    pushToVercel();
+    toast('Synchronisation forcée');
+}
+
+// ═══════════════ STOCKAGE LOCAL ═══════════════
+function saveAll() {
+    localStorage.setItem('cabinet_patients', JSON.stringify(patients));
+    localStorage.setItem('cabinet_agenda', JSON.stringify(agenda));
+    localStorage.setItem('cabinet_postit', postitText);
+    localStorage.setItem('cabinet_notes_praticien', notesPraticien);
+    localStorage.setItem('cabinet_last_modified', Date.now().toString());
+    // On essaie de pousser vers Vercel après chaque sauvegarde (silencieux)
+    if (window._initialSyncDone) {
+        pushToVercel();
+    }
+}
+function loadAll() {
+    try { patients = JSON.parse(localStorage.getItem('cabinet_patients') || '[]'); } catch(e) { patients = []; }
+    try { agenda = JSON.parse(localStorage.getItem('cabinet_agenda') || '[]'); } catch(e) { agenda = []; }
+    postitText = localStorage.getItem('cabinet_postit') || '';
+    notesPraticien = localStorage.getItem('cabinet_notes_praticien') || '';
+    document.getElementById('patient-count').textContent = patients.length;
+}
+
+// ═══════════════ AUTH ═══════════════
+function authenticate() {
+    if (document.getElementById('login-password').value === VALID_PASSWORD) {
+        localStorage.setItem('cabinet_auth','true');
+        showDashboard();
+    } else {
+        document.getElementById('login-error').style.display='block';
+        document.getElementById('login-password').value='';
+        document.getElementById('login-password').focus();
+    }
+}
+function checkAuth() {
+    if (localStorage.getItem('cabinet_auth') === 'true') showDashboard();
+    else { document.getElementById('login-screen').classList.remove('hidden'); document.getElementById('dashboard').classList.remove('visible'); }
+}
+function showDashboard() {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('dashboard').classList.add('visible');
+    document.body.style.alignItems = 'stretch';
+    loadAll();
+    initialSync().then(function() {
+        window._initialSyncDone = true;
+    });
+    navTo('dashboard');
+}
+function logout() { localStorage.removeItem('cabinet_auth'); location.reload(); }
+
+// ═══════════════ NAVIGATION ═══════════════
+function navTo(page) {
+    currentPage = page;
+    document.querySelectorAll('.sb-link').forEach(function(l){ l.classList.remove('active'); });
+    var link = document.querySelector('[data-page="' + page + '"]');
+    if (link) link.classList.add('active');
+    switch(page) {
+        case 'dashboard': renderDashboard(); break;
+        case 'patients': renderPatientsList(); break;
+        case 'agenda': renderAgenda(); break;
+        case 'fiches': renderBibliotheque(''); break;
+        case 'notes': renderNotesPraticien(); break;
+    }
+}
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+function toast(msg) { var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },2600); }
+
+// ═══════════════ DASHBOARD ═══════════════
+function renderDashboard() {
+    var area = document.getElementById('content-area');
+    var total = patients.length;
+    var avgSpa = total > 0 ? Math.round(patients.reduce(function(s,p){ return s + (parseInt(p.spa)||0); }, 0) / total) : 0;
+
+    var html = '<div class="page-title">Bonjour Céline</div>';
+    html += '<div class="postit"><h3>📌 Post-it praticien</h3><textarea id="postit-area" oninput="savePostit()">' + escHtml(postitText) + '</textarea></div>';
+    html += '<div class="stats-row">' +
+        '<div class="stat-card"><div class="stat-num">' + total + '</div><div class="stat-lbl">Patients</div></div>' +
+        '<div class="stat-card"><div class="stat-num">' + avgSpa + '%</div><div class="stat-lbl">SPA moyen</div></div>' +
+        '</div>';
+    var pinned = patients.filter(function(p){ return p.pinned; });
+    if (pinned.length > 0) {
+        html += '<div><h3 style="font-family:var(--font-display);">⭐ Patients prioritaires</h3><div class="patients-grid">';
+        pinned.forEach(function(p){ html += patientCardHTML(p); });
+        html += '</div></div>';
+    }
+    var now = new Date();
+    var upcoming = agenda.filter(function(a){ return new Date(a.date) >= now; }).sort(function(a,b){ return new Date(a.date) - new Date(b.date); }).slice(0,3);
+    html += '<div class="card"><h3>📅 Prochains rendez-vous</h3>';
+    if (upcoming.length === 0) html += '<p style="color:var(--ink3);">Aucun rendez-vous à venir.</p>';
+    else {
+        html += '<div class="agenda-list">';
+        upcoming.forEach(function(a){
+            var p = patients.find(function(x){ return x.id === a.patientId; });
+            html += '<div class="agenda-item"><span class="agenda-date">' + new Date(a.date).toLocaleDateString('fr-FR') + '</span><span class="agenda-patient">' + (p ? escHtml(p.prenom + ' ' + p.nom) : 'Inconnu') + '</span><span class="agenda-notes">' + escHtml(a.notes||'') + '</span></div>';
+        });
+        html += '</div>';
+    }
+    html += '<button class="btn btn-ghost" onclick="navTo(\'agenda\')">Voir tout l\'agenda →</button></div>';
+    area.innerHTML = html;
+}
+function savePostit() { postitText = document.getElementById('postit-area') ? document.getElementById('postit-area').value : ''; saveAll(); }
+
+function patientCardHTML(p) {
+    var scores = {}; try { scores = JSON.parse(p.scores || '{}'); } catch(e) {}
+    var dom = p.masque_dominant;
+    var spa = p.spa || 0;
+    var initial = (p.prenom||'P')[0].toUpperCase();
+    return '<div class="patient-card ' + (p.pinned ? 'prioritaire' : '') + '" onclick="openPatientCard(\'' + p.id + '\')">' +
+        '<span class="pc-pin" onclick="event.stopPropagation(); togglePin(\'' + p.id + '\')">' + (p.pinned ? '⭐' : '☆') + '</span>' +
+        '<div class="pc-top"><div class="pc-avatar" style="background:' + (MASK_COLORS[dom]||'#C9A84C') + '">' + initial + '</div><div><div class="pc-name">' + escHtml(p.prenom||'') + ' ' + escHtml(p.nom||'') + '</div><div class="pc-email">' + escHtml(p.email||'') + '</div></div></div>' +
+        '<div class="pc-meta">' + (dom ? '<span class="pc-tag pc-tag-mask"><span class="pc-dot" style="background:' + (MASK_COLORS[dom]||'#C9A84C') + '"></span> ' + (MASK_NAMES[dom]||dom) + '</span>' : '') + ' ' + (spa!==undefined ? '<span class="pc-tag pc-tag-spa">◈ SPA ' + spa + '%</span>' : '') + '</div>' +
+        '<div class="pc-actions">' +
+            '<button class="btn btn-ghost" style="padding:6px 14px;font-size:11px;" onclick="event.stopPropagation();openPatientEdit(\'' + p.id + '\')">✎</button>' +
+            '<button class="btn btn-ghost" style="padding:6px 14px;font-size:11px;" onclick="event.stopPropagation();window.open(\'patient.html?id=' + p.id + '\',\'_blank\')">📄</button>' +
+            '<button class="btn btn-ghost" style="padding:6px 14px;font-size:11px;" onclick="event.stopPropagation();openPortrait(\'' + p.id + '\')">🧠</button>' +
+        '</div>' +
+    '</div>';
+}
+function togglePin(id) {
+    var p = patients.find(function(x){ return x.id === id; });
+    if (p) { p.pinned = !p.pinned; saveAll(); renderDashboard(); }
+}
+function openPatientCard(id) { window.open('patient.html?id=' + id, '_blank'); }
+
+// ═══════════════ OUVERTURE DU PORTRAIT COMPLET ═══════════════
+function openPortrait(id) {
+    var p = patients.find(function(x){ return x.id === id; });
+    if (!p) return;
+    var scores = {};
+    try { scores = JSON.parse(p.scores || '{}'); } catch(e) {}
+    var params = new URLSearchParams();
+    ['rouge','orange','jaune','vert','bleu','indigo','violet'].forEach(function(m){
+        params.set(m, scores[m] || 0);
+    });
+    params.set('spa', p.spa || 0);
+    params.set('prenom', p.prenom || '');
+    if (p.email) params.set('email', p.email);
+    params.set('pid', id);
+    window.open('resultats-cabinet.html?' + params.toString(), '_blank');
+}
+
+// ═══════════════ LISTE PATIENTS ═══════════════
+function renderPatientsList() {
+    var area = document.getElementById('content-area');
+    var search = document.getElementById('global-search') ? document.getElementById('global-search').value.toLowerCase() : '';
+    var filtered = patients.filter(function(p){ return (p.prenom||'').toLowerCase().includes(search) || (p.nom||'').toLowerCase().includes(search) || (p.email||'').toLowerCase().includes(search); });
+    var html = '<div class="page-title">Patients</div><div class="page-sub">' + patients.length + ' patient' + (patients.length>1?'s':'') + '</div>';
+    if (!filtered.length) html += '<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">Aucun résultat</div></div>';
+    else {
+        html += '<div class="patients-grid">';
+        filtered.forEach(function(p){ html += patientCardHTML(p); });
+        html += '</div>';
+    }
+    area.innerHTML = html;
+}
+
+// ═══════════════ AGENDA ═══════════════
+function renderAgenda() {
+    var area = document.getElementById('content-area');
+    var sorted = [].concat(agenda).sort(function(a,b){ return new Date(a.date) - new Date(b.date); });
+    var html = '<div class="page-title">Agenda</div><div class="page-sub">' + agenda.length + ' rendez-vous</div>';
+    html += '<div class="agenda-list">';
+    sorted.forEach(function(a){
+        var p = patients.find(function(x){ return x.id === a.patientId; });
+        html += '<div class="agenda-item">' +
+            '<span class="agenda-date">' + new Date(a.date).toLocaleDateString('fr-FR') + '</span>' +
+            '<span class="agenda-patient">' + (p ? escHtml(p.prenom + ' ' + p.nom) : 'Inconnu') + '</span>' +
+            '<span class="agenda-notes">' + escHtml(a.notes||'') + '</span>' +
+            '<button class="btn-ghost" style="padding:2px 8px;font-size:11px;" onclick="deleteAgenda(\'' + a.id + '\')">✕</button>' +
+        '</div>';
+    });
+    html += '</div>';
+    html += '<div class="card"><h3>Ajouter un rendez-vous</h3>' +
+        '<div class="agenda-add">' +
+            '<input type="date" id="new-rdv-date" class="form-input" style="width:auto;">' +
+            '<select id="new-rdv-patient" class="form-input" style="width:auto;"><option value="">-- Patient --</option>' + patients.map(function(p){ return '<option value="' + p.id + '">' + escHtml(p.prenom||'') + ' ' + escHtml(p.nom||'') + '</option>'; }).join('') + '</select>' +
+            '<input type="text" id="new-rdv-notes" class="form-input" placeholder="Notes" style="width:auto;">' +
+            '<button class="btn btn-gold" onclick="addAgenda()">Ajouter</button>' +
+        '</div>' +
+    '</div>';
+    area.innerHTML = html;
+}
+function addAgenda() {
+    var date = document.getElementById('new-rdv-date').value;
+    var patientId = document.getElementById('new-rdv-patient').value;
+    var notes = document.getElementById('new-rdv-notes').value;
+    if (!date || !patientId) return toast('Date et patient requis');
+    agenda.push({ id: Date.now().toString(), date: date, patientId: patientId, notes: notes });
+    saveAll(); renderAgenda(); toast('Rendez-vous ajouté');
+}
+function deleteAgenda(id) { agenda = agenda.filter(function(a){ return a.id !== id; }); saveAll(); renderAgenda(); }
+
+// ═══════════════ NOTES PRATICIEN ═══════════════
+function renderNotesPraticien() {
+    var area = document.getElementById('content-area');
+    var html = '<div class="page-title">Notes praticien</div><div class="page-sub">Journal de bord personnel</div>';
+    html += '<textarea id="praticien-notes" style="width:100%; min-height:300px; padding:16px; border:1px solid var(--line); border-radius:var(--radius);" oninput="saveNotesPraticien()">' + escHtml(notesPraticien) + '</textarea>';
+    area.innerHTML = html;
+}
+function saveNotesPraticien() { notesPraticien = document.getElementById('praticien-notes') ? document.getElementById('praticien-notes').value : ''; saveAll(); }
+
+// ═══════════════ BIBLIOTHÈQUE ═══════════════
+async function loadCatalogue() {
+    try { var res = await fetch('catalogue.json'); if (!res.ok) throw new Error(); catalogueData = await res.json(); } catch(e) { toast('Bibliothèque non disponible'); }
+}
+function renderBibliotheque(filtreCat) {
+    if (filtreCat === undefined) filtreCat = '';
+    var area = document.getElementById('content-area');
+    if (!catalogueData) { area.innerHTML = '<p style="text-align:center;padding:60px;">Chargement…</p>'; loadCatalogue().then(function(){ renderBibliotheque(filtreCat); }); return; }
+    var categories = catalogueData.categories || [];
+    var fiches = catalogueData.fiches || [];
+    var html = '<div class="biblio-hero"><h2>Bibliothèque V.A.L.E.U.R©</h2><p>' + fiches.length + ' fiches</p></div>';
+    html += '<div class="biblio-filters"><button class="' + (filtreCat===''?'active':'') + '" onclick="renderBibliotheque(\'\')">Toutes</button>' + categories.map(function(c){ return '<button class="' + (filtreCat===c.code?'active':'') + '" onclick="renderBibliotheque(\'' + c.code + '\')">' + c.code + '</button>'; }).join('') + '</div>';
+    var filtered = filtreCat ? fiches.filter(function(f){ return f.cat === filtreCat; }) : fiches;
+    html += '<div class="biblio-grid">' + filtered.map(function(f){
+        return '<div class="biblio-card ' + (f.dispo?'':'indisponible') + '" ' + (f.dispo? 'onclick="window.open(\'fiches/' + f.fichier + '\',\'_blank\')"' : '') + '>' +
+            '<div class="biblio-code">' + f.code + '</div><div class="biblio-titre">' + f.titre + '</div><div class="biblio-sous-titre">' + (f.soustitre||'') + '</div>' +
+            (f.force? '<div class="biblio-force">✦ ' + f.force + '</div>' : '') + '<div class="biblio-badge">' + (f.dispo?'Disponible →':'En préparation') + '</div>' +
+        '</div>';
+    }).join('') + '</div>';
+    area.innerHTML = html;
+}
+
+// ═══════════════ MODALE PATIENT ═══════════════
+function openPatientModal() { editingPatientId=null; document.getElementById('modal-title').textContent='Nouveau patient'; document.getElementById('pt-prenom').value=''; document.getElementById('pt-nom').value=''; document.getElementById('pt-email').value=''; document.getElementById('pt-tel').value=''; document.getElementById('btn-delete-patient').style.display='none'; document.getElementById('patient-modal').classList.add('open'); }
+function openPatientEdit(id) { var p=patients.find(function(x){ return x.id===id; }); if(!p) return; editingPatientId=id; document.getElementById('modal-title').textContent='Modifier'; document.getElementById('pt-prenom').value=p.prenom||''; document.getElementById('pt-nom').value=p.nom||''; document.getElementById('pt-email').value=p.email||''; document.getElementById('pt-tel').value=p.tel||''; document.getElementById('btn-delete-patient').style.display='inline-flex'; document.getElementById('patient-modal').classList.add('open'); }
+function closePatientModal() { document.getElementById('patient-modal').classList.remove('open'); editingPatientId=null; }
+function savePatient() {
+    var prenom = document.getElementById('pt-prenom').value.trim();
+    var nom = document.getElementById('pt-nom').value.trim();
+    var email = document.getElementById('pt-email').value.trim();
+    var tel = document.getElementById('pt-tel').value.trim();
+    if(!prenom && !email) return toast('Prénom ou email requis');
+    if (editingPatientId) {
+        var p = patients.find(function(x){ return x.id === editingPatientId; });
+        if (p) { p.prenom = prenom||null; p.nom = nom||null; p.email = email||null; p.tel = tel||null; }
+    } else {
+        var id = 'pat_' + Date.now() + '_' + Math.random().toString(36).substr(2,6);
+        patients.push({ id: id, prenom: prenom||null, nom: nom||null, email: email||null, tel: tel||null, notes:'', scores:'{}', spa:0, masque_dominant:'', profil_type:'', data:'{}', pinned:false, documents:[], objectifs:[], journal:[], history:[] });
+        editingPatientId = id;
+    }
+    saveAll(); closePatientModal(); renderDashboard();
+    if (editingPatientId) window.open('patient.html?id=' + editingPatientId, '_blank');
+    toast(editingPatientId ? 'Patient modifié' : 'Patient créé');
+    editingPatientId = null;
+}
+function deletePatient() {
+    if(!editingPatientId || !confirm('Supprimer ?')) return;
+    patients = patients.filter(function(p){ return p.id !== editingPatientId; });
+    saveAll(); closePatientModal(); renderDashboard(); toast('Supprimé');
+}
+
+// ═══════════════ EXPORT / IMPORT ═══════════════
+function exportData() {
+    var data = { patients: patients, agenda: agenda, postitText: postitText, notesPraticien: notesPraticien };
+    var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'valeur-cabinet-sauvegarde-' + new Date().toISOString().slice(0,10) + '.json';
+    a.click(); URL.revokeObjectURL(url);
+    toast('Sauvegarde téléchargée ✓');
+}
+function importData(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            var imported = JSON.parse(e.target.result);
+            if (imported.patients) patients = imported.patients;
+            if (imported.agenda) agenda = imported.agenda;
+            if (imported.postitText !== undefined) postitText = imported.postitText;
+            if (imported.notesPraticien !== undefined) notesPraticien = imported.notesPraticien;
+            saveAll(); renderDashboard(); toast('Données restaurées ✓');
+        } catch(err) { toast('Erreur import'); }
+    };
+    reader.readAsText(file);
+}
+
+// ═══════════════ MODE EMPLOI ═══════════════
+function showHelp() { document.getElementById('help-modal').classList.add('open'); }
+function closeHelpModal() { document.getElementById('help-modal').classList.remove('open'); }
+
+function escHtml(s) { if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function handleGlobalSearch() { if (currentPage === 'patients') renderPatientsList(); else if (currentPage === 'dashboard') renderDashboard(); }
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkAuth();
+    document.getElementById('login-password').addEventListener('keydown', function(e){ if(e.key==='Enter') authenticate(); });
+    document.getElementById('menu-btn').style.display = window.innerWidth<=768 ? 'inline-flex' : 'none';
+    window.addEventListener('resize', function(){ document.getElementById('menu-btn').style.display = window.innerWidth<=768 ? 'inline-flex' : 'none'; });
+});
 </script>
 </body>
 </html>
